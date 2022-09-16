@@ -14,9 +14,10 @@ module.exports = {
   },
   getFeed: async (req, res) => {
     try {
+      //retrieve the selected table from mongodb
       const categories = await Categories.find().sort({ createdAt: "desc" }).lean();
-      const items = await Categories.find(categories.items).sort().lean()
-      const categoriesId = await Categories.findById()
+      //const items = await Categories.find(categories.items).sort().lean()
+      //const categoriesId = await Categories.findById()
       res.render("feed.ejs", { categories: categories, id: req.params.id });
     } catch (err) {
       console.log(err);

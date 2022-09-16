@@ -29,15 +29,18 @@ function categorySelect(){
   const arr = Array.from(itemClassId)
   arr.forEach(x => {
     if(x.dataset.item === categoryId){
-      x.style.display = 'flex'
+      x.style.display = 'flex';
     }else{
-      x.style.display = 'none'
+      x.style.display = 'none';
     }
   })
 }
 
 function addItemQuantity(){
-  console.log('add')
+  // get info from clicked card, post request to table models, get table id 
+  const itemCard = this.parentNode.parentNode.innerText
+
+  console.log(itemCard)
 }
 
 function minusItemQuantity(){
