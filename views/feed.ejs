@@ -1,141 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/css-reset-and-normalize/css/reset-and-normalize.min.css">
+  <link rel="stylesheet" href="/css/style.css" />
+  <title>Document</title>
+</head>
 <body>
-  <div class="main-container">
-    <%- include('partials/header') -%>
+  <div class="root-container">
+    <section class="nav-container">
+      <%- include('partials/header') -%>
+    </section>
 
-    <div class="bg-dark main-content">
-
-      <div class="search">
-        <input type="text" placeholder="Search">
-        <i class="bi bi-search"></i>
-      </div>
-
-      <div class="categories border border-primary">
+    <section class="main">
+      <div class="line"></div>
+      <label class="search-label">
+        <input class="search-input" type="text" placeholder="Search">
+      </label>
+      <div class="categories">
         <div class="category">
-          category 
-        </div> 
-        <div class="category">
-          category 
-        </div>  
-        <div class="category">
-          category 
-        </div>  
-        <div class="category">
-          category 
-        </div>  
-        <div class="category">
-          category 
-        </div>  
-        <div class="category">
-          category 
-        </div>   
-      </div>
-
-      <div class="items border border-success">
-        <div class="item">
-          item 
-        </div> 
-        <div class="item">
-          item 
-        </div>  
-        <div class="item">
-          item 
-        </div>  
-        <div class="item">
-          item 
-        </div>  
-        <div class="item">
-          item 
-        </div>  
-        <div class="item">
-          item 
+          <svg class="category--icon" xml:space="preserve" viewBox="0 0 330.655 330.655">
+            <path d="M255.203 201.526h15.452c33.084 0 60-26.916 60-60s-26.916-60-60-60h-.194c-.012-12.151-.027-21.429-.043-21.914l-.017-.483h-250.8l-.018.482c-.049 1.422-.082 78.628-.083 81.914 0 40.773 19.549 77.061 49.761 100H0v30h290v-30h-69.261a126.392 126.392 0 0 0 34.464-39.999zm15.296-60c0-1.319-.006-14.546-.016-30h.171c16.542 0 30 13.458 30 30s-13.458 30-30 30h-3.788a125.324 125.324 0 0 0 3.633-30z"/>
+          </svg>
+          <div class="category--title">Breakfast</div>
+          <div class="category--amount">13 items</div>
         </div>
-        <div class="item">
-          item 
-        </div>  
-        <div class="item">
-          item 
-        </div>     
-      </div>
-
-    </div>
-
-    <div class="bg-dark order-content">
-
-      <div class="top-section">
-        <div class="table">
-          <h1>Table #</h1>
-          <span>Server</span>
+        <div class="category">
+          <svg class="category--icon" xml:space="preserve" viewBox="0 0 330.655 330.655">
+            <path d="M255.203 201.526h15.452c33.084 0 60-26.916 60-60s-26.916-60-60-60h-.194c-.012-12.151-.027-21.429-.043-21.914l-.017-.483h-250.8l-.018.482c-.049 1.422-.082 78.628-.083 81.914 0 40.773 19.549 77.061 49.761 100H0v30h290v-30h-69.261a126.392 126.392 0 0 0 34.464-39.999zm15.296-60c0-1.319-.006-14.546-.016-30h.171c16.542 0 30 13.458 30 30s-13.458 30-30 30h-3.788a125.324 125.324 0 0 0 3.633-30z"/>
+          </svg>
+          <div class="category--title">Breakfast</div>
+          <div class="category--amount">13 items</div>
         </div>
-        <div class="edit-button">
-          <span>Edit</span>
+        <div class="category">
+          <svg class="category--icon" xml:space="preserve" viewBox="0 0 330.655 330.655">
+            <path d="M255.203 201.526h15.452c33.084 0 60-26.916 60-60s-26.916-60-60-60h-.194c-.012-12.151-.027-21.429-.043-21.914l-.017-.483h-250.8l-.018.482c-.049 1.422-.082 78.628-.083 81.914 0 40.773 19.549 77.061 49.761 100H0v30h290v-30h-69.261a126.392 126.392 0 0 0 34.464-39.999zm15.296-60c0-1.319-.006-14.546-.016-30h.171c16.542 0 30 13.458 30 30s-13.458 30-30 30h-3.788a125.324 125.324 0 0 0 3.633-30z"/>
+          </svg>
+          <div class="category--title">Breakfast</div>
+          <div class="category--amount">13 items</div>
         </div>
-      </div>
-
-      <div class="item-checkout">
+        <div class="category">
+          <svg class="category--icon" xml:space="preserve" viewBox="0 0 330.655 330.655">
+            <path d="M255.203 201.526h15.452c33.084 0 60-26.916 60-60s-26.916-60-60-60h-.194c-.012-12.151-.027-21.429-.043-21.914l-.017-.483h-250.8l-.018.482c-.049 1.422-.082 78.628-.083 81.914 0 40.773 19.549 77.061 49.761 100H0v30h290v-30h-69.261a126.392 126.392 0 0 0 34.464-39.999zm15.296-60c0-1.319-.006-14.546-.016-30h.171c16.542 0 30 13.458 30 30s-13.458 30-30 30h-3.788a125.324 125.324 0 0 0 3.633-30z"/>
+          </svg>
+          <div class="category--title">Breakfast</div>
+          <div class="category--amount">13 items</div>
+        </div>
+        <div class="category">
+          <svg class="category--icon" xml:space="preserve" viewBox="0 0 330.655 330.655">
+            <path d="M255.203 201.526h15.452c33.084 0 60-26.916 60-60s-26.916-60-60-60h-.194c-.012-12.151-.027-21.429-.043-21.914l-.017-.483h-250.8l-.018.482c-.049 1.422-.082 78.628-.083 81.914 0 40.773 19.549 77.061 49.761 100H0v30h290v-30h-69.261a126.392 126.392 0 0 0 34.464-39.999zm15.296-60c0-1.319-.006-14.546-.016-30h.171c16.542 0 30 13.458 30 30s-13.458 30-30 30h-3.788a125.324 125.324 0 0 0 3.633-30z"/>
+          </svg>
+          <div class="category--title">Breakfast</div>
+          <div class="category--amount">13 items</div>
+        </div>
+        <div class="category">
+          <svg class="category--icon" xml:space="preserve" viewBox="0 0 330.655 330.655">
+            <path d="M255.203 201.526h15.452c33.084 0 60-26.916 60-60s-26.916-60-60-60h-.194c-.012-12.151-.027-21.429-.043-21.914l-.017-.483h-250.8l-.018.482c-.049 1.422-.082 78.628-.083 81.914 0 40.773 19.549 77.061 49.761 100H0v30h290v-30h-69.261a126.392 126.392 0 0 0 34.464-39.999zm15.296-60c0-1.319-.006-14.546-.016-30h.171c16.542 0 30 13.458 30 30s-13.458 30-30 30h-3.788a125.324 125.324 0 0 0 3.633-30z"/>
+          </svg>
+          <div class="category--title">Breakfast</div>
+          <div class="category--amount">13 items</div>
+        </div>
+        <div class="category">
+          <svg class="category--icon" xml:space="preserve" viewBox="0 0 330.655 330.655">
+            <path d="M255.203 201.526h15.452c33.084 0 60-26.916 60-60s-26.916-60-60-60h-.194c-.012-12.151-.027-21.429-.043-21.914l-.017-.483h-250.8l-.018.482c-.049 1.422-.082 78.628-.083 81.914 0 40.773 19.549 77.061 49.761 100H0v30h290v-30h-69.261a126.392 126.392 0 0 0 34.464-39.999zm15.296-60c0-1.319-.006-14.546-.016-30h.171c16.542 0 30 13.458 30 30s-13.458 30-30 30h-3.788a125.324 125.324 0 0 0 3.633-30z"/>
+          </svg>
+          <div class="category--title">Breakfast</div>
+          <div class="category--amount">13 items</div>
+        </div>
+        <div class="category">
+          <svg class="category--icon" xml:space="preserve" viewBox="0 0 330.655 330.655">
+            <path d="M255.203 201.526h15.452c33.084 0 60-26.916 60-60s-26.916-60-60-60h-.194c-.012-12.151-.027-21.429-.043-21.914l-.017-.483h-250.8l-.018.482c-.049 1.422-.082 78.628-.083 81.914 0 40.773 19.549 77.061 49.761 100H0v30h290v-30h-69.261a126.392 126.392 0 0 0 34.464-39.999zm15.296-60c0-1.319-.006-14.546-.016-30h.171c16.542 0 30 13.458 30 30s-13.458 30-30 30h-3.788a125.324 125.324 0 0 0 3.633-30z"/>
+          </svg>
+          <div class="category--title">Breakfast</div>
+          <div class="category--amount">13 items</div>
+        </div>
         
-          <div class="price">
-            <span>Q</span>
-            <span>Item</span>
-            <span>price</span> 
-          </div> 
-          <div class="price">
-            <span>Q</span>
-            <span>Item</span>
-            <span>price</span> 
-          </div>  
-          <div class="price">
-            <span>Q</span>
-            <span>Item</span>
-            <span>price</span> 
+      </div>
+      <div class="items">
+        <div class="item">
+          <div class="item--location">Orders -> Kitchen</div>
+          <div class="item--title">Fish and Chips</div>
+          <div class="item--price">$7.50</div>
+          <div class="empty"></div>
+          <div class="quantity">
+            <button class="quantity--less quantity--less-disabled" disabled>-</button>
+            <div class="quantity--amount">0</div>
+            <button class="quantity--more">+</button>
           </div>
-          <div class="price">
-            <span>Q</span>
-            <span>Item</span>
-            <span>price</span> 
-          </div>  
-          <div class="price">
-            <span>Q</span>
-            <span>Item</span>
-            <span>price</span> 
-          </div>    
         </div>
-      
-        <div class="payment">
-
-          <div class="top">
-            <div class="subtotal">
-              <span>Subtotal:</span>
-              <span>PRICE</span>
-            </div>
-            <div class="tax">
-              <span>Tax: 8%</span>
-              <span>PRICE</span>
-            </div>
-            <div class="total-price">
-              <span>Total:</span>
-              <span>PRICE</span>
-            </div>
+        <div class="item">
+          <div class="item--location">Orders -> Kitchen</div>
+          <div class="item--title">Fish and Chips</div>
+          <div class="item--price">$7.50</div>
+          <div class="empty"></div>
+          <div class="quantity">
+            <button class="quantity--less quantity--less-disabled" disabled>-</button>
+            <div class="quantity--amount">0</div>
+            <button class="quantity--more">+</button>
           </div>
-
-          <div class="bottom">
-            <div class="payment-method">
-              <span>Payment Method</span>
-            </div>
-            <div class="cash">
-              <span>PHOTO</span>
-              <span>Cash</span>
-            </div>
-            <div class="Debit">
-              <span>PHOTO</span>
-              <span>Debit Card</span>
-            </div>
-            <div class="E-Wallet">
-              <span>PHOTO</span>
-              <span>E-Wallet</span>
-            </div>
-          </div>
-
         </div>
-    </div>
+        <div class="item item-not-empty">
+          <div class="item--location">Orders -> Kitchen</div>
+          <div class="item--title">Fish and Chips</div>
+          <div class="item--price">$7.50</div>
+          <div class="empty"></div>
+          <div class="quantity">
+            <button class="quantity--less">-</button>
+            <div class="quantity--amount">3</div>
+            <button class="quantity--more">+</button>
+          </div>
+        </div>
+        <div class="item">
+          <div class="item--location">Orders -> Kitchen</div>
+          <div class="item--title">Fish and Chips</div>
+          <div class="item--price">$7.50</div>
+          <div class="empty"></div>
+          <div class="quantity">
+            <button class="quantity--less quantity--less-disabled" disabled>-</button>
+            <div class="quantity--amount">0</div>
+            <button class="quantity--more">+</button>
+          </div>
+        </div>
+        <div class="item">
+          <div class="item--location">Orders -> Kitchen</div>
+          <div class="item--title">Fish and Chips</div>
+          <div class="item--price">$7.50</div>
+          <div class="empty"></div>
+          <div class="quantity">
+            <button class="quantity--less quantity--less-disabled" disabled>-</button>
+            <div class="quantity--amount">0</div>
+            <button class="quantity--more">+</button>
+          </div>
+        </div>
+        <div class="item">
+          <div class="item--location">Orders -> Kitchen</div>
+          <div class="item--title">Fish and Chips</div>
+          <div class="item--price">$7.50</div>
+          <div class="empty"></div>
+          <div class="quantity">
+            <button class="quantity--less quantity--less-disabled" disabled>-</button>
+            <div class="quantity--amount">0</div>
+            <button class="quantity--more">+</button>
+          </div>
+        </div>
+        <div class="item">
+          <div class="item--location">Orders -> Kitchen</div>
+          <div class="item--title">Fish and Chips</div>
+          <div class="item--price">$7.50</div>
+          <div class="empty"></div>
+          <div class="quantity">
+            <button class="quantity--less quantity--less-disabled" disabled>-</button>
+            <div class="quantity--amount">0</div>
+            <button class="quantity--more">+</button>
+          </div>
+        </div>
+        <div class="item">
+          <div class="item--location">Orders -> Kitchen</div>
+          <div class="item--title">Fish and Chips</div>
+          <div class="item--price">$7.50</div>
+          <div class="empty"></div>
+          <div class="quantity">
+            <button class="quantity--less quantity--less-disabled" disabled>-</button>
+            <div class="quantity--amount">0</div>
+            <button class="quantity--more">+</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="checkout">
+      <div class="table">
+        <h3 class="table--number">Table 5</h3>
+        <p class="table--name">Leslie K.</p>
+      </div>
+      <div class="order-detail">
+        <div class="table-item-container">
+          <div class="table-item">
+            <div class="table-item--left">
+              <p class="table-item--number">1</p>
+              <p class="table-item--name">Roast chicken</p>
+              <p class="table-item--quantity">x3</p>
+            </div>
+            <div class="empty"></div>
+            <p class="table-item--price">$25.50</p>
+          </div>
+          <div class="table-item">
+            <div class="table-item--left">
+              <p class="table-item--number">2</p>
+              <p class="table-item--name">Red caviar</p>
+              <p class="table-item--quantity">x4</p>
+            </div>
+            <div class="empty"></div>
+            <p class="table-item--price">$46.90</p>
+          </div>
+          <div class="table-item">
+            <div class="table-item--left">
+              <p class="table-item--number">3</p>
+              <p class="table-item--name">German Sausage</p>
+              <p class="table-item--quantity">x1</p>
+            </div>
+            <div class="empty"></div>
+            <p class="table-item--price">$5.60</p>
+          </div>
+          <div class="table-item">
+            <div class="table-item--left">
+              <p class="table-item--number">4</p>
+              <p class="table-item--name">Irish cream coffee</p>
+              <p class="table-item--quantity">x1</p>
+            </div>
+            <div class="empty"></div>
+            <p class="table-item--price">$4.20</p>
+          </div>
+        </div>
+        <div class="recipet-container">
+          <div class="subtotal-container">
+            <div class="subtotal">Subtotal</div>
+            <div class="empty"></div>
+            <div class="subtotal--price">$171</div>
+          </div>
+          <div class="tax-container">
+            <div class="tax">Tax 10%</div>
+            <div class="empty"></div>
+            <div class="tax--price">$17.15</div>
+          </div>
+          <div class="recipet-dash-line"></div>
+          <div class="total-container">
+            <div class="total">Total</div>
+            <div class="empty"></div>
+            <div class="total--price">$188.65</div>
+          </div>
+          <button class="place-order">Place order</button>
+        </div>
+      </div>
+    </section>
   </div>
 </body>
+</html>
