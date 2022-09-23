@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const CategoriesSchema = new mongoose.Schema({
-  title: String,
+  category: String,
   items: [{
     name: String,
     price: Number,
@@ -9,4 +9,4 @@ const CategoriesSchema = new mongoose.Schema({
   }]
 })
 
-module.exports = mongoose.model('Categories', CategoriesSchema)
+module.exports = mongoose.model('Category', CategoriesSchema)
