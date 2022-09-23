@@ -17,6 +17,17 @@ const CommentSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  categories:[
+    {
+      title: String,
+      items: [
+        {
+          name: String,
+          price: Number
+        }
+      ]
+    }
+  ]
 });
 
 module.exports = mongoose.model("Comment", CommentSchema);

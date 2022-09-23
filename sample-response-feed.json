@@ -1,0 +1,74 @@
+{
+  "category": [
+    {
+      "title": "breakfast",
+      "color": "#fff",
+      "items": [
+        {
+          "name": "Fish n Chips",
+          "price": 69.42
+        },
+        {
+          "name": "egg mick muff in",
+          "price": 42
+        }
+      ]
+    },
+    {
+      "title": "Soups",
+      "color": "#fff",
+      "items": [
+        {
+          "name": "Lental",
+          "price": 69.42
+        },
+        {
+          "name": "Hot n sour",
+          "price": 42
+        }
+      ]
+    }
+  ],
+  "users":[
+    {
+      "name": "Leslie Kubrick",
+      "tables":[
+        {
+          "tableNumber": 5,
+          "items": [
+            {
+              "name": "Roast Chicken",
+              "quntatity": 3,
+              "price": 25.50
+            },
+            {
+              "name": "Red Caviar",
+              "quntatity": 2,
+              "price": 35.55
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Cameron Waffle",
+      "tables":[
+        {
+          "tableNumber": 1,
+          "items": [
+            {
+              "name": "Grilled Chicken",
+              "quntatity": 30,
+              "price": 2500.50
+            },
+            {
+              "name": "Red Sandwitch",
+              "quntatity": 2,
+              "price": 5.55
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
