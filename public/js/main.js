@@ -14,7 +14,11 @@ function categorySelectionForm(){
   categoryForm.action = `/category/createItem/${categoryId}`;
 }
 
-function categorySelect(){
-  
+async function categorySelect(){
+  const categoryId = this.dataset.id
+  console.log(categoryId)
+
+  //get request to mongodb to retrieve the category
+
 }
 
