@@ -6,7 +6,7 @@ const CategoriesSchema = new mongoose.Schema({
     name: String,
     price: Number,
     itemId: Number,
-  }]
+  }],
 })
 
 module.exports = mongoose.model('Category', CategoriesSchema)
