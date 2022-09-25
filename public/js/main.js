@@ -1,6 +1,7 @@
 const selectCategory = document.querySelectorAll('.categoryId');
 const categoryForm = document.getElementById("categoryForm")
 const categoryCard = document.querySelectorAll('.category')
+const itemClassId = document.querySelectorAll('#item')
 
 Array.from(selectCategory).forEach((el)=>{
   el.addEventListener('click', categorySelectionForm)
@@ -14,11 +15,15 @@ function categorySelectionForm(){
   categoryForm.action = `/category/createItem/${categoryId}`;
 }
 
-async function categorySelect(){
+function categorySelect(){
   const categoryId = this.dataset.id
-  console.log(categoryId)
-
-  //get request to mongodb to retrieve the category
-
+  const arr = Array.from(itemClassId)
+  arr.forEach(x => {
+    if(x.dataset.item === categoryId){
+      x.style.display = 'flex'
+    }else{
+      x.style.display = 'none'
+    }
+  })
 }
 

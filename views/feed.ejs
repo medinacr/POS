@@ -81,11 +81,13 @@
       </div>
 
       <div class="items">
-        
-        <div class="item">
-          <div class="item--location">Orders -> Kitchen</div>
-          <div class="item--title">Fish and Chips</div>
-          <div class="item--price">$7.50</div>
+        <% for(let i=0; i<categories.length; i++) {%>
+          <% for(let j=0; j<categories[i].items.length; j++) {%>
+            <%= console.log(categories[i].items[j].name ) %>
+        <div class="item <%= categories[i]._id%>" id="item" data-item ="<%= categories[i]._id%>">
+          <div class="item--location"><%= categories[i].category %></div>
+          <div class="item--title"><%= categories[i].items[j].name %></div>
+          <div class="item--price">$<%= categories[i].items[j].price %></div>
           <div class="empty"></div>
           <div class="quantity">
             <button class="quantity--less quantity--less-disabled" disabled>-</button>
@@ -93,7 +95,9 @@
             <button class="quantity--more">+</button>
           </div>
         </div>
-      </div>  
+          <% } %>  
+        <% } %>
+      </div>
     </section>
     
     <section class="checkout">
