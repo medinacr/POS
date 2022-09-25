@@ -2,6 +2,8 @@ const selectCategory = document.querySelectorAll('.categoryId');
 const categoryForm = document.getElementById("categoryForm")
 const categoryCard = document.querySelectorAll('.category')
 const itemClassId = document.querySelectorAll('#item')
+const addItemClass = document.querySelectorAll('.quantity--add')
+const minusItemClass = document.querySelectorAll('.quantity--minus')
 
 Array.from(selectCategory).forEach((el)=>{
   el.addEventListener('click', categorySelectionForm)
@@ -9,10 +11,17 @@ Array.from(selectCategory).forEach((el)=>{
 Array.from(categoryCard).forEach((el) => {
   el.addEventListener('click', categorySelect)
 })
+Array.from(addItemClass).forEach((el) => {
+  el.addEventListener('click', addItemQuantity)
+})
+Array.from(minusItemClass).forEach((el) => {
+  el.addEventListener('click', minusItemQuantity)
+})
 
 function categorySelectionForm(){
   const categoryId = this.dataset.id
   categoryForm.action = `/category/createItem/${categoryId}`;
+  // Add when clicked the display should be darkened, else not 
 }
 
 function categorySelect(){
@@ -27,3 +36,10 @@ function categorySelect(){
   })
 }
 
+function addItemQuantity(){
+  console.log('add')
+}
+
+function minusItemQuantity(){
+  console.log('minus')
+}

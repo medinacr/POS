@@ -229,7 +229,7 @@ body {
   align-items: center;
   justify-content: end;
 }
-.quantity--less, .quantity--more {
+.quantity--minus, .quantity--add {
   border: 2px solid #969696;
   width: 50px;
   height: 50px;
@@ -243,18 +243,18 @@ body {
   cursor: pointer;
   /* font-family: 'Times New Roman', Times, serif; */
 }
-.quantity--less.quantity--less-disabled {
+.quantity--minus.quantity--minus-disabled {
   opacity: .5;
   cursor: not-allowed;
 }
-.item-not-empty .quantity--less, .item-not-empty .quantity--more {
+.item-not-empty .quantity--minus, .item-not-empty .quantity--add {
   color: black;
   border: 2px solid black;
 }
-.quantity--less {
+.quantity--minus {
   margin-right: 20px;
 }
-.quantity--more {
+.quantity--add {
   margin-left: 20px;
 }
 .quantity--amount {
