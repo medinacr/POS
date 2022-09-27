@@ -116,12 +116,14 @@
     <section class="checkout"> 
       <div class="table">
         <div class='dropdown'>
-          <label tabindex="0" class=" m-1">Table</label>
-          <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
-            <% for(let i=0; i<users.length; i++) {%>
-            <li><a>Table: <%= users.tables%></a></li>
-            <% } %> 
-          </ul>            
+          <label tabindex="0" class=" m-1">Table: </label>
+              <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+              <% for(let i=0; i<users.length; i++) {%>
+                <% for(let j=0; j<users[i].tables.length; j++) {%>
+                <li><a><%= `Table: ${users[i].tables[j].tableNumber}` %></a></li>
+                <% } %>
+              <% } %>  
+              </ul>          
         </div>
         
         <label for="add-item-modal" class="btn modal-button">+</label>
