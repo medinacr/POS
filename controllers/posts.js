@@ -1,5 +1,6 @@
 const cloudinary = require("../middleware/cloudinary");
 const Categories = require("../models/Categories");
+const Users = require('../models/User')
 const Comment = require('../models/Comment')
 const Post = require('../models/Post')
 
@@ -16,9 +17,10 @@ module.exports = {
     try {
       //retrieve the selected table from mongodb
       const categories = await Categories.find().sort({ createdAt: "desc" }).lean();
+      const users =  await Users.find()
       //const items = await Categories.find(categories.items).sort().lean()
       //const categoriesId = await Categories.findById()
-      res.render("feed.ejs", { categories: categories, id: req.params.id });
+      res.render("feed.ejs", { categories: categories, id: req.params.id, users: users});
     } catch (err) {
       console.log(err);
     }

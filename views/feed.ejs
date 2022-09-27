@@ -54,6 +54,20 @@
     </label>
   </label>
 
+<!-- Add Table -->
+<input type="checkbox" id="add-item-modal" class="modal-toggle" />
+  <label for="add-item-modal" class="modal cursor-pointer">
+    <label class="modal-box relative" for="">
+        <form action="/table/createTable" autocomplete="off" method="POST" id="categoryForm">
+          <span>Table:</span>
+          <input type="text" class="input input-bordered" name="tableNumber">
+          <div class="modal-action">
+            <button for="my-modal" class="btn" type="submit">Submit</button>
+          </div>
+        </form>
+    </label>
+  </label>
+
 <body>
   <div class="root-container">
     <section class="nav-container">
@@ -83,7 +97,6 @@
       <div class="items">
         <% for(let i=0; i<categories.length; i++) {%>
           <% for(let j=0; j<categories[i].items.length; j++) {%>
-            <%= console.log(categories[i].items[j].name ) %>
         <div class="item <%= categories[i]._id%>" id="item" data-item ="<%= categories[i]._id%>">
           <div class="item--location"><%= categories[i].category %></div>
           <div class="item--title"><%= categories[i].items[j].name %></div>
@@ -100,10 +113,18 @@
       </div>
     </section>
     
-    <section class="checkout">
+    <section class="checkout"> 
       <div class="table">
-        <h3 class="table--number">Table 5</h3>
-        <p class="table--name">Leslie K.</p>
+        <div class='dropdown'>
+          <label tabindex="0" class=" m-1">Table</label>
+          <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+            <% for(let i=0; i<users.length; i++) {%>
+            <li><a>Table: <%= users.tables%></a></li>
+            <% } %> 
+          </ul>            
+        </div>
+        
+        <label for="add-item-modal" class="btn modal-button">+</label>
       </div>
       <div class="order-detail">
         <div class="table-item-container">
