@@ -224,7 +224,7 @@ body {
 .empty{
   flex: 1;
 }
-.quantity {
+.item--quantity {
   display: flex;
   align-items: center;
   justify-content: end;

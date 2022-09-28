@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="/css/style.css" />
   <link href="https://cdn.jsdelivr.net/npm/daisyui@2.31.0/dist/full.css" rel="stylesheet" type="text/css" />
   <script src="https://cdn.tailwindcss.com"></script>
+  
   <title>Document</title>
 </head>
 
@@ -97,12 +98,12 @@
       <div class="items">
         <% for(let i=0; i<categories.length; i++) {%>
           <% for(let j=0; j<categories[i].items.length; j++) {%>
-        <div class="item <%= categories[i]._id%>" id="item" data-item ="<%= categories[i]._id%>">
+        <div class="item" id="<%= categories[i].items[j]._id%>" data-item ="<%= categories[i]._id%>">
           <div class="item--location"><%= categories[i].category %></div>
           <div class="item--title"><%= categories[i].items[j].name %></div>
           <div class="item--price">$<%= categories[i].items[j].price %></div>
           <div class="empty"></div>
-          <div class="quantity">
+          <div class="item--quantity">
             <button class="quantity--minus quantity--minus-disabled" disabled>-</button>
             <div class="quantity--amount">0</div>
             <button class="quantity--add">+</button>
@@ -116,11 +117,13 @@
     <section class="checkout"> 
       <div class="table">
         <div class='dropdown'>
-          <label tabindex="0" class=" m-1">Table: </label>
+          <label tabindex="0"  id="<%= users[0].tables[0]._id%>" class="dropdown--table m-1"><%= `Table: ${users[0].tables[0].tableNumber}` %></label>
               <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
               <% for(let i=0; i<users.length; i++) {%>
                 <% for(let j=0; j<users[i].tables.length; j++) {%>
-                <li><a><%= `Table: ${users[i].tables[j].tableNumber}` %></a></li>
+                  <li class="dropdown--item">
+                    <a id="<%= users[i].tables[j]._id%>"><%= `Table: ${users[i].tables[j].tableNumber}` %></a>
+                  </li>
                 <% } %>
               <% } %>  
               </ul>          
@@ -130,7 +133,8 @@
       </div>
       <div class="order-detail">
         <div class="table-item-container">
-          <div class="table-item">
+
+          <!-- <div class="table-item">
             <div class="table-item--left">
               <p class="table-item--number">1</p>
               <p class="table-item--name">Roast chicken</p>
@@ -138,34 +142,8 @@
             </div>
             <div class="empty"></div>
             <p class="table-item--price">$25.50</p>
-          </div>
-          <div class="table-item">
-            <div class="table-item--left">
-              <p class="table-item--number">2</p>
-              <p class="table-item--name">Red caviar</p>
-              <p class="table-item--quantity">x4</p>
-            </div>
-            <div class="empty"></div>
-            <p class="table-item--price">$46.90</p>
-          </div>
-          <div class="table-item">
-            <div class="table-item--left">
-              <p class="table-item--number">3</p>
-              <p class="table-item--name">German Sausage</p>
-              <p class="table-item--quantity">x1</p>
-            </div>
-            <div class="empty"></div>
-            <p class="table-item--price">$5.60</p>
-          </div>
-          <div class="table-item">
-            <div class="table-item--left">
-              <p class="table-item--number">4</p>
-              <p class="table-item--name">Irish cream coffee</p>
-              <p class="table-item--quantity">x1</p>
-            </div>
-            <div class="empty"></div>
-            <p class="table-item--price">$4.20</p>
-          </div>
+          </div> -->
+
         </div>
         <div class="recipet-container">
           <div class="subtotal-container">
@@ -189,6 +167,9 @@
       </div>
     </section>
   </div>
+  <script>
+    var tables = JSON.parse('<%-JSON.stringify(users[0].tables)%>');
+  </script>
   <script src='js/main.js'></script>
 </body>
 </html>

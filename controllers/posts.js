@@ -19,10 +19,21 @@ module.exports = {
       const categories = await Categories.find().sort({ createdAt: "desc" }).lean();
       const loggedUser = req.user.id
       const users =  await Users.find({ _id: loggedUser })
-      console.log(users)
       //const items = await Categories.find(categories.items).sort().lean()
       //const categoriesId = await Categories.findById()
       res.render("feed.ejs", { categories: categories, id: req.params.id, users: req.users, users: users});
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  fetchData: async (req, res) => {
+    try {
+      //retrieve the selected table from mongodb
+      const categories = await Categories.find().sort({ createdAt: "desc" }).lean();
+      const loggedUser = req.user.id
+      const users =  await Users.find({ _id: loggedUser })
+      res.setHeader('Content-Type', 'application/json');
+      res.send(JSON.stringify({table: users[0].tables}));
     } catch (err) {
       console.log(err);
     }
