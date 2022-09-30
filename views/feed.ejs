@@ -98,15 +98,15 @@
       <div class="items">
         <% for(let i=0; i<categories.length; i++) {%>
           <% for(let j=0; j<categories[i].items.length; j++) {%>
-        <div class="item" id="<%= categories[i].items[j]._id%>" data-item ="<%= categories[i]._id%>">
+          <div class="item" id="<%= categories[i].items[j]._id%>" data-item ="<%= categories[i]._id%>">
           <div class="item--location"><%= categories[i].category %></div>
           <div class="item--title"><%= categories[i].items[j].name %></div>
-          <div class="item--price">$<%= categories[i].items[j].price %></div>
+          <div class="item--price"><%= categories[i].items[j].price %></div>
           <div class="empty"></div>
           <div class="item--quantity">
-            <button class="quantity--minus quantity--minus-disabled" disabled>-</button>
+            <button class="quantity--minus quantity--minus-disabled" disabled >-</button>
             <div class="quantity--amount">0</div>
-            <button class="quantity--add">+</button>
+              <button class="quantity--add">+</button>
           </div>
         </div>
           <% } %>  
@@ -117,7 +117,11 @@
     <section class="checkout"> 
       <div class="table">
         <div class='dropdown'>
-          <label tabindex="0"  id="<%= users[0].tables[0]._id%>" class="dropdown--table m-1"><%= `Table: ${users[0].tables[0].tableNumber}` %></label>
+          <% for(let i=0; i<users.length; i++) {%>
+            <% for(let j=0; j<users[i].tables.length; j++) {%>
+              <label tabindex="0"  id="<%=users[0].tables[0]._id%>" class="dropdown--table m-1"><%= `Table ${users[0].tables[0].tableNumber}` %></label>
+            <% } %>  
+          <% } %>  
               <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
               <% for(let i=0; i<users.length; i++) {%>
                 <% for(let j=0; j<users[i].tables.length; j++) {%>
@@ -128,9 +132,9 @@
               <% } %>  
               </ul>          
         </div>
-        
         <label for="add-item-modal" class="btn modal-button">+</label>
       </div>
+
       <div class="order-detail">
         <div class="table-item-container">
 

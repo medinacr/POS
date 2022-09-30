@@ -22,7 +22,7 @@ module.exports = {
       await Users.updateOne(
         {_id: ObjectID(loggedUser), "tables._id": ObjectID(tableId)},
         {
-          $addToSet: {"tables.$.items": data}
+          $push: {"tables.$.items": data}
         }, 
         {upsert:true}
       ) 

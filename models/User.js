@@ -9,9 +9,9 @@ const UserSchema = new mongoose.Schema({
       tableNumber: Number, 
       tableId: Number, 
       items: [{
-          itemQuantity: String, 
+          itemPrice: Number,
           itemName: String,
-          itemPrice: String,
+          itemQuantity: Number, 
       }], 
     }]
 });

@@ -1,15 +1,15 @@
-<%- include('partials/header') -%>
-
 <main class="container">
   <div class="row justify-content-center">
-    <section class="col-6 mt-5">
+   <section class="col-6 mt-5">
       <% if (locals.messages.errors) { %> <% messages.errors.forEach( el => { %>
       <div class="alert alert-danger"><%= el.msg %></div>
       <% }) %> <% } %> <% if (locals.messages.info) { %> <%
       messages.info.forEach( el => { %>
-      <div class="alert alert-info"><%= el.msg %></div>
+       <div class="alert alert-info"><%= el.msg %></div>
       <% }) %> <% } %>
+
       <form action="/login" method="POST">
+        
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label"
             >Email address</label
@@ -22,6 +22,7 @@
             name="email"
           />
         </div>
+        
         <div class="mb-3">
           <label for="exampleInputPassword1" class="form-label">Password</label>
           <input
@@ -31,10 +32,9 @@
             name="password"
           />
         </div>
+        
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </section>
   </div>
 </main>
-
-<%- include('partials/footer') -%>

@@ -59,6 +59,7 @@ async function addItemQuantity(e,categoryId){
   const data = {
     tableId, categoryId,itemId,itemName, itemPrice, itemQuantity
   };
+  // e.preventDefault()
   await fetch('/table/addItem', {
     method: 'POST',
     headers: {
@@ -66,13 +67,13 @@ async function addItemQuantity(e,categoryId){
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(data)
+
   });
 
   const response = await fetch('/fetchData');
   const json = await response.json();
   tables = json.table;
   populateItems();
-  // get info from clicked card, post request to table models, get table id
 }
 
 function minusItemQuantity(){

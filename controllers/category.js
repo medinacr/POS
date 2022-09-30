@@ -17,7 +17,6 @@ module.exports = {
       const itemName = req.body.itemName; 
       const itemPrice = req.body.itemPrice;
       const categoryId = req.params.id
-      
       await Category.updateOne({_id: categoryId}, {$push: {items: {name: itemName, price: itemPrice}}})
       res.redirect("/feed");
     } catch (err) {
