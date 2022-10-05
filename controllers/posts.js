@@ -1,6 +1,7 @@
 const cloudinary = require("../middleware/cloudinary");
 const Categories = require("../models/Categories");
 const Users = require('../models/User')
+const Tables = require('../models/Tables')
 const Comment = require('../models/Comment')
 const Post = require('../models/Post')
 
@@ -19,9 +20,11 @@ module.exports = {
       const categories = await Categories.find().sort({ createdAt: "desc" }).lean();
       const loggedUser = req.user.id
       const users =  await Users.find({ _id: loggedUser })
+      const tables = await Tables.find({userId: loggedUser});
+
       //const items = await Categories.find(categories.items).sort().lean()
       //const categoriesId = await Categories.findById()
-      res.render("feed.ejs", { categories: categories, id: req.params.id, users: req.users, users: users});
+      res.render("feed.ejs", { categories: categories, id: req.params.id, users: req.users, users: users, tables: tables});
     } catch (err) {
       console.log(err);
     }
@@ -31,9 +34,9 @@ module.exports = {
       //retrieve the selected table from mongodb
       const categories = await Categories.find().sort({ createdAt: "desc" }).lean();
       const loggedUser = req.user.id
-      const users =  await Users.find({ _id: loggedUser })
+      const tables = await Tables.find({userId: loggedUser});
       res.setHeader('Content-Type', 'application/json');
-      res.send(JSON.stringify({table: users[0].tables}));
+      res.send(JSON.stringify({tables: tables}));
     } catch (err) {
       console.log(err);
     }

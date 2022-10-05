@@ -117,19 +117,15 @@
     <section class="checkout"> 
       <div class="table">
         <div class='dropdown'>
-          <% for(let i=0; i<users.length; i++) {%>
-            <% for(let j=0; j<users[i].tables.length; j++) {%>
-              <label tabindex="0"  id="<%=users[0].tables[0]._id%>" class="dropdown--table m-1"><%= `Table ${users[0].tables[0].tableNumber}` %></label>
+          <% for(let i=0; i<tables.length; i++) {%>
+            <label tabindex="0"  id="<%=tables[i]._id%>" class="dropdown--table m-1"><%= `Table ${tables[i].tableNumber}` %></label> 
             <% } %>  
-          <% } %>  
               <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-              <% for(let i=0; i<users.length; i++) {%>
-                <% for(let j=0; j<users[i].tables.length; j++) {%>
-                  <li class="dropdown--item">
-                    <a id="<%= users[i].tables[j]._id%>"><%= `Table: ${users[i].tables[j].tableNumber}` %></a>
-                  </li>
-                <% } %>
-              <% } %>  
+              <% for(let i=0; i<tables.length; i++) {%>
+                <li class="dropdown--item">
+                    <a id="<%= tables[i]._id%>"><%= `Table: ${tables[i].tableNumber}` %></a>
+                </li>
+            <% } %> 
               </ul>          
         </div>
         <label for="add-item-modal" class="btn modal-button">+</label>
@@ -172,7 +168,7 @@
     </section>
   </div>
   <script>
-    var tables = JSON.parse('<%-JSON.stringify(users[0].tables)%>');
+    var tables = JSON.parse('<%-JSON.stringify(tables)%>');
   </script>
   <script src='js/main.js'></script>
 </body>

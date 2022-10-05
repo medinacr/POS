@@ -1,12 +1,14 @@
-const Users = require('../models/User')
+const Users = require('../models/User');
 const ObjectID = require('mongodb').ObjectID;
+const Tables = require('../models/Tables');
 
 module.exports = {
   createTable: async (req, res) => {
     try {
-      const loggedUser = req.user.id
+      console.log('Creating Table...')
+      const userId = req.user.id
       const tableNumber = req.body.tableNumber
-      await Users.updateOne({_id: loggedUser}, {$push: {tables: {tableNumber: tableNumber}} })
+      await Tables.create({ tableNumber: tableNumber, userId: userId, items: []});
       res.redirect("/feed")
     } catch (err) {
       console.log(err)
@@ -14,23 +16,22 @@ module.exports = {
     }
   },
   addItem: async (req, res) => {
-    const loggedUser = req.user.id
-    const {tableId, categoryId,itemId,itemName, itemPrice, itemQuantity} = req.body
-    console.log(tableId, categoryId,itemId,itemName, itemPrice, itemQuantity)
-    var data = {itemQuantity, itemName, itemPrice}
-    try {
-      await Users.updateOne(
-        {_id: ObjectID(loggedUser), "tables._id": ObjectID(tableId)},
-        {
-          $push: {"tables.$.items": data}
-        }, 
-        {upsert:true}
-      ) 
-    } catch (err) {
-      console.log(err)
-      res.redirect("/feed")
+
+    const {tableId, itemName, itemPrice} = req.body
+    var data = {tableId, itemName, itemPrice};
+
+    try{
+      const match = await Tables.find({_id: tableId, "items.itemName": itemName})
+        .updateOne({ $inc: { "items.$.itemQuantity": 1 } });
+      const matchFound = match.nModified;
+
+      if(!matchFound) {
+        await Tables.find({ _id: tableId, "items.itemName": { "$ne": itemName } })
+        .updateOne({ "$push": { "items": { "itemName": itemName, "itemQuantity": 1 } }});
+      }
     }
-    res.redirect('/feed')
+    catch (err) {
+      console.log(err);
+    }
   },
-  
 }

@@ -72,7 +72,7 @@ async function addItemQuantity(e,categoryId){
 
   const response = await fetch('/fetchData');
   const json = await response.json();
-  tables = json.table;
+  tables = json.tables;
   populateItems();
 }
 
@@ -86,7 +86,7 @@ function tableSelect(tableId, tableNumber, parentNode){
   populateItems()
   parentNode.blur()
 }
-
+console.log(tables)
 
 function populateItems(){
 
@@ -97,7 +97,7 @@ function populateItems(){
     items.forEach((item, i) =>{
       const itemTemplate = `<div class="table-item">
         <div class="table-item--left">
-          <p class="table-item--number">${i}</p>
+          <p class="table-item--number">${i + 1}</p>
           <p class="table-item--name">${item.itemName}</p>
           <p class="table-item--quantity">x${item.itemQuantity}</p>
         </div>
