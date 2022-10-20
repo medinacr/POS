@@ -14,6 +14,7 @@ const postRoutes = require("./routes/posts");
 const commentRoutes = require("./routes/comments");
 const categoryRoutes = require("./routes/categories");
 const tableRoutes = require("./routes/tables")
+const dashboardRoutes = require("./routes/dashboard")
 
 //Use .env file in config folder
 require("dotenv").config({ path: "./config/.env" });
@@ -62,7 +63,8 @@ app.use("/", mainRoutes);
 app.use("/post", postRoutes);
 app.use("/comment", commentRoutes);
 app.use("/category", categoryRoutes);
-app.use("/table", tableRoutes)
+app.use("/table", tableRoutes);
+app.use("/dashboard", dashboardRoutes);
 
 //Server Running
 app.listen(process.env.PORT, () => {

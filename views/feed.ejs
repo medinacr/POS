@@ -104,46 +104,32 @@
           <div class="item--price"><%= categories[i].items[j].price %></div>
           <div class="empty"></div>
           <div class="item--quantity">
-            <button class="quantity--minus quantity--minus-disabled" disabled >-</button>
-            <div class="quantity--amount">0</div>
+            <button class="quantity--minus quantity--minus-disabled">-</button>
+            <div class="quantity--amount">-</div>
               <button class="quantity--add">+</button>
           </div>
         </div>
           <% } %>  
         <% } %>
-      </div>
     </section>
     
     <section class="checkout"> 
       <div class="table">
         <div class='dropdown'>
-          <% for(let i=0; i<tables.length; i++) {%>
-            <label tabindex="0"  id="<%=tables[i]._id%>" class="dropdown--table m-1"><%= `Table ${tables[i].tableNumber}` %></label> 
-            <% } %>  
-              <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-              <% for(let i=0; i<tables.length; i++) {%>
-                <li class="dropdown--item">
-                    <a id="<%= tables[i]._id%>"><%= `Table: ${tables[i].tableNumber}` %></a>
-                </li>
+          <label tabindex="0"  id="<%=tables[i]._id%>" class="dropdown--table m-1"><%= `Table ${tables[i].tableNumber}` %></label> 
+            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+            <% for(let i=0; i<tables.length; i++) {%>
+              <li class="dropdown--item">
+                  <a id="<%= tables[i]._id%>"><%= `Table: ${tables[i].tableNumber}` %></a>
+              </li>
             <% } %> 
-              </ul>          
-        </div>
+            </ul>          
+      </div>
         <label for="add-item-modal" class="btn modal-button">+</label>
       </div>
 
       <div class="order-detail">
         <div class="table-item-container">
-
-          <!-- <div class="table-item">
-            <div class="table-item--left">
-              <p class="table-item--number">1</p>
-              <p class="table-item--name">Roast chicken</p>
-              <p class="table-item--quantity">x3</p>
-            </div>
-            <div class="empty"></div>
-            <p class="table-item--price">$25.50</p>
-          </div> -->
-
         </div>
         <div class="recipet-container">
           <div class="subtotal-container">

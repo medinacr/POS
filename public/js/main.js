@@ -4,6 +4,7 @@ const categoryCard = document.querySelectorAll('.category')
 const itemClassId = document.querySelectorAll('.item')
 const addItemClass = document.querySelectorAll('.quantity--add')
 const minusItemClass = document.querySelectorAll('.quantity--minus')
+const minusDisable = document.querySelector('.quantity--minus-disabled')
 const itemName = document.querySelector('.item--title')
 const itemPrice = document.querySelector('.item--price')
 const itemQuantity = document.querySelector('.quantity--amount')
@@ -60,35 +61,96 @@ async function addItemQuantity(e,categoryId){
     tableId, categoryId,itemId,itemName, itemPrice, itemQuantity
   };
   // e.preventDefault()
-  await fetch('/table/addItem', {
+
+  //update backend
+  fetch('/table/addItem', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(data)
-
   });
 
-  const response = await fetch('/fetchData');
-  const json = await response.json();
-  tables = json.tables;
-  populateItems();
-}
+  //update frontend
+  for(let i = 0; i < tables.length; i++){
+    if(tables[i]._id === tableId){
+      const items = tables[i].items;
+      const foundItem = items.find((item) => {
+        return item.itemName === itemName;
+      });
 
-function minusItemQuantity(){
-  console.log('minus')
+      if(foundItem){
+        foundItem.itemQuantity++;
+        renderItems();
+      }
+      else{
+        const newItem = {
+          _id: "",
+          itemName: itemName,
+          itemQuantity: 1,
+          itemPrice: itemPrice,
+        }
+        tables[i].items.push(newItem);
+        renderItems();
+      }
+    }
+  }
+};
+
+async function minusItemQuantity(e,categoryId){
+  // If item quanity < 0 then remove the css disable tag,
+  const $parent = e.target.parentNode.parentNode
+
+  const itemName = $parent.querySelector('.item--title').innerText
+  const itemPrice = $parent.querySelector('.item--price').innerText
+  const itemId = $parent.id
+  const tableId = dropDownLabel.id
+
+  const selectedTable = tables.find((table) => table._id === tableId);
+  const foundItem = selectedTable.items.find((item) => item.itemName === itemName);
+
+  if(foundItem){
+    const data = {
+      tableId, categoryId,itemId,itemName, itemPrice, itemQuantity: foundItem.itemQuantity
+    };
+
+    //Update backend
+    fetch('/table/removeItem', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
+    //Update front end
+    if(foundItem.itemQuantity - 1 > 0){
+      foundItem.itemQuantity--;
+      renderItems();
+    }
+    else {
+      console.log("REMOVING ITEM");
+      //Remove item from html
+      const itemIndex = selectedTable.items.findIndex((item) => {
+        return item.itemName === foundItem.itemName;
+      });
+      selectedTable.items.splice(itemIndex, 1);
+      renderItems();
+    }
+  }
+
 }
 
 function tableSelect(tableId, tableNumber, parentNode){
   dropDownLabel.textContent = tableNumber;
   dropDownLabel.id = tableId;
-  populateItems()
+  renderItems()
   parentNode.blur()
 }
-console.log(tables)
 
-function populateItems(){
+function renderItems(){
 
     tableItemContainer.innerHTML = ""
     
@@ -102,10 +164,10 @@ function populateItems(){
           <p class="table-item--quantity">x${item.itemQuantity}</p>
         </div>
         <div class="empty"></div>
-        <p class="table-item--price">${item.itemPrice}</p>
+        <p class="table-item--price">$ ${item.itemPrice * item.itemQuantity} </p>
       </div>`
       tableItemContainer.insertAdjacentHTML('beforeend', itemTemplate);
     })
 }
 
-populateItems();
+renderItems();

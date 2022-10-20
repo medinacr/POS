@@ -5,5 +5,6 @@ const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
 router.post("/createTable", tableController.createTable);
 router.post("/addItem", tableController.addItem);
+router.post("/removeItem", tableController.removeItem);
 
 module.exports = router;

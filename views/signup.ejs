@@ -1,6 +1,11 @@
-    <main class="container">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+    <main>
         <div class="row justify-content-center">
-            <section class="col-6 mt-5">
+            <section>
                 <% if (locals.messages.errors) { %>
                     <% messages.errors.forEach( el => { %>
                         <div class="alert alert-danger"><%= el.msg %></div>
@@ -11,7 +16,7 @@
                         <div class="alert alert-info"><%= el.msg %></div>
                     <% }) %>    
                 <% } %>
-                <form action="/signup" method="POST">
+                <!-- <form action="/signup" method="POST">
                     <div class="mb-3">
                         <label for="userName" class="form-label">User Name</label>
                         <input type="text" class="form-control" id="userName" name="userName">
@@ -30,8 +35,74 @@
                         <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
                       </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
-                  </form>
+                  </form> -->
             </section>
         </div>
-    </main>
 
+        <main class="mx-auto flex min-h-screen w-full items-center justify-center bg-gray-900 text-white">
+          <!-- component -->
+          <section class="flex w-[30rem] flex-col space-y-10">
+              <div class="text-center text-4xl font-medium">Create Account</div>
+              
+              <form action="/signup" method="POST">
+                  <div class="w-full transform border-b-2 bg-transparent text-lg duration-300 focus-within:border-indigo-500">
+                      
+                      <input
+                          type="text"
+                          for="userName"
+                          id="userName"
+                          name="userName"
+                          placeholder="User Name"
+                          class="w-full border-none bg-transparent outline-none placeholder:italic focus:outline-none"
+                      />
+                  </div>
+          
+                  <div class="w-full transform border-b-2 bg-transparent text-lg duration-300 focus-within:border-indigo-500">
+                      <input
+                      type="email"
+                      for="exampleInputEmail1"
+                      id="exampleInputEmail1"
+                      aria-describedby="emailHelp"
+                      name="email"
+                      placeholder="Email Address"
+                      class="w-full border-none bg-transparent outline-none placeholder:italic focus:outline-none"
+                      />
+                  </div>
+
+                  <div class="w-full transform border-b-2 bg-transparent text-lg duration-300 focus-within:border-indigo-500">
+                      
+                    <input
+                        type="password"
+                        for="password"
+                        id="password"
+                        name="password"
+                        placeholder="Password"
+                        class="w-full border-none bg-transparent outline-none placeholder:italic focus:outline-none"
+                    />
+                </div>
+
+                <div class="w-full transform border-b-2 bg-transparent text-lg duration-300 focus-within:border-indigo-500">
+                      
+                  <input
+                      type="passwrod"
+                      for="confirmPassword"
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      placeholder="confirm Password"
+                      class="w-full border-none bg-transparent outline-none placeholder:italic focus:outline-none"
+                  />
+              </div>
+                  <button type="sumbit" class="transform rounded-sm bg-indigo-600 py-2 font-bold duration-300 hover:bg-indigo-400">
+                      Submit
+                  </button>
+              </form>          
+                  <p class="text-center text-lg">
+                      Already have an account?
+                      <a
+                      href="/"
+                      class="font-medium text-indigo-500 underline-offset-4 hover:underline"
+                      >Sign in</a
+                      >
+                  </p> 
+          </section>
+          </main>
