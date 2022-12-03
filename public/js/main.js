@@ -11,6 +11,9 @@ const itemQuantity = document.querySelector('.quantity--amount')
 const tableDropdown = document.querySelectorAll('.dropdown--item')
 const dropDownLabel = document.querySelector('.dropdown--table')
 const tableItemContainer = document.querySelector('.table-item-container')
+const subTotalAmount = document.querySelector('.subtotal--price')
+const taxPriceAmount = document.querySelector('.tax--price')
+const totalPriceAmount = document.querySelector('.total--price')
 
 Array.from(selectCategory).forEach((el)=>{
   el.addEventListener('click', categorySelectionForm)
@@ -156,6 +159,7 @@ function renderItems(){
     
     const currentTableId = dropDownLabel.id
     const items = tables.filter(ct => currentTableId === ct._id)[0].items
+
     items.forEach((item, i) =>{
       const itemTemplate = `<div class="table-item">
         <div class="table-item--left">
@@ -168,6 +172,18 @@ function renderItems(){
       </div>`
       tableItemContainer.insertAdjacentHTML('beforeend', itemTemplate);
     })
+
+    const subTotal = items.map(x => x.itemQuantity * x.itemPrice).reduce((a,c) => a + c, 0)
+    subTotalAmount.innerText = subTotal
+    
+    //const taxPrice = +((subTotal * .10).toFixed(2))
+    const round = subTotal * .10
+    const taxPrice = Number(round.toFixed(2))
+    taxPriceAmount.innerText = taxPrice
+
+    const totalPrice = subTotal + taxPrice
+    totalPriceAmount.innerText = totalPrice
+
 }
 
 renderItems();

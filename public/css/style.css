@@ -25,13 +25,12 @@ html, body, .root-container, .nav-container-flex {
     border: 3px solid #212121;
   }
 
+
 body {
   background-color: black;
   color: white;
   font-family: 'Inter', sans-serif;
-  /* overflow: hidden; */
 }
-
 .root-container {
   display: flex;
   padding: 42px;
@@ -40,6 +39,7 @@ body {
   flex: 1;
   position: relative;
 }
+
 /* NAV */
 .logo-svg {
   width: 200px;
@@ -64,19 +64,16 @@ body {
   padding-right: 200px;
   color: #9c9e9f;
 }
-
 .nav--item:hover {
   background-color: #2d2d2d;
   color:white;
   border-radius: 10px;
 }
-
 /* .nav--item-active {
   background-color: #2d2d2d;
   color:white;
   border-radius: 10px;
 } */
-
 .users {
  display: flex;
  flex-direction: column;
@@ -113,7 +110,6 @@ body {
   margin-left: 10px;
   font-size: 20px;
 }
-
 /* MAIN */
 /* .line {
   width: 100%;
@@ -126,7 +122,6 @@ body {
 .search-label {
   position: relative;
 }
-
 .search-label:before {
   content: "";
   position: absolute;
@@ -136,7 +131,6 @@ body {
   width: 20px;
   background: url("data:image/svg+xml,%0A%3Csvg width='24' height='25' viewBox='0 0 24 25' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='11' cy='11' r='10.25' stroke='%239C9C9C' stroke-width='1.5'/%3E%3Cline x1='17.5303' y1='19.4697' x2='22.4801' y2='24.4194' stroke='%239C9C9C' stroke-width='1.5'/%3E%3C/svg%3E%0A") center / contain no-repeat;
 }
-
 .search-input {
   padding: 15px 40px;
   font-size: 20px;
@@ -145,8 +139,6 @@ body {
   background-color: #2d2d2d;
   border-radius: 10px;
 }
-
-
 .categories{
   display: flex;
   align-items: flex-start;
@@ -158,7 +150,6 @@ body {
   overflow: auto;
   padding-bottom: 58px;
 }
-
 .category {
   background-color: #becac8;  
   width: calc(100%/4 - 20px);
@@ -181,7 +172,6 @@ body {
   color: #818787;
   margin-top: 10px;
 }
-
 .items {
   height: calc(100% /2 - 48px - 30px);
   overflow: auto;
@@ -189,7 +179,6 @@ body {
   flex-wrap: wrap;
   gap: 20px;
 }
-
 .item {
   flex-direction: column;
   padding: 20px;
@@ -267,7 +256,6 @@ body {
 .quantity--amount {
   font-size: 20px;
 }
-
 .checkout {
   padding-left: 50px;
   width: 500px;
@@ -279,7 +267,6 @@ body {
   color: #626465;
   margin-top: 10px;
 }
-
 .table-item-container{
   margin-top: 38px;
   height: 420px;
@@ -325,7 +312,6 @@ body {
   font-weight: 600;
   font-size: 18px;
 }
-
 .recipet-container {
   display: flex;
   flex-direction: column;
@@ -362,7 +348,6 @@ body {
 .total--price {
   font-size: 28px;
 }
-
 .place-order {
   margin-top: 80px;
   font-size: 24px;
@@ -377,3 +362,25 @@ body {
 
  */
 
+/* DASHBOARD */
+.body-dashboard {
+  background: rgb(145, 139, 139);
+  color: black;  
+  font-size: 32px;
+  display: flex;
+  padding: 42px;
+}
+
+.container-dashboard {
+  border: 2px red solid;
+}
+
+.nav-bar-dashboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%; 
+  width: 325px;
+  border: 2px blue solid;
+  background-color: white;
+}

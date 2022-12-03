@@ -10,25 +10,11 @@
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/css-reset-and-normalize/css/reset-and-normalize.min.css">
   <link rel="stylesheet" href="/css/style.css" />
 </head>
-<body class="body-dashboard">
-   <div class="container-dashboard">
-      <div class="nav-bar-dashboard">
-         <div class="logo-dashboard">
-            <h1>Logo</h1>
-            <h1>time</h1>
-         </div>
-         <div class="menu-dashboard">
-            <ul>
-               <li>Orders</li>
-               <li>Menu</li>
-               <li>Settings</li>
-               <li>Statistics</li>
-            </ul>
-         </div>
-         <div class="user-dashboard">
-            <h1>User</h1>
-            <h1>Logout</h1>   
-         </div>
-      </div>
-   </div>
+<body>
+  <div class="root-container">
+    <section class="nav-container">
+      <%- include('partials/dashboard') -%>
+    </section>
+  </div>
 </body>
+</html>
