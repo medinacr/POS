@@ -24,6 +24,7 @@ module.exports = {
 
       //const items = await Categories.find(categories.items).sort().lean()
       //const categoriesId = await Categories.findById()
+      res.locals.feed = true;
       res.render("feed.ejs", { categories: categories, id: req.params.id, users: req.users, users: users, tables: tables});
     } catch (err) {
       console.log(err);

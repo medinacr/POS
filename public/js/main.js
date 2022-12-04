@@ -1,4 +1,5 @@
-const selectCategory = document.querySelectorAll('.categoryId');
+(() => {
+  const selectCategory = document.querySelectorAll('.categoryId');
 const categoryForm = document.getElementById("categoryForm")
 const categoryCard = document.querySelectorAll('.category')
 const itemClassId = document.querySelectorAll('.item')
@@ -174,16 +175,17 @@ function renderItems(){
     })
 
     const subTotal = items.map(x => x.itemQuantity * x.itemPrice).reduce((a,c) => a + c, 0)
-    subTotalAmount.innerText = subTotal
+    subTotalAmount.innerText = `$${subTotal.toFixed(2)}`
     
     //const taxPrice = +((subTotal * .10).toFixed(2))
-    const round = subTotal * .10
-    const taxPrice = Number(round.toFixed(2))
-    taxPriceAmount.innerText = taxPrice
+    const taxPrice = subTotal * .10
+    // const taxPrice = Number(round.toFixed(2))
+    taxPriceAmount.innerText = `$${taxPrice.toFixed(2)}`
 
     const totalPrice = subTotal + taxPrice
-    totalPriceAmount.innerText = totalPrice
+    totalPriceAmount.innerText = `$${totalPrice.toFixed(2)}`
 
 }
 
 renderItems();
+})()

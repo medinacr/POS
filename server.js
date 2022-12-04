@@ -16,6 +16,7 @@ const categoryRoutes = require("./routes/categories");
 const tableRoutes = require("./routes/tables")
 const dashboardRoutes = require("./routes/dashboard")
 
+
 //Use .env file in config folder
 require("dotenv").config({ path: "./config/.env" });
 

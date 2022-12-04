@@ -8,13 +8,20 @@
       </svg>
       </a>
     </div>
+    <div class="clock">
+      <p class="clock-date"></p>
+      <p class="clock-time">
+        <%- new Date().toLocaleTimeString() %>
+      </p>
+    </div>
     <ul class="nav">
-      <a href="/feed"><li class="nav--item">POS</li></a>
-      <a href="dashboard"><li class="nav--item nav--item-active">Dashboard</li></a>
-      <a href="dashboard/orders"><li class="nav--item">Orders</li></a>
-      <a href="dashboard/settings"><li class="nav--item">Settings</li></a>
+      <a href="/feed"><li class="nav--item /feed">POS</li></a>
+      <a href="dashboard"><li class="nav--item nav--item-active /dashboard">Dashboard</li></a>
+      <a href="dashboard/orders"><li class="nav--item /dashboard/orders">Orders</li></a>
+      <a href="dashboard/settings"><li class="nav--item /dashboard/settings">Settings</li></a>
     </ul>
   </header>
+
   <div>
     <ul class="users">
       <li class="user-container">
@@ -22,19 +29,47 @@
           <p class="user--profile">L</p>
           <p class="user--name">Leslie K.</p>
         </div>
-      </li>
-      <li class="user-container">
-        <div class="user">
-          <p class="user--profile">C</p>
-          <p class="user--name">Cameron W.</p>
+      </li><li class="user-container">
+        <div class="logout-container">
+          <svg fill="none" viewBox="0 0 24 24">
+            <path stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21.791 12.12H9.75m9.114-2.915 2.928 2.916-2.928 2.916M16.36 7.63c-.33-3.58-1.67-4.88-7-4.88-7.101 0-7.101 2.31-7.101 9.25 0 6.94 0 9.25 7.1 9.25 5.33 0 6.67-1.3 7-4.88"/>
+          </svg>
+          <p class="user--logout">Logout</p>
         </div>
-      </li>
-      <li class="user-container">
-        <div class="user">
-          <p class="user--profile">J</p>
-          <p class="user--name">Jacob J.</p>
-        </div>
+        
       </li>
     </ul>
   </div>  
+  
 </section>
+
+<script>
+  (() => {
+      function initializeClock() {
+      const clockTime = document.querySelector('.clock-time')
+      const clockDate = document.querySelector('.clock-date')
+
+      const date = new Date();
+      const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      const dateString = monthNames[date.getMonth()] + " "+ date.getDate() + " " + date.getFullYear();
+
+      clockDate.innerHTML = dateString
+
+      console.log(dateString);
+      setInterval(() => {
+        clockTime.innerHTML = new Date().toLocaleTimeString()
+      }, 1000);
+      
+    }
+
+    function setActive() {
+      const path = window.location.pathname
+      const menu = document.getElementsByClassName(path)[0]
+      menu.className += ' nav--item_active'
+    }
+
+    setActive()
+    initializeClock()
+  })()
+  
+</script>
