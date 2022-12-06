@@ -15,6 +15,7 @@ const tableItemContainer = document.querySelector('.table-item-container')
 const subTotalAmount = document.querySelector('.subtotal--price')
 const taxPriceAmount = document.querySelector('.tax--price')
 const totalPriceAmount = document.querySelector('.total--price')
+const placeOrder = document.querySelector('.place--order')
 
 Array.from(selectCategory).forEach((el)=>{
   el.addEventListener('click', categorySelectionForm)
@@ -36,6 +37,7 @@ Array.from(tableDropdown).forEach((el) => {
   const parentNode = el.parentNode
   el.addEventListener('click',() => tableSelect(tableId, tableNumber, parentNode) )
 })
+placeOrder.addEventListener('click', order)
 
 function categorySelectionForm(){
   const categoryId = this.dataset.id
@@ -152,6 +154,11 @@ function tableSelect(tableId, tableNumber, parentNode){
   dropDownLabel.id = tableId;
   renderItems()
   parentNode.blur()
+}
+
+function order () {
+  console.log('order placed')
+  
 }
 
 function renderItems(){
