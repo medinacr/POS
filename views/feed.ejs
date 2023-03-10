@@ -75,7 +75,6 @@
   <div class="root-container">
     <section class="nav-container">
       <%- include('partials/header') -%>
-      
     </section>
 
     <section class="main">
@@ -117,24 +116,33 @@
     </section>
     
     <section class="checkout"> 
+
       <div class="table">
         <div class='dropdown'>
-          <label tabindex="0"  id="<%=tables[i]._id%>" class="dropdown--table m-1"><%= `Table ${tables[i].tableNumber}` %></label> 
-            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-            <% for(let i=0; i<tables.length; i++) {%>
+          <label tabindex="0" id="table-dropdown" class="dropdown--table m-1">Select a Table</label>
+          <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+            <% if (tables.length) { %>
+              <% for(let i=0; i<tables.length; i++) {%>
+                <li class="dropdown--item">
+                  <a id="<%= tables[i]._id %>"><%= `Table: ${tables[i].tableNumber}` %></a>
+                </li>
+              <% } %>
+            <% } else { %>
               <li class="dropdown--item">
-                  <a id="<%= tables[i]._id%>"><%= `Table: ${tables[i].tableNumber}` %></a>
+                <a>No tables available</a>
               </li>
-            <% } %> 
-            </ul>          
+            <% } %>
+          </ul>
+        </div>
       </div>
-        <label for="add-item-modal" class="btn modal-button">+</label>
-      </div>
+      
+      <label for="add-item-modal" class="btn modal-button">+</label>
+      
 
       <div class="order-detail">
         <div class="table-item-container">
         </div>
-        <div class="recipet-container">
+        <div class="reciept-container">
           <div class="subtotal-container">
             <div class="subtotal">Subtotal</div>
             <div class="empty"></div>
@@ -145,7 +153,7 @@
             <div class="empty"></div>
             <div class="tax--price"></div>
           </div>
-          <div class="recipet-dash-line"></div>
+          <div class="reciept-dash-line"></div>
           <div class="total-container">
             <div class="total">Total</div>
             <div class="empty"></div>
@@ -155,6 +163,7 @@
         </div>
       </div>
     </section>
+
   </div>
   <script>
     var tables = JSON.parse('<%-JSON.stringify(tables)%>');

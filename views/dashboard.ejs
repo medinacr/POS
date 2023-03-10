@@ -9,11 +9,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/css-reset-and-normalize/css/reset-and-normalize.min.css">
   <link rel="stylesheet" href="/css/style.css" />
-  <link href="https://cdn.jsdelivr.net/npm/daisyui@2.31.0/dist/full.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- REMOVE LATE -->
-  <!-- <script type="text/javascript" src="https://livejs.com/live.js"></script> -->
-
   
   <title>KingPOS</title>
 </head>
@@ -23,12 +20,123 @@
       <%- include('partials/header') -%>
     </section>
 
-    <section class="main">
-      <div class="dashboard">
+    <div class="dashboard--container">
+      <section class="dashboard">
         <h1>Dashboard</h1>
         <p>Overview of sales, purchases and products</p>
+      </section>
+      <section class="orders--container">
+        <div class="orders--card orders">
+          <p class="orders--title">Orders</p>
+          <p class="orders--quantity">7</p>
+          <p class="orders--percent">0 %</p>
+        </div>
+        <div class="orders--card average--orders">
+          <p class="orders--title">Avg Orders Value</p>
+          <p class="orders--quantity">7</p>
+          <p class="orders--percent">0 %</p>
+        </div>
+        <div class="orders--card items--sold">
+          <p class="orders--title">Items Sold</p>
+          <p class="orders--quantity">7</p>
+          <p class="orders--percent">0 %</p>
+        </div>
+        <div class="orders--card items--sold">
+          <p class="orders--title">Total Items</p>
+          <p class="orders--quantity">7</p>
+          <p class="orders--percent">0 %</p>
+        </div>
+      </section>
+      <section class="sales--chart">
+        <div>
+          <canvas id="myChart"></canvas>
+        </div>
+        <div>          
+      </section>
+      <div class="orders--card items--sold">
+        <p class="orders--title">Total Items</p>
+        <p class="orders--quantity">7</p>
+        <p class="orders--percent">0 %</p>
       </div>
-    </section>
+      <div class="orders--card items--sold">
+        <p class="orders--title">Total Items</p>
+        <p class="orders--quantity">7</p>
+        <p class="orders--percent">0 %</p>
+      </div>
+      <div class="orders--card items--sold">
+        <p class="orders--title">Total Items</p>
+        <p class="orders--quantity">7</p>
+        <p class="orders--percent">0 %</p>
+      </div>
+      <div class="orders--card items--sold">
+        <p class="orders--title">Total Items</p>
+        <p class="orders--quantity">7</p>
+        <p class="orders--percent">0 %</p>
+      </div>
+      <div class="orders--card items--sold">
+        <p class="orders--title">Total Items</p>
+        <p class="orders--quantity">7</p>
+        <p class="orders--percent">0 %</p>
+      </div>
+      <div class="orders--card items--sold">
+        <p class="orders--title">Total Items</p>
+        <p class="orders--quantity">7</p>
+        <p class="orders--percent">0 %</p>
+      </div>
+      <div class="orders--card items--sold">
+        <p class="orders--title">Total Items</p>
+        <p class="orders--quantity">7</p>
+        <p class="orders--percent">0 %</p>
+      </div>
+      <div class="orders--card items--sold">
+        <p class="orders--title">Total Items</p>
+        <p class="orders--quantity">7</p>
+        <p class="orders--percent">0 %</p>
+      </div>
+      <div class="orders--card items--sold">
+        <p class="orders--title">Total Items</p>
+        <p class="orders--quantity">7</p>
+        <p class="orders--percent">0 %</p>
+      </div>
+      <div class="orders--card items--sold">
+        <p class="orders--title">Total Items</p>
+        <p class="orders--quantity">7</p>
+        <p class="orders--percent">0 %</p>
+      </div>
+      <div class="orders--card items--sold">
+        <p class="orders--title">Total Items</p>
+        <p class="orders--quantity">7</p>
+        <p class="orders--percent">0 %</p>
+      </div>
+      <div class="orders--card items--sold">
+        <p class="orders--title">Total Items</p>
+        <p class="orders--quantity">7</p>
+        <p class="orders--percent">0 %</p>
+      </div>
+    </div>
   </div>
 </body>
 </html>
+<script >
+const ctx = document.getElementById('myChart');
+
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    datasets: [{
+      label: '# of Votes',
+      data: [12, 19, 3, 5, 2, 3],
+      borderWidth: 1
+    }]
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    },
+    responsive: false
+  }
+});
+</script>

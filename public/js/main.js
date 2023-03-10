@@ -1,5 +1,5 @@
 (() => {
-  const selectCategory = document.querySelectorAll('.categoryId');
+const selectCategory = document.querySelectorAll('.categoryId');
 const categoryForm = document.getElementById("categoryForm")
 const categoryCard = document.querySelectorAll('.category')
 const itemClassId = document.querySelectorAll('.item')
@@ -16,6 +16,7 @@ const subTotalAmount = document.querySelector('.subtotal--price')
 const taxPriceAmount = document.querySelector('.tax--price')
 const totalPriceAmount = document.querySelector('.total--price')
 const placeOrder = document.querySelector('.place--order')
+
 
 Array.from(selectCategory).forEach((el)=>{
   el.addEventListener('click', categorySelectionForm)
@@ -156,9 +157,32 @@ function tableSelect(tableId, tableNumber, parentNode){
   parentNode.blur()
 }
 
-function order () {
-  console.log('order placed')
+async function order() {
+  const tableId = dropDownLabel.id
+  const selectedTable = tables.find((table) => table._id === tableId);
+  const subtotal = parseFloat(subTotalAmount.innerText.replace('$', ''))
+  const tax = parseFloat(taxPriceAmount.innerText.replace('$', ''))
+  const totalPriceBill = parseFloat(totalPriceAmount.innerText.replace('$', ''))
+
+  const data = { 
+    id: dropDownLabel.id, 
+    tableNumber: selectedTable,
+    subtotal: subtotal,
+    tax: tax,
+    totalPriceBill,
+  };
   
+  fetch("/post/placeOrder", {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }).then(() => {
+    renderItems()
+    window.location.reload()
+  })
 }
 
 function renderItems(){

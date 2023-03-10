@@ -2,8 +2,11 @@ const cloudinary = require("../middleware/cloudinary");
 const Categories = require("../models/Categories");
 const Users = require('../models/User')
 const Tables = require('../models/Tables')
+const Order = require('../models/Order');
 const Comment = require('../models/Comment')
-const Post = require('../models/Post')
+const Post = require('../models/Post');
+const mongoose = require('mongoose');
+const { calculateObjectSize } = require("bson");
 
 module.exports = {
   getProfile: async (req, res) => {
@@ -22,8 +25,6 @@ module.exports = {
       const users =  await Users.find({ _id: loggedUser })
       const tables = await Tables.find({userId: loggedUser});
 
-      //const items = await Categories.find(categories.items).sort().lean()
-      //const categoriesId = await Categories.findById()
       res.locals.feed = true;
       res.render("feed.ejs", { categories: categories, id: req.params.id, users: req.users, users: users, tables: tables});
     } catch (err) {
@@ -98,4 +99,30 @@ module.exports = {
       res.redirect("/profile");
     }
   },
+  placeOrder: async (req, res) => {
+    const user = req.user
+    const data = req.body
+    const orderId = mongoose.Types.ObjectId(data.id)
+    // console.log(data)
+      try {
+      const order = await Tables.findOne({ _id: orderId })
+      let newOrder;
+
+      if(order) {
+        newOrder = new Order({
+          tableNumber: data.tableNumber.tableNumber,
+          userId: data.tableNumber.userId,
+          items: data.tableNumber.items,
+          totalPrice: data.totalPriceBill,
+          completedAt: new Date()
+        })
+      }
+      await newOrder.save();
+      await Tables.deleteOne({ _id: orderId });
+      await res.redirect("/feed")
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ message: "Internal Server Error" })
+    }
+  }
 };
