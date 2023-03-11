@@ -44,7 +44,29 @@
     </div>
     <script>
       console.log(JSON.parse('<%-JSON.stringify(data)%>'));
+
+      const data = JSON.parse('<%-JSON.stringify(data)%>')
+      const arr = data;
+      const dateMap = new Map();
+
+      for(let i=0; i < arr.length; i++) {
+
+        const orderDate = arr[i].completedAt
+        const date = new Date(orderDate)
+        let dateOrders = dateMap.get(date.getUTCDate())
+
+        console.log('orderDate: ', orderDate)
+
+        if(dateOrders) {
+          dateOrders.push(arr[i])
+        }else {
+          dateOrders = [arr[i]]
+        }
+        dateMap.set(date.getUTCDate(), dateOrders)
+      }
+      
     </script>
+    <script src='js/main.js'></script>
   </div>
 </body>
 </html>
