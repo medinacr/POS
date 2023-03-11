@@ -456,3 +456,49 @@ body {
   border-radius: 10px;
 }
 
+/* ORDERS */
+
+.orders-container {
+  display: flex;
+  flex-direction: column;
+  padding: 38px;
+  margin-left: 436px;
+  width: 100%; 
+}
+
+.orders-section {
+  border: 2px white solid;
+  border-radius: 20px;
+  height: 100%;
+}
+
+.orders-header {
+  padding: 10px;
+  font-size: 32px;
+}
+
+.orders-header-details {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 50px;
+  font-size: 24px;
+}
+
+.orders-info-container {
+  border: 2px solid #606264;
+  border-radius: 5px;
+  margin: 15px;
+}
+
+.orders-info-card {
+  display: flex;
+  justify-content: space-between;
+  padding: 40px;
+  font-size: 20px;
+  background-color: gray;
+}
+
+
+
+

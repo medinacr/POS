@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/css-reset-and-normalize/css/reset-and-normalize.min.css">
+  <link rel="stylesheet" href="/css/style.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <title>KingPOS</title>
+</head>
+<body>
+  <div class="root-container">
+
+    <section class="nav-container">
+      <%- include('partials/header') -%>
+    </section>    
+
+    <div class="orders-container">
+      <div class="orders-section">
+      <section class="orders-header">
+        <h1>ORDERS</h1>
+        <p><%= data.length %> total orders</p>
+      </section>
+      <section class="orders-header-details">
+        <p>Date</p>
+        <p>Orders Count</p>
+        <p>Total</p>
+        <p>Actions</p>
+      </section>
+      <section class="orders-info-container">
+        <div class="orders-info-card">
+          <p class="order-card-date">3/10/2023</p>
+          <p class="order-card-count">6</p>
+          <p class="order-card-total">$300</p>
+          <button class="order-card-action">More ▼</button>
+        </div>
+      </section>
+      </div>
+    </div>
+    <script>
+      console.log(JSON.parse('<%-JSON.stringify(data)%>'));
+    </script>
+  </div>
+</body>
+</html>

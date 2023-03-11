@@ -124,5 +124,19 @@ module.exports = {
       console.log(err);
       res.status(500).json({ message: "Internal Server Error" })
     }
+  },
+  getOrders: async (req, res) => {
+    const loggedUser = req.user.id
+
+    try {
+      const data = await Order.find({userId: loggedUser})
+      res.render('orders.ejs', { data: data })
+    } catch(err) {
+      console.log(err)
+    }
+    
+  },
+  getSettings: (req, res) => {
+    res.render('settings.ejs')
   }
 };

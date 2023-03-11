@@ -8,5 +8,4 @@ const { ensureAuth, ensureGuest } = require("../middleware/auth");
 //Main Routes - simplified for now
 router.get("/", dashboardController.getDashboard);
 
-
 module.exports = router;
