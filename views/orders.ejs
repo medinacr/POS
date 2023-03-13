@@ -32,39 +32,27 @@
         <p>Total</p>
         <p>Actions</p>
       </section>
-      <section class="orders-info-container">
-        <div class="orders-info-card">
-          <p class="order-card-date">3/10/2023</p>
-          <p class="order-card-count">6</p>
-          <p class="order-card-total">$300</p>
-          <button class="order-card-action">More ▼</button>
-        </div>
-      </section>
-      </div>
+
+      <% for(let date in dateMap) {%> 
+        <section class="orders-info-container">
+          <div class="orders-info-card">
+            <p class="order-card-date"><%= date %></p>
+            <p class="order-card-count">6</p>
+            <p class="order-card-total">$300</p>
+            <button class="order-card-action">More ▼</button>
+          </div>
+        </section>
+      <% } %>
+     
+
+    </div>
     </div>
     <script>
       console.log(JSON.parse('<%-JSON.stringify(data)%>'));
+      console.log(JSON.parse('<%-JSON.stringify(dateMap)%>'));
 
       const data = JSON.parse('<%-JSON.stringify(data)%>')
-      const arr = data;
-      const dateMap = new Map();
-
-      for(let i=0; i < arr.length; i++) {
-
-        const orderDate = arr[i].completedAt
-        const date = new Date(orderDate)
-        let dateOrders = dateMap.get(date.getUTCDate())
-
-        console.log('orderDate: ', orderDate)
-
-        if(dateOrders) {
-          dateOrders.push(arr[i])
-        }else {
-          dateOrders = [arr[i]]
-        }
-        dateMap.set(date.getUTCDate(), dateOrders)
-      }
-      
+      const dateMap = JSON.parse('<%-JSON.stringify(dateMap)%>');
     </script>
     <script src='js/main.js'></script>
   </div>

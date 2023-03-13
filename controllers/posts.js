@@ -130,7 +130,25 @@ module.exports = {
 
     try {
       const data = await Order.find({userId: loggedUser})
-      res.render('orders.ejs', { data: data })
+
+      const dateMap = new Map();
+      for(let i=0; i < data.length; i++) {
+
+        const orderDate = data[i].completedAt
+        const date = new Date(orderDate)
+        let dateOrders = dateMap.get(date.toLocaleDateString())
+        console.log(date.getUTCDate())
+
+        if(dateOrders) {
+          dateOrders.push(data[i])
+        }else {
+          dateOrders = [data[i]]
+        }
+        dateMap.set(date.toLocaleDateString(), dateOrders)
+      }
+      const myObj = Object.fromEntries(dateMap);
+
+      res.render('orders.ejs', { data: data , dateMap: myObj});
     } catch(err) {
       console.log(err)
     }
