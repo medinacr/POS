@@ -33,12 +33,15 @@
         <p>Actions</p>
       </section>
 
-      <% for(let date in dateMap) {%> 
+      <% for (let date in dateMap) { %>
         <section class="orders-info-container">
           <div class="orders-info-card">
             <p class="order-card-date"><%= date %></p>
-            <p class="order-card-count">6</p>
-            <p class="order-card-total">$300</p>
+            <% let orders = dateMap[date]; %>
+            <% let orderCount = orders.length; %>
+            <% let orderTotal = orders.reduce((total, order) => total + order.totalPrice, 0); %>
+            <p class="order-card-count"><%= orderCount %></p>
+            <p class="order-card-total">$<%= orderTotal %></p>
             <button class="order-card-action">More ▼</button>
           </div>
         </section>
