@@ -130,7 +130,6 @@ module.exports = {
 
     try {
       const data = await Order.find({userId: loggedUser})
-
       const dateMap = new Map();
       for(let i=0; i < data.length; i++) {
 
@@ -147,7 +146,6 @@ module.exports = {
         dateMap.set(date.toLocaleDateString(), dateOrders)
       }
       const myObj = Object.fromEntries(dateMap);
-
       res.render('orders.ejs', { data: data , dateMap: myObj});
     } catch(err) {
       console.log(err)

@@ -469,7 +469,8 @@ body {
 .orders-section {
   border: 2px white solid;
   border-radius: 20px;
-  height: 100%;
+  height: 1200px;
+  overflow-y: auto;
 }
 
 .orders-header {
@@ -499,6 +500,25 @@ body {
   background-color: gray;
 }
 
+.order-info-extended {
+  display: none;
+}
+
+.order-info-extended.show {
+  display: flex;
+  justify-content: space-between;
+  font-size: 24px;
+  padding: 50px;
+  background-color: gray;
+  border-top: 1px solid #606264;
+}
 
 
+.order-info-extended:nth-child(even) {
+  background-color: lightgray;
+}
+
+.order-info-extended:nth-child(odd) {
+  background-color: gray;
+}
 
