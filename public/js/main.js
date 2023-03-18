@@ -16,8 +16,11 @@ const subTotalAmount = document.querySelector('.subtotal--price')
 const taxPriceAmount = document.querySelector('.tax--price')
 const totalPriceAmount = document.querySelector('.total--price')
 const placeOrder = document.querySelector('.place--order')
-const expandOrderButton = document.getElementById('order-card-action')
+const expandOrderButton = document.querySelectorAll('.order-card-action')
 
+Array.from(expandOrderButton).forEach((el) => {
+  el.addEventListener('click', expandOrderInfo)
+})
 
 Array.from(selectCategory).forEach((el)=>{
   el.addEventListener('click', categorySelectionForm)
@@ -219,16 +222,15 @@ function renderItems(){
 
 }
 
-expandOrderButton.addEventListener('click', 'hello')
-
-// document.addEventListener('click', function(event) {
-//   if (event.target.classList.contains('order-card-action')) {
-//     const id = event.target.id.replace('order-card-action-', 'order-info-extended-');
-//     const ordersInfo = document.getElementById(id);
-//     ordersInfo.classList.toggle('show');
-//   }
-// });
-
+function expandOrderInfo(event) {
+  if (event.target.classList.contains('order-card-action')) {
+    const date = event.target.id.replace('order-card-action-', '');
+    const ordersInfoList = document.querySelectorAll(`.order-info-extended[id^="order-info-extended-${date}"]`);
+    ordersInfoList.forEach(ordersInfo => {
+      ordersInfo.classList.toggle('show');
+    });
+  }
+}
 
 renderItems();
 })()

@@ -415,9 +415,9 @@ body {
 .dashboard--container {
   display: flex;
   flex-direction: column;
-  padding: 42px;
+  padding: 38px;
   margin-left: 436px;
-  width: 100%;
+  width: 100%; 
 }
 .dashboard {
   padding-bottom: 42px;
@@ -425,7 +425,7 @@ body {
 .orders--container {
   display: flex;
   justify-content: space-between;
-  padding: 42px;   
+  padding: 42px;      
   border-radius: 10px;
 }
 .orders--card {
@@ -507,10 +507,11 @@ body {
 .order-info-extended.show {
   display: flex;
   justify-content: space-between;
-  font-size: 24px;
-  padding: 50px;
+  font-size: 20px;
+  padding: 28px;
   background-color: gray;
   border-top: 1px solid #606264;
+  color: black;
 }
 
 
