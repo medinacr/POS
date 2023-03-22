@@ -167,7 +167,7 @@ async function order() {
   const subtotal = parseFloat(subTotalAmount.innerText.replace('$', ''))
   const tax = parseFloat(taxPriceAmount.innerText.replace('$', ''))
   const totalPriceBill = parseFloat(totalPriceAmount.innerText.replace('$', ''))
-
+  console.log(tableId)
   const data = { 
     id: dropDownLabel.id, 
     tableNumber: selectedTable,
@@ -176,17 +176,17 @@ async function order() {
     totalPriceBill,
   };
   
-  fetch("/post/placeOrder", {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  }).then(() => {
-    renderItems()
-    window.location.reload()
-  })
+  // fetch("/post/placeOrder", {
+  //   method: 'POST',
+  //   headers: {
+  //     'Accept': 'application/json',
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify(data)
+  // }).then(() => {
+  //   renderItems()
+  //   window.location.reload()
+  // })
 }
 
 function renderItems(){

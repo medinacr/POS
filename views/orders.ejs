@@ -41,14 +41,14 @@
             <% let orderCount = orders.length; %>
             <% let orderTotal = orders.reduce((total, order) => total + order.totalPrice, 0); %>
             <p class="order-card-count"><%= orderCount %></p>
-            <p class="order-card-total">$<%= orderTotal %></p>
+            <p class="order-card-total">$<%= (orderTotal).toFixed(2) %></p>
             <button class="order-card-action" id="order-card-action-<%= date %>">More ▼</button>
           </div>
           <% for (let order of orders) { %>
           <div class="order-info-extended" id="order-info-extended-<%= date %>">
               <p>Table: <%= order.tableNumber %></p>
               <p><%= order.completedAt.toLocaleTimeString() %></p>
-              <p>$<%= order.totalPrice %></p>
+              <p>$<%= (order.totalPrice).toFixed(2) %></p>
               <p>Edit</p> 
           </div>
           <% } %>

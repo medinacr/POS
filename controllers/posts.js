@@ -18,6 +18,8 @@ module.exports = {
     }
   },
   getFeed: async (req, res) => {
+    const userName = req.user.userName
+
     try {
       //retrieve the selected table from mongodb
       const categories = await Categories.find().sort({ createdAt: "desc" }).lean();
@@ -26,7 +28,7 @@ module.exports = {
       const tables = await Tables.find({userId: loggedUser});
 
       res.locals.feed = true;
-      res.render("feed.ejs", { categories: categories, id: req.params.id, users: req.users, users: users, tables: tables});
+      res.render("feed.ejs", { categories: categories, id: req.params.id, users: req.users, users: users, tables: tables, loggedUser: loggedUser, userName: userName});
     } catch (err) {
       console.log(err);
     }
@@ -127,6 +129,7 @@ module.exports = {
   },
   getOrders: async (req, res) => {
     const loggedUser = req.user.id
+    const userName = req.user.userName
 
     try {
       const data = await Order.find({userId: loggedUser})
@@ -146,7 +149,7 @@ module.exports = {
         dateMap.set(date.toLocaleDateString(), dateOrders)
       }
       const myObj = Object.fromEntries(dateMap);
-      res.render('orders.ejs', { data: data , dateMap: myObj});
+      res.render('orders.ejs', { data: data , dateMap: myObj, loggedUser: loggedUser, userName: userName});
     } catch(err) {
       console.log(err)
     }

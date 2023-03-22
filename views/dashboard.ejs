@@ -11,7 +11,9 @@
   <link rel="stylesheet" href="/css/style.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
-  
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <title>KingPOS</title>
 </head>
 <body>
@@ -22,121 +24,141 @@
 
     <div class="dashboard--container">
       <section class="dashboard">
+        <div class="dashboard--header">
         <h1>Dashboard</h1>
         <p>Overview of sales, purchases and products</p>
+        </div>
+        <div class="date--buttons">
+          <p>Date</p>
+          <p>Today's Date</p>
+          <p>Button</p>
+          <form>
+          <input type="text" class="form-control" id="datepicker" value="DATE">
+          </form>
+        </div>
+        <div class="orders--container">
+          <div class="orders--card orders">
+            <p class="orders--title">Orders</p>
+            <p class="orders--quantity"><%= filteredData.length %></p>
+            <p class="orders--percent">0 %</p>
+          </div>
+          <div class="orders--card average--orders">
+            <p class="orders--title">Avg Orders Value</p>
+            <p class="orders--quantity">$<%= (filteredData.reduce((acc, order) => { return acc + order.totalPrice;}, 0)).toFixed(2); %></p>
+            <p class="orders--percent">0 %</p>
+          </div>
+          <div class="orders--card items--sold">
+            <p class="orders--title">Items Sold</p>
+            <p class="orders--quantity"><%= filteredData.reduce((acc, order) => { return acc + order.items.length;}, 0); %></p>
+            <p class="orders--percent">0 %</p>
+          </div>
+        </div>
+        <div class="chart-container">
+          <h1 class="chart-title">Sales</h1>
+          <h1 class="chart-price"></h1>
+          <canvas id="my-chart"></canvas>
+        </div>
       </section>
-      <section class="orders--container">
-        <div class="orders--card orders">
-          <p class="orders--title">Orders</p>
-          <p class="orders--quantity">7</p>
-          <p class="orders--percent">0 %</p>
-        </div>
-        <div class="orders--card average--orders">
-          <p class="orders--title">Avg Orders Value</p>
-          <p class="orders--quantity">7</p>
-          <p class="orders--percent">0 %</p>
-        </div>
-        <div class="orders--card items--sold">
-          <p class="orders--title">Items Sold</p>
-          <p class="orders--quantity">7</p>
-          <p class="orders--percent">0 %</p>
-        </div>
-        <div class="orders--card items--sold">
-          <p class="orders--title">Total Items</p>
-          <p class="orders--quantity">7</p>
-          <p class="orders--percent">0 %</p>
-        </div>
-      </section>
-      <section class="sales--chart">
-        <div>
-          <canvas id="myChart"></canvas>
-        </div>
-        <div>          
-      </section>
-      <div class="orders--card items--sold">
-        <p class="orders--title">Total Items</p>
-        <p class="orders--quantity">7</p>
-        <p class="orders--percent">0 %</p>
-      </div>
-      <div class="orders--card items--sold">
-        <p class="orders--title">Total Items</p>
-        <p class="orders--quantity">7</p>
-        <p class="orders--percent">0 %</p>
-      </div>
-      <div class="orders--card items--sold">
-        <p class="orders--title">Total Items</p>
-        <p class="orders--quantity">7</p>
-        <p class="orders--percent">0 %</p>
-      </div>
-      <div class="orders--card items--sold">
-        <p class="orders--title">Total Items</p>
-        <p class="orders--quantity">7</p>
-        <p class="orders--percent">0 %</p>
-      </div>
-      <div class="orders--card items--sold">
-        <p class="orders--title">Total Items</p>
-        <p class="orders--quantity">7</p>
-        <p class="orders--percent">0 %</p>
-      </div>
-      <div class="orders--card items--sold">
-        <p class="orders--title">Total Items</p>
-        <p class="orders--quantity">7</p>
-        <p class="orders--percent">0 %</p>
-      </div>
-      <div class="orders--card items--sold">
-        <p class="orders--title">Total Items</p>
-        <p class="orders--quantity">7</p>
-        <p class="orders--percent">0 %</p>
-      </div>
-      <div class="orders--card items--sold">
-        <p class="orders--title">Total Items</p>
-        <p class="orders--quantity">7</p>
-        <p class="orders--percent">0 %</p>
-      </div>
-      <div class="orders--card items--sold">
-        <p class="orders--title">Total Items</p>
-        <p class="orders--quantity">7</p>
-        <p class="orders--percent">0 %</p>
-      </div>
-      <div class="orders--card items--sold">
-        <p class="orders--title">Total Items</p>
-        <p class="orders--quantity">7</p>
-        <p class="orders--percent">0 %</p>
-      </div>
-      <div class="orders--card items--sold">
-        <p class="orders--title">Total Items</p>
-        <p class="orders--quantity">7</p>
-        <p class="orders--percent">0 %</p>
-      </div>
-      <div class="orders--card items--sold">
-        <p class="orders--title">Total Items</p>
-        <p class="orders--quantity">7</p>
-        <p class="orders--percent">0 %</p>
-      </div>
     </div>
+
   </div>
+  <script>
+    const data = JSON.parse('<%-JSON.stringify(data)%>');
+    const user = JSON.parse('<%-JSON.stringify(loggedUser)%>')
+    const filteredData = JSON.parse('<%- JSON.stringify(filteredData) %>');
+    
+    const date = new Date().toLocaleDateString(); // the date for which you want to create the chart
+
+    const hourSales = new Array(24).fill(0); // initialize an array to hold the total sales for each hour of the day
+    
+    filteredData.forEach(order => {
+      const completedAt = new Date(order.completedAt);
+      const hour = completedAt.getHours();
+      const total = order.totalPrice;
+      hourSales[hour] += total;
+    });
+    console.log(data)    
+    const ctx = document.getElementById('my-chart');
+    const myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: hourSales.map((total, hour) => `${hour}:00-${hour+1}:00`),
+        datasets: [{
+          data: hourSales,
+          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            font: {
+              size: 20,
+              family: 'Arial',
+              weight: 'bold'
+            },
+            color: 'black'
+          },
+          legend: {
+            display: false
+          }
+        },
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Time of Day'
+            }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Sales'
+            }
+          }
+        },
+      }
+    });
+
+    $(function () {
+  $("#datepicker").datepicker({
+    onSelect: function (dateText) {
+      const selectedDate = new Date(dateText); // convert the date string to a Date object
+      const selectedDay = selectedDate.getDate(); // get the day of the selected date
+      
+      // filter the orders to only include orders completed on the selected date
+      const ordersOnSelectedDate = data.filter(order => {
+        const completedAt = new Date(order.completedAt);
+        return completedAt.getDate() === selectedDay;
+      });
+      
+      // calculate the total sales, average order value, and number of items sold for the selected date
+      const totalSales = ordersOnSelectedDate.reduce((total, order) => total + order.totalPrice, 0);
+      const averageOrderValue = ordersOnSelectedDate.length > 0 ? (totalSales / ordersOnSelectedDate.length).toFixed(2) : 0;
+      const itemsSold = ordersOnSelectedDate.reduce((total, order) => total + order.items.length, 0);
+      
+      // update the chart with the sales data for the selected date
+      const hourSales = new Array(24).fill(0);
+      ordersOnSelectedDate.forEach(order => {
+        const completedAt = new Date(order.completedAt);
+        const hour = completedAt.getHours();
+        const total = order.totalPrice;
+        hourSales[hour] += total;
+      });
+      myChart.data.labels = hourSales.map((total, hour) => `${hour}:00-${hour+1}:00`);
+      myChart.data.datasets[0].data = hourSales;
+      myChart.update();
+      
+      // update the order and sales data on the page
+      document.querySelector('.orders--quantity').innerHTML = ordersOnSelectedDate.length;
+      document.querySelector('.average--orders .orders--quantity').innerHTML = `$${averageOrderValue}`;
+      document.querySelector('.items--sold .orders--quantity').innerHTML = itemsSold;
+    }
+  });
+});
+
+    </script>
 </body>
 </html>
-<script >
-const ctx = document.getElementById('myChart');
-
-new Chart(ctx, {
-  type: 'line',
-  data: {
-    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    datasets: [{
-      label: '# of Votes',
-      data: [12, 19, 3, 5, 2, 3],
-      borderWidth: 1
-    }]
-  },
-  options: {
-    scales: {
-      y: {
-        beginAtZero: true
-      }
-    },
-    responsive: false
-  }
-});
-</script>
