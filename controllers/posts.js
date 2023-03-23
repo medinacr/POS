@@ -111,10 +111,14 @@ module.exports = {
       let newOrder;
       
       if(order) {
+        const items = [];
+        for({itemName, itemQuantity, itemPrice} of data.tableNumber.items){
+          items.push({itemName, itemQuantity, itemPrice});
+        }
         newOrder = new Order({
           tableNumber: data.tableNumber.tableNumber,
           userId: mongoose.Types.ObjectId(data.tableNumber.userId),
-          items: data.tableNumber.items,
+          items,
           totalPrice: data.totalPriceBill,
           completedAt: new Date()
         })
