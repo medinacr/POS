@@ -167,26 +167,51 @@ async function order() {
   const subtotal = parseFloat(subTotalAmount.innerText.replace('$', ''))
   const tax = parseFloat(taxPriceAmount.innerText.replace('$', ''))
   const totalPriceBill = parseFloat(totalPriceAmount.innerText.replace('$', ''))
-  console.log(tableId)
-  const data = { 
-    id: dropDownLabel.id, 
-    tableNumber: selectedTable,
-    subtotal: subtotal,
-    tax: tax,
-    totalPriceBill,
-  };
-  
-  // fetch("/post/placeOrder", {
-  //   method: 'POST',
-  //   headers: {
-  //     'Accept': 'application/json',
-  //     'Content-Type': 'application/json'
-  //   },
-  //   body: JSON.stringify(data)
-  // }).then(() => {
-  //   renderItems()
-  //   window.location.reload()
-  // })
+
+  if(tableId === 'table-dropdown' || tableId === '') {
+    let timerInterval
+    Swal.fire({
+      title: 'Please Select a Table',
+      timer: 1000,
+      timerProgressBar: true,
+      didOpen: () => {
+        const b = Swal.getHtmlContainer().querySelector('b')
+        timerInterval = setInterval(() => {
+          b.textContent = Swal.getTimerLeft()
+        }, 100)
+      },
+      willClose: () => {
+        clearInterval(timerInterval)
+      }
+    }).then((result) => {
+      /* Read more about handling dismissals below */
+      if (result.dismiss === Swal.DismissReason.timer) {
+        return
+      }
+    })
+    return
+  }else {
+    const data = { 
+      id: dropDownLabel.id, 
+      tableNumber: selectedTable,
+      subtotal: subtotal,
+      tax: tax,
+      totalPriceBill,
+    };
+    console.log(tableId)
+    console.log(data)
+    fetch("/post/placeOrder", {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then(() => {
+      renderItems()
+      window.location.reload()
+    })
+  }
 }
 
 function renderItems(){

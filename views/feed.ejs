@@ -61,7 +61,7 @@
     <label class="modal-box relative" for="">
         <form action="/table/createTable" autocomplete="off" method="POST" id="categoryForm">
           <span>Table:</span>
-          <input type="text" class="input input-bordered" name="tableNumber">
+          <input type="text" pattern="[0-99]*" required class="input input-bordered" name="tableNumber" placeholder="Enter Table Number">
           <div class="modal-action">
             <button for="my-modal" class="btn" type="submit">Submit</button>
           </div>
@@ -167,5 +167,6 @@
     var tables = JSON.parse('<%-JSON.stringify(tables)%>');
   </script>
   <script src='js/main.js'></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

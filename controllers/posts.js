@@ -105,15 +105,15 @@ module.exports = {
     const user = req.user
     const data = req.body
     const orderId = mongoose.Types.ObjectId(data.id)
-    // console.log(data)
+
       try {
       const order = await Tables.findOne({ _id: orderId })
       let newOrder;
-
+      
       if(order) {
         newOrder = new Order({
           tableNumber: data.tableNumber.tableNumber,
-          userId: data.tableNumber.userId,
+          userId: mongoose.Types.ObjectId(data.tableNumber.userId),
           items: data.tableNumber.items,
           totalPrice: data.totalPriceBill,
           completedAt: new Date()
@@ -130,7 +130,7 @@ module.exports = {
   getOrders: async (req, res) => {
     const loggedUser = req.user.id
     const userName = req.user.userName
-
+ 
     try {
       const data = await Order.find({userId: loggedUser})
       const dateMap = new Map();
@@ -156,6 +156,9 @@ module.exports = {
     
   },
   getSettings: (req, res) => {
-    res.render('settings.ejs')
+    const loggedUser = req.user.id
+    const userName = req.user.userName
+
+    res.render('settings.ejs', { userName: userName })
   }
 };
