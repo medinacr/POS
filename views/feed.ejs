@@ -99,11 +99,11 @@
         <% for(let i=0; i<categories.length; i++) {%>
           <% for(let j=0; j<categories[i].items.length; j++) {%>
           <div class="item" id="<%= categories[i].items[j]._id%>" data-item ="<%= categories[i]._id%>">
-          <div class="item--location"><%= categories[i].category %></div>
-          <div class="item--title"><%= categories[i].items[j].name %></div>
-          <div class="item--price"><%= categories[i].items[j].price %></div>
+          <div class="item-text item--location"><%= categories[i].category %></div>
+          <div class="item-text item--title"><%= categories[i].items[j].name %></div>
+          <div class="item-text item--price"><%= categories[i].items[j].price %></div>
           <div class="empty"></div>
-          <div class="item--quantity">
+          <div class="item-text item--quantity">
             <button class="quantity--minus quantity--minus-disabled">-</button>
             <div class="quantity--amount">-</div>
               <button class="quantity--add">+</button>
@@ -117,24 +117,24 @@
 
       <div class="table">
         <div class='dropdown'>
-          <label tabindex="0" id="table-dropdown" class="dropdown--table m-1">Select a Table</label>
+          <label tabindex="0" id="table-dropdown" class="text dropdown--table m-1">Select a Table</label>
           <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
             <% if (tables.length) { %>
               <% for(let i=0; i<tables.length; i++) {%>
                 <li class="dropdown--item">
-                  <a id="<%= tables[i]._id %>"><%= `Table: ${tables[i].tableNumber}` %></a>
+                  <a class="text" id="<%= tables[i]._id %>"><%= `Table: ${tables[i].tableNumber}` %></a>
                 </li>
               <% } %>
             <% } else { %>
               <li class="dropdown--item">
-                <a>No tables available</a>
+                <a class="text">No tables available</a>
               </li>
             <% } %>
           </ul>
         </div>
+        <label for="add-item-modal" class="btn modal-button">+</label>
       </div>
       
-      <label for="add-item-modal" class="btn modal-button">+</label>
       
 
       <div class="order-detail">
@@ -142,22 +142,22 @@
         </div>
         <div class="reciept-container">
           <div class="subtotal-container">
-            <div class="subtotal">Subtotal</div>
+            <div class="text subtotal">Subtotal</div>
             <div class="empty"></div>
-            <div class="subtotal--price"></div>
+            <div class="text subtotal--price"></div>
           </div>
           <div class="tax-container">
-            <div class="tax">Tax 10%</div>
+            <div class="text tax">Tax 10%</div>
             <div class="empty"></div>
-            <div class="tax--price"></div>
+            <div class="text tax--price"></div>
           </div>
           <div class="reciept-dash-line"></div>
           <div class="total-container">
-            <div class="total">Total</div>
+            <div class="text total">Total</div>
             <div class="empty"></div>
-            <div class="total--price"></div>
+            <div class="text total--price"></div>
           </div>
-          <button class="place--order">Place order</button>
+          <button class="text place--order">Place order</button>
         </div>
       </div>
     </section>

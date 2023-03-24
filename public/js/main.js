@@ -223,13 +223,13 @@ function renderItems(){
 
     items.forEach((item, i) =>{
       const itemTemplate = `<div class="table-item">
-        <div class="table-item--left">
-          <p class="table-item--number">${i + 1}</p>
-          <p class="table-item--name">${item.itemName}</p>
-          <p class="table-item--quantity">x${item.itemQuantity}</p>
+        <div class="text table-item--left">
+          <p class="text table-item--number">${i + 1}</p>
+          <p class="text table-item--name">${item.itemName}</p>
+          <p class="text table-item--quantity">x${item.itemQuantity}</p>
         </div>
         <div class="empty"></div>
-        <p class="table-item--price">$ ${item.itemPrice * item.itemQuantity} </p>
+        <p class="text table-item--price">$ ${item.itemPrice * item.itemQuantity} </p>
       </div>`
       tableItemContainer.insertAdjacentHTML('beforeend', itemTemplate);
     })

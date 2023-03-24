@@ -567,3 +567,137 @@ body {
   }
   
 }
+
+@media only screen and (min-width: 1024px) and (max-width: 2560px) {
+  /* CSS styles for laptop */
+  .root-container {
+    height: auto;
+  }   
+  .text {
+    font-size: 16px;
+  }
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+
+  /* NAV */
+  .nav-container{
+    width: 265px;
+    padding: 10px;
+  }
+  .nav {
+    margin-top: 34px;
+  }
+  .clock {
+    margin-top: 34px;
+  }
+  .clock-date {
+    font-size: 16px;
+  }
+  .clock-time {
+    font-size: 25px;
+  }
+  .nav--item {
+    font-size: 16px;
+  }
+  .user {
+    font-size: 16px;
+  }
+  .user--profile {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+  .logout-container svg {
+    width: 25px;
+  }
+  .logo-svg {
+    width: 166px;
+    padding-top: 14px;
+  }
+
+  /* Main-Content Catergory Select */
+  .main {
+    margin-left: 267px;
+    padding: 18px;
+  }
+  .search-input {
+    width: 145px;
+    padding: 7px 37px;
+    font-size: 16px;
+  }
+  .btn {
+    font-size: 16px;
+  }
+  .categories {
+    height: auto;
+    margin-top: 18px;
+  }
+  .category--title {
+    font-size: 16px;
+    margin-top: 16px;
+  }
+  .category--amount {
+    font-size: 16px;
+  }
+  .category {
+    padding: 14px;
+  }
+  .items {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 20px;
+    height: 290px;
+    overflow: auto;
+  }
+  .item-text {
+    font-size: 16px;
+  }
+  .item--title {
+    font-size: 20px;
+  }
+  .quantity--add, .quantity--minus {
+    height: 25px;
+    width: 25px;
+  }
+
+  /* Checkout */
+  .checkout {
+    width: 343px;
+    padding-top: 18px;
+    padding-left: 0px;
+    padding-right: 20px;
+    padding-bottom: 0px;
+  }
+  .table-item-container {
+    overflow: auto;
+    height: 344px;
+    margin: 7px;
+  }
+  .reciept-dash-line {
+    margin-top: 20px;
+    padding-bottom: 14px;
+  }
+  .place--order {
+    margin-top: 20px;
+    padding: 13px;
+  }
+  .place--order:hover {
+    border: 2px rgb(77, 74, 163) solid;
+    margin-top: 20px;
+    padding: 13px;
+    font-size: 16px;
+  }
+  .reciept-container {
+    margin-top: 47px;
+  }
+  .table-item {
+    padding: 15px 15px;
+    margin-top: 12px;
+  }
+  
+
+}
