@@ -98,11 +98,21 @@ body {
   color:white;
   border-radius: 10px;
 }
+.nav-item-user {
+  padding-right: 154px;
+}
+.nav-bottom {
+  margin-bottom: 20px;
+}
 .users {
  display: flex;
  flex-direction: column;
- padding-bottom: 30px;
- padding-left: 20px;
+ /* padding-bottom: 30px;
+ padding-left: 20px; */
+
+ margin-top: 10px;
+ padding: 20px;
+ padding-right: 200px;
 }
 .user-container {
   display: inline-flex;
@@ -132,11 +142,13 @@ body {
   align-items: center;
   margin-top: 32px;
 }
-.user-container:hover {
+/* .user-container:hover {
   background-color: #1d1d1d;
   color:white;
   border-radius: 10px;
-}
+  width: 216px;
+  height: 55px;
+} */
 .user--logout {
   margin-left: 10px;
   font-size: 20px;
@@ -595,6 +607,10 @@ body {
   justify-content: space-evenly;
   padding-top: 35px;
 }
+.calendar-icon {
+
+}
+
 
 @media only screen and (min-height: 768px) and (max-height: 1035px) {
   /* CSS styles for tablet landscape screens */
@@ -726,7 +742,10 @@ body {
     border: 2px solid;
     position: relative;
     border-radius: 8px;
-    padding: 17px
+    padding: 10px
+  }
+  .dropdown--table {
+    font-size: 14px;
   }
 
   /* Checkout */
@@ -767,7 +786,13 @@ body {
   /* /DASHBOARD */
   .dashboard--container {
     margin-left: 262px;
-    width: 100%;
+    width: 1200px;
+  }
+  .dashboard {
+    padding: 50px;
+  }
+  .chart-container {
+    width: 1026px;
   }
   /* /ORDERS */
   .orders-container {
@@ -780,5 +805,24 @@ body {
   .orders-info-card {
     padding: 21px;
   }
-
+  .form-control {
+    color: black;
+    width: 149px;
+    height: 36px;
+    background: gray;
+    border: 2px solid white;
+  }
+  .date-select-container {
+    position: relative;
+  }
+  .calendar-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    z-index: 1;
+  }
+  .form-control {
+    padding-right: 30px;
+  }
 }

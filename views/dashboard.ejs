@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <title>KingPOS</title>
 </head>
 <body>
@@ -29,10 +30,10 @@
           <p>Overview of sales, purchases and products</p>
         </div>
         <div class="date--buttons">
-          <!-- <form>
-            <input type="text" class="form-control" id="datepicker" value="DATE">
-          </form> -->
-          <button type="button" class="btn btn-default" id="datepicker"><img src="calendar.png" alt="calendar"></button>
+          <form class="date-select-container">
+            <input type="text" class="form-control" id="datepicker" value="Today">
+            <p class="fa fa-calendar calendar-icon"></p>
+          </form>
           <p> <%= todaysDate %> </p>
         </div>
         <div class="orders--container">
@@ -154,7 +155,7 @@
         const totalSales = ordersOnSelectedDate.reduce((total, order) => total + order.totalPrice, 0);
         const averageOrderValue = ordersOnSelectedDate.length > 0 ? (totalSales / ordersOnSelectedDate.length).toFixed(2) : 0;
         const itemsSold = ordersOnSelectedDate.reduce((total, order) => total + order.items.length, 0);
-      
+        console.log(averageOrderValue)
         // update the chart with the sales data for the selected date
         const hourSales = new Array(24).fill(0);
         ordersOnSelectedDate.forEach(order => {

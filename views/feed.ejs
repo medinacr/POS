@@ -17,14 +17,14 @@
 
 <!-- Add Category  -->
   <input type="checkbox" id="category-modal" class="modal-toggle" />
-  <label for="category-modal" class="modal cursor-pointer">
+  <label for="category-modal" class="text modal cursor-pointer">
     <label class="modal-box relative" for="">
-      <h1 class="add-item-text">Add Category</h1>
+      <h1 class=" text add-item-text">Add Category</h1>
         <form action="/category/createCategory" autocomplete="off" method="POST">
           <span>Category</span>
           <input type="text" class="input input-bordered" id="category" name="category">
           <div class="modal-action">
-            <button for="my-modal" class="btn" type="submit">Submit</button>
+            <button for="my-modal" class="text btn" type="submit">Submit</button>
           </div>
         </form>
     </label>
@@ -33,10 +33,10 @@
 <!-- Add Item  -->
   <input type="checkbox" id="item-modal" class="modal-toggle" />
   <label for="item-modal" class="modal cursor-pointer">
-    <label class="modal-box relative" for="">
-      <h1 class="add-item-text">Add Item</h1>
+    <label class="text modal-box relative" for="">
+      <h1 class="text add-item-text">Add Item</h1>
       <div class="dropdown">
-        <label class="item-dropdown" tabindex="0" class="btn m-1">Select Category</label>
+        <label class="text item-dropdown" tabindex="0" class="btn m-1">Select Category</label>
         <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
           <% for(var i=0; i<categories.length; i++) {%> 
           <li><a class="text categoryId" data-id="<%=categories[i]._id%> "><%= categories[i].category %></a></li>
@@ -81,8 +81,8 @@
       <label class="search-label">
         <input class="search-input" type="text" placeholder="Search">
         <!-- The button to open modal -->
-        <label for="category-modal" class="btn modal-button">Add Category</label>
-        <label for="item-modal" class="btn modal-button">Add Item</label>
+        <label for="category-modal" class="text btn modal-button">Add Category</label>
+        <label for="item-modal" class="text btn modal-button">Add Item</label>
       </label>
 
       <div class="categories">
