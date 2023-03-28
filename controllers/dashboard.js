@@ -1,4 +1,3 @@
-const cloudinary = require("../middleware/cloudinary");
 const Categories = require("../models/Categories");
 const Users = require('../models/User')
 const Tables = require('../models/Tables')
@@ -16,6 +15,7 @@ module.exports = {
 
       try {
         const data = await Order.find({userId: loggedUser})
+        const categoryData = await Categories.find()
         const dateMap = new Map();
         for(let i=0; i < data.length; i++) {
   
@@ -37,7 +37,7 @@ module.exports = {
           const completedAtDate = new Date(order.completedAt).toLocaleDateString()
           return loggedUser && date === completedAtDate
         });
-        res.render('dashboard.ejs', { data: data , dateMap: myObj, loggedUser: loggedUser, filteredData: filteredData, userName: userName});
+        res.render('dashboard.ejs', { data: data , dateMap: myObj, loggedUser: loggedUser, filteredData: filteredData, userName: userName, categoryData: categoryData, todaysDate: date});
       } catch(err) {
         console.log(err)
       }

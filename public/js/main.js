@@ -17,11 +17,12 @@ const taxPriceAmount = document.querySelector('.tax--price')
 const totalPriceAmount = document.querySelector('.total--price')
 const placeOrder = document.querySelector('.place--order')
 const expandOrderButton = document.querySelectorAll('.order-card-action')
+const itemDropdownMenu = document.querySelector('.item-dropdown')
+const itemDropdownContent = document.querySelector('.dropdown-content')
 
 Array.from(expandOrderButton).forEach((el) => {
   el.addEventListener('click', expandOrderInfo)
 })
-
 Array.from(selectCategory).forEach((el)=>{
   el.addEventListener('click', categorySelectionForm)
 })
@@ -42,12 +43,14 @@ Array.from(tableDropdown).forEach((el) => {
   const parentNode = el.parentNode
   el.addEventListener('click',() => tableSelect(tableId, tableNumber, parentNode) )
 })
+
 placeOrder.addEventListener('click', order)
 
 function categorySelectionForm(){
   const categoryId = this.dataset.id
   categoryForm.action = `/category/createItem/${categoryId}`;
-  // Add when clicked the display should be darkened, else not 
+  // Add when clicked the display should be darkened, else not
+
 }
 
 function categorySelect(categoryId){

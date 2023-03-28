@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,6 +19,7 @@
   <input type="checkbox" id="category-modal" class="modal-toggle" />
   <label for="category-modal" class="modal cursor-pointer">
     <label class="modal-box relative" for="">
+      <h1 class="add-item-text">Add Category</h1>
         <form action="/category/createCategory" autocomplete="off" method="POST">
           <span>Category</span>
           <input type="text" class="input input-bordered" id="category" name="category">
@@ -33,23 +34,24 @@
   <input type="checkbox" id="item-modal" class="modal-toggle" />
   <label for="item-modal" class="modal cursor-pointer">
     <label class="modal-box relative" for="">
+      <h1 class="add-item-text">Add Item</h1>
       <div class="dropdown">
-        <label tabindex="0" class="btn m-1">Select Category</label>
+        <label class="item-dropdown" tabindex="0" class="btn m-1">Select Category</label>
         <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
           <% for(var i=0; i<categories.length; i++) {%> 
-          <li><a class="categoryId" data-id="<%=categories[i]._id%> "><%= categories[i].category %></a></li>
+          <li><a class="text categoryId" data-id="<%=categories[i]._id%> "><%= categories[i].category %></a></li>
           <% } %>
         </ul>
       </div>
       
         <form action="/category/createItem" autocomplete="off" method="POST" id="categoryForm">
-          <span>Item</span>
-          <input type="text" class="input input-bordered" id="itemName" name="itemName">
-          <br>
-          <span>Price</span>
-          <input type="text" class="input input-bordered" id="itemPrice" name="itemPrice">
-          <div class="modal-action">
-            <button for="my-modal" class="btn" type="submit">Submit</button>
+          <div class="category-dropdown">
+            <input type="text" class="input input-bordered" id="itemName" name="itemName" placeholder="Item Name">
+            <br>
+            <input type="text" class="input input-bordered" id="itemPrice" name="itemPrice" placeholder="Item Price">
+            <div class="modal-action">
+              <button for="my-modal" class="btn" type="submit">Submit</button>
+            </div>
           </div>
         </form>
     </label>
@@ -115,7 +117,7 @@
     
     <section class="checkout"> 
 
-      <div class="table">
+      <div class="table-select-container">
         <div class='dropdown'>
           <label tabindex="0" id="table-dropdown" class="text dropdown--table m-1">Select a Table</label>
           <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">

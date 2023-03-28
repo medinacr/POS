@@ -24,32 +24,32 @@
       <div class="orders-section">
       <section class="orders-header">
         <h1>ORDERS</h1>
-        <p><%= data.length %> total orders</p>
+        <p class="text"><%= data.length %> total orders</p>
       </section>
       <section class="orders-header-details">
-        <p>Date</p>
-        <p>Orders Count</p>
-        <p>Total</p>
-        <p>Actions</p>
+        <p class="text">Date</p>
+        <p class="text">Orders Count</p>
+        <p class="text">Total</p>
+        <p class="text">Actions</p>
       </section>
 
       <% for (let date in dateMap) { %>
         <section class="orders-info-container">
           <div class="orders-info-card">
-            <p class="order-card-date"><%= date %></p>
+            <p class="text order-card-date"><%= date %></p>
             <% let orders = dateMap[date]; %>
             <% let orderCount = orders.length; %>
             <% let orderTotal = orders.reduce((total, order) => total + order.totalPrice, 0); %>
-            <p class="order-card-count"><%= orderCount %></p>
-            <p class="order-card-total">$<%= (orderTotal).toFixed(2) %></p>
-            <button class="order-card-action" id="order-card-action-<%= date %>">More ▼</button>
+            <p class="text order-card-count"><%= orderCount %></p>
+            <p class="text order-card-total">$<%= (orderTotal).toFixed(2) %></p>
+            <button class="text order-card-action" id="order-card-action-<%= date %>">More ▼</button>
           </div>
           <% for (let order of orders) { %>
           <div class="order-info-extended" id="order-info-extended-<%= date %>">
-              <p>Table: <%= order.tableNumber %></p>
-              <p><%= order.completedAt.toLocaleTimeString() %></p>
-              <p>$<%= (order.totalPrice).toFixed(2) %></p>
-              <p>Edit</p> 
+              <p class="text">Table: <%= order.tableNumber %></p>
+              <p class="text"><%= order.completedAt.toLocaleTimeString() %></p>
+              <p class="text">$<%= (order.totalPrice).toFixed(2) %></p>
+              <p class="text">Edit</p> 
           </div>
           <% } %>
         </section>
