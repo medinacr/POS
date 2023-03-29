@@ -14,9 +14,11 @@ module.exports = {
       const date = new Date().toLocaleDateString();
 
       try {
+
         const data = await Order.find({userId: loggedUser})
         const categoryData = await Categories.find()
         const dateMap = new Map();
+
         for(let i=0; i < data.length; i++) {
   
           const orderDate = data[i].completedAt
@@ -37,7 +39,22 @@ module.exports = {
           const completedAtDate = new Date(order.completedAt).toLocaleDateString()
           return loggedUser && date === completedAtDate
         });
-        res.render('dashboard.ejs', { data: data , dateMap: myObj, loggedUser: loggedUser, filteredData: filteredData, userName: userName, categoryData: categoryData, todaysDate: date});
+
+        //OrderItems
+         // Hash Map 
+
+        const itemMap = {}
+        let allItems = data.map(order => order.items.map(items => items.itemName)).flat()
+
+        for(let i=0; i < allItems.length; i++) {
+          if(itemMap[allItems[i]]) {
+            itemMap[allItems[i]] += 1;
+          } else {
+            itemMap[allItems[i]] = 1;
+          }
+        }
+
+        res.render('dashboard.ejs', { data: data , dateMap: myObj, loggedUser: loggedUser, filteredData: filteredData, userName: userName, categoryData: categoryData, todaysDate: date, itemsChart: itemMap});
       } catch(err) {
         console.log(err)
       }

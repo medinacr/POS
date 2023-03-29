@@ -102,7 +102,9 @@ body {
   padding-right: 154px;
 }
 .nav-bottom {
-  margin-bottom: 20px;
+  height: 190px;
+  display: flex;
+  flex-direction: column;
 }
 .users {
  display: flex;
@@ -132,6 +134,8 @@ body {
   background-color: #c9caed;
   border-radius: 100%;
   font-size: 20px;
+  margin-top: 5px;
+  margin-right: 5px;
 }
 .user--name {
   margin-left: 10px;
@@ -402,7 +406,7 @@ body {
   background-color: #2a2b2d;
   padding: 30px 20px;
   border-radius: 10px;
-  margin-top: 50px;
+  margin-top: 84px;
 }
 .subtotal-container, .tax-container, .total-container {
   display: flex;
@@ -527,7 +531,10 @@ body {
   border-radius: 10px;
   width: 500px;
   height: 400px;
-} 
+}
+.items-chart {
+  margin-top: 35px;
+}
 .date--buttons {
   display: flex;
   justify-content: space-between;

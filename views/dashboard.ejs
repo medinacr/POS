@@ -70,6 +70,9 @@
             <p class="orders--percent">View</p>
           </div>
         </section>
+        <div class="chart-container items-chart">
+          <canvas id="myNewChart"></canvas>
+        </div>
       </section>
     </div>
 
@@ -81,7 +84,9 @@
     const filteredData = JSON.parse('<%- JSON.stringify(filteredData) %>');
     const categoryData = JSON.parse('<%- JSON.stringify(categoryData) %>')
     const todaysDate = JSON.parse('<%- JSON.stringify(categoryData) %>')
-
+    const itemsChart = JSON.parse('<%- JSON.stringify(itemsChart) %>')
+    console.log(itemsChart)
+    
     // Client Side 
     const date = new Date().toLocaleDateString(); // the date for which you want to create the chart
     const hourSales = new Array(24).fill(0); // initialize an array to hold the total sales for each hour of the day
@@ -176,6 +181,41 @@
     }).datepicker('show');
   });
 });
+  
+    //Most Sold Items Chart
+
+    const labels = Object.keys(itemsChart);
+    const values = Object.values(itemsChart);
+    const dataItems = labels.map((label, index) => {
+      return { label, value: values[index] };
+    });
+    console.log(dataItems)
+
+    const chart = document.getElementById('myNewChart')
+    const chartItems = new Chart(chart, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: '# of Items',
+          data: values,
+          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        scales: {
+          xAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+
   </script>
 </body>
 </html>
