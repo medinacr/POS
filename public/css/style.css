@@ -481,6 +481,10 @@ body {
 .dashboard--header {
   height: 100px;
 }
+.dashboard--header h1 {
+  font-weight: bold;
+  font-size: 24px;
+}
 
  .orders--container {
   display: flex;
@@ -614,10 +618,45 @@ body {
   justify-content: space-evenly;
   padding-top: 35px;
 }
-.calendar-icon {
 
+/* Categories Page */
+.category-buttons {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 42px;
 }
 
+.category-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 42px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid white;
+}
+.category-card-container {
+  height: 850px;
+  overflow: auto;
+}
+
+.category-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 90px;
+  padding: 10px;
+}
+.category-card p:first-child {
+  margin-right: auto;
+}
+.category-card button:nth-child(2) {
+  padding-right: 10px;
+}
+.category-card:nth-child(odd) {
+  background-color: gray;
+}
+#category-search-input {
+  color: black;
+}
 
 @media only screen and (min-height: 768px) and (max-height: 1035px) {
   /* CSS styles for tablet landscape screens */

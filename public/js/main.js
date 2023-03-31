@@ -19,6 +19,25 @@ const placeOrder = document.querySelector('.place--order')
 const expandOrderButton = document.querySelectorAll('.order-card-action')
 const itemDropdownMenu = document.querySelector('.item-dropdown')
 const itemDropdownContent = document.querySelector('.dropdown-content')
+const categorySearchInput = document.querySelector('.category-search-input')
+const categoryCards = document.querySelectorAll('.category-card')
+const categoryDelete = document.querySelectorAll('.category-delete')
+
+if(categorySearchInput) {
+  categorySearchInput.addEventListener('input', () => {
+    let searchQuery = categorySearchInput.value.toLowerCase().trim()
+  
+    categoryCards.forEach( card => {
+      const categoryName = card.querySelector('p').textContent.toLowerCase();
+      console.log(categoryName)
+      if(categoryName.includes(searchQuery)) {
+        card.style.display = 'flex';
+      }else {
+        card.style.display = 'none'
+      }
+    })
+  })
+}
 
 Array.from(expandOrderButton).forEach((el) => {
   el.addEventListener('click', expandOrderInfo)
@@ -43,8 +62,14 @@ Array.from(tableDropdown).forEach((el) => {
   const parentNode = el.parentNode
   el.addEventListener('click',() => tableSelect(tableId, tableNumber, parentNode) )
 })
+Array.from(categoryDelete).forEach((el ) => {
+  const tableId = el.parentNode.id
+  console.log(el.parentNode.id)
+  el.addEventListener('click',() => deleteCategory(tableId))
+})
 
 placeOrder.addEventListener('click', order)
+
 
 function categorySelectionForm(){
   const categoryId = this.dataset.id
@@ -259,6 +284,26 @@ function expandOrderInfo(event) {
     });
   }
 }
+
+async function deleteCategory(tableId) {
+  const id = {tableId}
+
+  if(!window.confirm('Are you sure you want to delete this category?')){
+    return
+  }else {
+    fetch('/deleteCategory', {
+      method: 'Delete',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(id)
+    }).then(() => {
+      window.reload()
+    })
+  }
+}
+
 
 renderItems();
 })()

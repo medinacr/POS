@@ -1,4 +1,3 @@
-const cloudinary = require("../middleware/cloudinary");
 const Categories = require("../models/Categories");
 const Users = require('../models/User')
 const Tables = require('../models/Tables')
@@ -159,10 +158,32 @@ module.exports = {
     }
     
   },
+  getCategories: async (req, res) => {
+    const loggedUser = req.user.id
+    const userName = req.user.userName
+
+    try {
+      const categoryData = await Categories.find()
+      res.render('categories.ejs', { userName: userName, categoryData: categoryData })
+    } catch (err) {
+      console.log(err)
+    }
+
+  },
   getSettings: (req, res) => {
     const loggedUser = req.user.id
     const userName = req.user.userName
 
     res.render('settings.ejs', { userName: userName })
+  },
+  deleteCategory: async (req, res) => {
+
+    try{
+      const tableId = req.body.tableId
+      await Categories.findOneAndDelete({_id: tableId})
+
+    } catch(err) {
+      console.log(err)
+    }
   }
 };
