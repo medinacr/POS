@@ -1,6 +1,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/style.css" />
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
     <main>
@@ -16,26 +17,6 @@
                         <div class="alert alert-info"><%= el.msg %></div>
                     <% }) %>    
                 <% } %>
-                <!-- <form action="/signup" method="POST">
-                    <div class="mb-3">
-                        <label for="userName" class="form-label">User Name</label>
-                        <input type="text" class="form-control" id="userName" name="userName">
-                      </div>
-                    <div class="mb-3">
-                      <label for="exampleInputEmail1" class="form-label">Email address</label>
-                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
-                      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                    </div>
-                    <div class="mb-3">
-                      <label for="password" class="form-label">Password</label>
-                      <input type="password" class="form-control" id="password" name="password">
-                    </div>
-                    <div class="mb-3">
-                        <label for="confirmPassword" class="form-label">Confirm Password</label>
-                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
-                      </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                  </form> -->
             </section>
         </div>
 
@@ -45,7 +26,7 @@
               <div class="text-center text-4xl font-medium">Create Account</div>
               
               <form action="/signup" method="POST">
-                  <div class="w-full transform border-b-2 bg-transparent text-lg duration-300 focus-within:border-indigo-500">
+                  <div class="w-full transform border-b-2 bg-transparent text-lg duration-300 focus-within:border-indigo-500 email">
                       
                       <input
                           type="text"
@@ -57,7 +38,7 @@
                       />
                   </div>
           
-                  <div class="w-full transform border-b-2 bg-transparent text-lg duration-300 focus-within:border-indigo-500">
+                  <div class="w-full transform border-b-2 bg-transparent text-lg duration-300 focus-within:border-indigo-500 email">
                       <input
                       type="email"
                       for="exampleInputEmail1"
@@ -69,7 +50,7 @@
                       />
                   </div>
 
-                  <div class="w-full transform border-b-2 bg-transparent text-lg duration-300 focus-within:border-indigo-500">
+                  <div class="w-full transform border-b-2 bg-transparent text-lg duration-300 focus-within:border-indigo-500 email">
                       
                     <input
                         type="password"
@@ -81,10 +62,10 @@
                     />
                 </div>
 
-                <div class="w-full transform border-b-2 bg-transparent text-lg duration-300 focus-within:border-indigo-500">
+                <div class="w-full transform border-b-2 bg-transparent text-lg duration-300 focus-within:border-indigo-500 email">
                       
                   <input
-                      type="passwrod"
+                      type="password"
                       for="confirmPassword"
                       id="confirmPassword"
                       name="confirmPassword"
@@ -92,17 +73,16 @@
                       class="w-full border-none bg-transparent outline-none placeholder:italic focus:outline-none"
                   />
               </div>
-                  <button type="sumbit" class="transform rounded-sm bg-indigo-600 py-2 font-bold duration-300 hover:bg-indigo-400">
+                  <button type="sumbit" class="transform rounded-sm bg-indigo-600 py-2 font-bold duration-300 hover:bg-indigo-400 login">
                       Submit
                   </button>
               </form>          
                   <p class="text-center text-lg">
                       Already have an account?
                       <a
-                      href="/"
+                      href="/login"
                       class="font-medium text-indigo-500 underline-offset-4 hover:underline"
-                      >Sign in</a
-                      >
+                      >Sign in</a>
                   </p> 
           </section>
           </main>
