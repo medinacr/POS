@@ -21,7 +21,9 @@ const itemDropdownMenu = document.querySelector('.item-dropdown')
 const itemDropdownContent = document.querySelector('.dropdown-content')
 const categorySearchInput = document.querySelector('.category-search-input')
 const categoryCards = document.querySelectorAll('.category-card')
+const categoryName = document.querySelectorAll('.category-name')
 const categoryDelete = document.querySelectorAll('.category-delete')
+const categoryEdit = document.querySelectorAll('.category-edit')
 
 if(categorySearchInput) {
   categorySearchInput.addEventListener('input', () => {
@@ -62,14 +64,32 @@ Array.from(tableDropdown).forEach((el) => {
   const parentNode = el.parentNode
   el.addEventListener('click',() => tableSelect(tableId, tableNumber, parentNode) )
 })
-Array.from(categoryDelete).forEach((el ) => {
+Array.from(categoryDelete).forEach((el) => {
   const tableId = el.parentNode.id
-  console.log(el.parentNode.id)
   el.addEventListener('click',() => deleteCategory(tableId))
 })
+Array.from(categoryEdit).forEach((el, index) => {
+  const tableId = el.parentNode.id
+  el.addEventListener('click',() => {
+    let oldCategory = categoryName[index].innerText
+    categoryDelete[index].innerText = 'CONFIRM'
+    el.innerText = 'CANCEL'
+    categoryName[index].innerHTML = `<input class="category-item" type="text" value="${oldCategory}" />`
+    
+    const inputField = document.querySelector('.category-item')
+    inputField.focus()
 
-placeOrder.addEventListener('click', order)
+    inputField.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter')
+    })
 
+    editCategory(tableId)
+  })
+})
+
+if(placeOrder) {
+  placeOrder.addEventListener('click', order)
+}
 
 function categorySelectionForm(){
   const categoryId = this.dataset.id
@@ -304,6 +324,10 @@ async function deleteCategory(tableId) {
   }
 }
 
+async function editCategory(tableId) {
+  const id = {tableId}
+  console.log('Deleting...')
+}
 
 renderItems();
 })()

@@ -37,7 +37,7 @@
           <div class="category-card-container">
               <% for(let category of categoryData) { %>
                 <div class="category-card" id="<%= category._id %>">
-                  <p><%= category.category %></p>
+                  <p class="category-name"><%= category.category %></p>
                   <button class="category-edit">EDIT</button>
                   <button class="category-delete">DELETE</button>
                 </div>
@@ -48,7 +48,6 @@
       
     <script>
       const categoryData = JSON.parse( '<%- JSON.stringify(categoryData) %>' )
-      console.log(categoryData)
     </script>
     <script src='js/main.js'></script>
   </div>

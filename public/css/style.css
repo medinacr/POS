@@ -657,6 +657,15 @@ body {
 #category-search-input {
   color: black;
 }
+.category-edit-container {
+  display: inline;
+  height: 100px;
+  width: 100px;
+  color: red;
+}
+.category-item {
+  color: black;
+}
 
 @media only screen and (min-height: 768px) and (max-height: 1035px) {
   /* CSS styles for tablet landscape screens */
