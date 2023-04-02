@@ -168,7 +168,6 @@ module.exports = {
     } catch (err) {
       console.log(err)
     }
-
   },
   getSettings: (req, res) => {
     const loggedUser = req.user.id
@@ -178,12 +177,23 @@ module.exports = {
   },
   deleteCategory: async (req, res) => {
 
-    try{
-      const tableId = req.body.tableId
-      await Categories.findOneAndDelete({_id: tableId})
+      try{
+        const tableId = req.body.tableId
+        await Categories.findOneAndDelete({_id: tableId})
 
-    } catch(err) {
+      } catch(err) {
+        console.log(err)
+      }
+  },
+  getProducts: async (req, res) => {
+    const loggedUser = req.user.id
+    const userName = req.user.userName
+
+    try {
+      const categoryData = await Categories.find()
+      res.render('products.ejs', { userName: userName, categoryData: categoryData })
+    } catch (err) {
       console.log(err)
     }
   }
-};
+}
