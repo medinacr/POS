@@ -19,6 +19,61 @@ const placeOrder = document.querySelector('.place--order')
 const expandOrderButton = document.querySelectorAll('.order-card-action')
 const itemDropdownMenu = document.querySelector('.item-dropdown')
 const itemDropdownContent = document.querySelector('.dropdown-content')
+const categorySearchInput = document.querySelector('.category-search-input')
+const categoryCards = document.querySelectorAll('.category-card')
+const categoryName = document.querySelectorAll('.category-name')
+const categoryDelete = document.querySelectorAll('.category-delete')
+const categoryEdit = document.querySelectorAll('.category-edit')
+const categoryButton = document.querySelector('.add-category-categories')
+
+if(categorySearchInput) {
+  categorySearchInput.addEventListener('input', () => {
+    let searchQuery = categorySearchInput.value.toLowerCase().trim()
+  
+    categoryCards.forEach( card => {
+      const categoryName = card.querySelector('p').textContent.toLowerCase();
+      console.log(categoryName)
+      if(categoryName.includes(searchQuery)) {
+        card.style.display = 'flex';
+      }else {
+        card.style.display = 'none'
+      }
+    })
+  })
+}
+// Add Category Button /Categories Page
+if(categoryButton) {
+  const dialog = document.querySelector('#add-category-dialog');
+  const textField = document.querySelector('#add-category-input');
+
+  categoryButton.addEventListener('click', () => {
+    dialog.style.display = 'block';
+  })
+  const submitButton = document.querySelector('#add-category-submit');
+    submitButton.addEventListener('click', () => {
+      const category = textField.value;
+      console.log(category)
+
+      fetch('category/createCategory', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({category})
+      }).then(() => {
+        window.location.reload()
+      })   
+      dialog.style.display = 'none';
+    });
+  const cancelButton = document.querySelector('#add-category-cancel');
+  cancelButton.addEventListener('click', () => {
+    const inputField = document.querySelector('#add-category-input');
+    inputField.value = '';
+    const dialog = document.querySelector('#add-category-dialog');
+    dialog.style.display = 'none';
+  });
+}
 
 Array.from(expandOrderButton).forEach((el) => {
   el.addEventListener('click', expandOrderInfo)
@@ -43,8 +98,14 @@ Array.from(tableDropdown).forEach((el) => {
   const parentNode = el.parentNode
   el.addEventListener('click',() => tableSelect(tableId, tableNumber, parentNode) )
 })
+// Array.from(categoryDelete).forEach((el) => {
+//   const tableId = el.parentNode.id
+//   el.addEventListener('click',() => deleteCategory(tableId))
+// })
 
-placeOrder.addEventListener('click', order)
+if(placeOrder) {
+  placeOrder.addEventListener('click', order)
+}
 
 function categorySelectionForm(){
   const categoryId = this.dataset.id
@@ -211,7 +272,6 @@ async function order() {
       },
       body: JSON.stringify(data)
     }).then(() => {
-      renderItems()
       window.location.reload()
     })
   }
@@ -258,6 +318,85 @@ function expandOrderInfo(event) {
       ordersInfo.classList.toggle('show');
     });
   }
+}
+
+let activeEditIndex = null;
+let activeEditToggle = false;
+
+Array.from(categoryEdit).forEach((el, index) => {
+  const tableId = el.parentNode.id;
+  const categoryDeleteButton = categoryDelete[index];
+  const categoryConfirmButton = document.createElement('button');
+  categoryConfirmButton.className = 'category-confirm';
+  categoryConfirmButton.innerText = 'CONFIRM';
+
+  el.addEventListener('click', () => {
+    const oldCategory = categoryName[index].innerText;
+
+    if (activeEditIndex !== null && activeEditIndex !== index) {
+      // Revert changes on previously active edit
+      categoryDelete[activeEditIndex].innerText = 'DELETE';
+      categoryEdit[activeEditIndex].innerText = 'EDIT';
+      categoryName[activeEditIndex].innerHTML = activeEditCategoryName;
+    }
+
+    if (activeEditIndex !== null && activeEditIndex === index) {
+      // Cancel edit
+      categoryConfirmButton.replaceWith(categoryDeleteButton.cloneNode(true));
+      el.innerText = 'EDIT';
+      categoryName[index].innerHTML = activeEditCategoryName;
+      activeEditIndex = null;
+    } else {
+      // Start edit
+      categoryDeleteButton.replaceWith(categoryConfirmButton);
+      el.innerText = 'CANCEL';
+      activeEditCategoryName = categoryName[index].innerHTML;
+      categoryName[index].innerHTML = `<input class="category-item" type="text" value="${oldCategory}" />`;
+      const inputField = document.querySelector('.category-item');
+      inputField.focus();
+      inputField.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          editCategory(tableId);
+        }
+      });
+
+      categoryConfirmButton.addEventListener('click', () => {
+        editCategory(tableId);
+      });
+
+      activeEditIndex = index;
+    }
+  });
+
+  categoryDeleteButton.addEventListener('click', () => {
+        console.log(tableId)
+        deleteCategory(tableId)
+  });
+});
+
+
+
+async function deleteCategory(tableId) {
+  const id = {tableId}
+  
+  if(!window.confirm('Are you sure you want to delete this category?')){
+    return
+  }else {
+    fetch('/deleteCategory', {
+      method: 'Delete',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(id)
+    })
+  }
+  window.location.reload()
+}
+
+async function editCategory(tableId) {
+  const id = {tableId}
+  console.log('Editing...')
 }
 
 renderItems();

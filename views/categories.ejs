@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" class="overlay">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/css-reset-and-normalize/css/reset-and-normalize.min.css">
+  <link rel="stylesheet" href="/css/style.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <title>KingPOS</title>
+</head>
+<body>
+  <div class="root-container">
+
+    <section class="nav-container">
+      <%- include('partials/header') -%>
+    </section>    
+
+      <div class="dashboard--container">
+
+        <div id="add-category-dialog" style="display:none;">
+          <input id="add-category-input" type="text" placeholder="Enter category title...">
+          <button id="add-category-submit" type="button">Submit</button>
+          <button id="add-category-cancel" type="button">Cancel</button>
+        </div>
+        
+        <section class="dashboard">
+          <div class="dashboard--header">
+            <h1>CATEGORIES</h1>
+            <p><%= categoryData.length %> Categories</p>
+          </div>
+          <div class="date-buttons category-buttons">
+            <input class="category-search-input" id="category-search-input" type="text" placeholder="Search">
+            <button class="text add-category-categories" type="text" placeholder="Add Category">Add Category</button>
+          </div>
+          <div class="category-header">
+            <p>Category</p>
+            <p>Action</p>
+          </div>
+          <div class="category-card-container">
+              <% for(let category of categoryData) { %>
+                <div class="category-card" id="<%= category._id %>">
+                  <p class="category-name"><%= category.category %></p>
+                  <button class="category-edit">EDIT</button>
+                  <button class="category-delete">DELETE</button>
+                </div>
+              <% } %> 
+          </div>
+        </section>
+      </div>
+      
+    <script>
+      const categoryData = JSON.parse( '<%- JSON.stringify(categoryData) %>' )
+    </script>
+    <script src='js/main.js'></script>
+  </div>
+</body>
+</html>

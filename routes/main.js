@@ -15,6 +15,8 @@ router.post("/login", authController.postLogin);
 router.get("/logout", authController.logout);
 router.get("/signup", authController.getSignup);
 router.post("/signup", authController.postSignup);
-router.get('/orders', ensureAuth, postsController.getOrders)
+router.get('/orders', ensureAuth, postsController.getOrders);
+router.get('/categories',ensureAuth, postsController.getCategories);
 router.get("/settings", ensureAuth, postsController.getSettings);
+router.delete("/deleteCategory", ensureAuth, postsController.deleteCategory);
 module.exports = router;
