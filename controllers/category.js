@@ -2,14 +2,17 @@ const Category = require('../models/Categories')
 
 module.exports = {
   createCategory: async (req, res) => {
+    const category = req.body.category;
     try {
-      await Category.create({
+      const createdCategory = await Category.create({
         category: req.body.category,
-      })
-      res.redirect("/feed");
+      });
+      const categoryId = createdCategory._id; // Retrieve the created _id
+      // Include categoryId in the response
+      await res.status(200).json({ itemId: categoryId })
     } catch (err) {
       console.log(err);
-      res.redirect("/feed")
+      res.redirect("/feed"); 
     }
   },
   createItem: async (req, res) => {
@@ -22,6 +25,16 @@ module.exports = {
     } catch (err) {
       console.log(err);
       res.redirect("/feed")
+    }
+  },
+  editItem: async (req, res) => {
+    const tableId = req.body.tableId
+    const edit = req.body.edit
+    try {
+      console.log(req.body)
+      await Category.updateOne({_id: tableId}, {$set: {category: edit}});
+    } catch (err) {
+      console.log(err);
     }
   }
 }

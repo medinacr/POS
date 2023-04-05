@@ -26,46 +26,67 @@ const categoryDelete = document.querySelectorAll('.category-delete')
 const categoryEdit = document.querySelectorAll('.category-edit')
 const categoryButton = document.querySelector('.add-category-categories')
 
-if(categorySearchInput) {
-  categorySearchInput.addEventListener('input', () => {
-    let searchQuery = categorySearchInput.value.toLowerCase().trim()
-  
-    categoryCards.forEach( card => {
-      const categoryName = card.querySelector('p').textContent.toLowerCase();
-      console.log(categoryName)
-      if(categoryName.includes(searchQuery)) {
-        card.style.display = 'flex';
-      }else {
-        card.style.display = 'none'
-      }
-    })
+// Define the function that updates the search results
+function updateSearchResults() {
+  let searchQuery = categorySearchInput.value.toLowerCase().trim()
+  categoryCards.forEach(card => {
+    const categoryName = card.querySelector('p').textContent.toLowerCase();
+    if (categoryName.includes(searchQuery)) {
+      card.style.display = 'flex';
+    } else {
+      card.style.display = 'none'
+    }
   })
 }
+
 // Add Category Button /Categories Page
-if(categoryButton) {
+if (categoryButton) {
   const dialog = document.querySelector('#add-category-dialog');
   const textField = document.querySelector('#add-category-input');
+  const categoryEdit = document.querySelectorAll('.category-edit')
 
   categoryButton.addEventListener('click', () => {
     dialog.style.display = 'block';
   })
-  const submitButton = document.querySelector('#add-category-submit');
-    submitButton.addEventListener('click', () => {
-      const category = textField.value;
-      console.log(category)
 
-      fetch('category/createCategory', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({category})
-      }).then(() => {
-        window.location.reload()
-      })   
-      dialog.style.display = 'none';
+  const submitButton = document.querySelector('#add-category-submit');
+  submitButton.addEventListener('click', async (event) => {
+    const category = textField.value;
+
+    const response = await fetch('category/createCategory', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ category })
+    })
+
+    const data = await response.json()
+
+    // Update the DOM with the new category data
+    const categoryCardContainer = document.querySelector('.category-card-container');
+    const categoryCard = `
+        <div class="category-card" id="${data.itemId}">
+          <p class="category-name">${category}</p>
+          <button class="category-edit">EDIT</button>
+          <button class="category-delete">DELETE</button>
+        </div>
+      `;
+    categoryCardContainer.innerHTML += categoryCard;
+    dialog.style.display = 'none';
+    console.log(categoryCards)
+    // Attach event listener to the newly created "Edit" button
+    const newCategoryEditButton = document.querySelector('.category-edit:last-child');
+    newCategoryEditButton.addEventListener('click', () => {
+      // Code for handling edit button click event
+      console.log('click')
     });
+
+    // Update the search results
+    updateSearchResults();
+  });
+
   const cancelButton = document.querySelector('#add-category-cancel');
   cancelButton.addEventListener('click', () => {
     const inputField = document.querySelector('#add-category-input');
@@ -74,6 +95,82 @@ if(categoryButton) {
     dialog.style.display = 'none';
   });
 }
+
+// Add event listener to the search input
+if (categorySearchInput) {
+  categorySearchInput.addEventListener('input', () => {
+    updateSearchResults();
+  })
+}
+
+
+// if(categorySearchInput) {
+//   categorySearchInput.addEventListener('input', () => {
+//     let searchQuery = categorySearchInput.value.toLowerCase().trim()
+  
+//     categoryCards.forEach( card => {
+//       const categoryName = card.querySelector('p').textContent.toLowerCase();
+//       console.log(categoryName)
+//       if(categoryName.includes(searchQuery)) {
+//         card.style.display = 'flex';
+//       }else {
+//         card.style.display = 'none'
+//       }
+//     })
+//   })
+// }
+
+// // Add Category Button /Categories Page
+// if(categoryButton) {
+//   const dialog = document.querySelector('#add-category-dialog');
+//   const textField = document.querySelector('#add-category-input');
+//   const categoryEdit = document.querySelectorAll('.category-edit')
+  
+//   categoryButton.addEventListener('click', () => {
+//     dialog.style.display = 'block';
+//   }) 
+//   const submitButton = document.querySelector('#add-category-submit');
+//     submitButton.addEventListener('click', async (event) => {
+//       const category = textField.value;
+
+//       const response = await fetch('category/createCategory', {
+//         method: 'POST',
+//         headers: {
+//           'Accept': 'application/json',
+//           'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({category})
+//       })
+      
+//       const data = await response.json()
+      
+//       // Update the DOM with the new category data
+//       const categoryCardContainer = document.querySelector('.category-card-container');
+//       const categoryCard = `
+//         <div class="category-card" id="${data.itemId}">
+//           <p class="category-name">${category}</p>
+//           <button class="category-edit">EDIT</button>
+//           <button class="category-delete">DELETE</button>
+//         </div>
+//       `;
+//       categoryCardContainer.innerHTML += categoryCard;
+//       dialog.style.display = 'none';
+
+//       // Attach event listener to the newly created "Edit" button
+//       const newCategoryEditButton = document.querySelector('.category-edit:last-child');
+//       newCategoryEditButton.addEventListener('click', () => {
+//       // Code for handling edit button click event
+//       console.log('click')
+//       });
+//     });
+//   const cancelButton = document.querySelector('#add-category-cancel');
+//   cancelButton.addEventListener('click', () => {
+//     const inputField = document.querySelector('#add-category-input');
+//     inputField.value = '';
+//     const dialog = document.querySelector('#add-category-dialog');
+//     dialog.style.display = 'none';
+//   });
+// }
 
 Array.from(expandOrderButton).forEach((el) => {
   el.addEventListener('click', expandOrderInfo)
@@ -98,10 +195,6 @@ Array.from(tableDropdown).forEach((el) => {
   const parentNode = el.parentNode
   el.addEventListener('click',() => tableSelect(tableId, tableNumber, parentNode) )
 })
-// Array.from(categoryDelete).forEach((el) => {
-//   const tableId = el.parentNode.id
-//   el.addEventListener('click',() => deleteCategory(tableId))
-// })
 
 if(placeOrder) {
   placeOrder.addEventListener('click', order)
@@ -322,6 +415,7 @@ function expandOrderInfo(event) {
 
 let activeEditIndex = null;
 let activeEditToggle = false;
+const confirmButtons = [];
 
 Array.from(categoryEdit).forEach((el, index) => {
   const tableId = el.parentNode.id;
@@ -330,6 +424,7 @@ Array.from(categoryEdit).forEach((el, index) => {
   categoryConfirmButton.className = 'category-confirm';
   categoryConfirmButton.innerText = 'CONFIRM';
 
+  confirmButtons.push(categoryConfirmButton);
   el.addEventListener('click', () => {
     const oldCategory = categoryName[index].innerText;
 
@@ -338,11 +433,12 @@ Array.from(categoryEdit).forEach((el, index) => {
       categoryDelete[activeEditIndex].innerText = 'DELETE';
       categoryEdit[activeEditIndex].innerText = 'EDIT';
       categoryName[activeEditIndex].innerHTML = activeEditCategoryName;
+      confirmButtons[activeEditIndex].replaceWith(categoryDelete[activeEditIndex]);
     }
 
     if (activeEditIndex !== null && activeEditIndex === index) {
       // Cancel edit
-      categoryConfirmButton.replaceWith(categoryDeleteButton.cloneNode(true));
+      categoryConfirmButton.replaceWith(categoryDeleteButton);
       el.innerText = 'EDIT';
       categoryName[index].innerHTML = activeEditCategoryName;
       activeEditIndex = null;
@@ -351,37 +447,52 @@ Array.from(categoryEdit).forEach((el, index) => {
       categoryDeleteButton.replaceWith(categoryConfirmButton);
       el.innerText = 'CANCEL';
       activeEditCategoryName = categoryName[index].innerHTML;
+      console.log(oldCategory)
       categoryName[index].innerHTML = `<input class="category-item" type="text" value="${oldCategory}" />`;
       const inputField = document.querySelector('.category-item');
       inputField.focus();
+
       inputField.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
-          editCategory(tableId);
+          editCategory(tableId, event.target.value);
+          categoryDelete[activeEditIndex].innerText = 'DELETE';
+          categoryEdit[activeEditIndex].innerText = 'EDIT';
+          categoryName[activeEditIndex].innerHTML = event.target.value;
+          categoryName[index].parentNode.id = tableId
+          activeEditCategoryName = inputField.value;
+          confirmButtons[activeEditIndex].replaceWith(categoryDelete[activeEditIndex]);
         }
       });
 
-      categoryConfirmButton.addEventListener('click', () => {
-        editCategory(tableId);
+      categoryConfirmButton.addEventListener('click', (event) => {
+        editCategory(tableId, inputField.value);
+        console.log( categoryName[index].parentNode.id)
+        categoryDelete[activeEditIndex].innerText = 'DELETE';
+        categoryEdit[activeEditIndex].innerText = 'EDIT';
+        categoryName[activeEditIndex].innerHTML = inputField.value;
+        categoryName[index].parentNode.id = tableId
+        activeEditCategoryName = inputField.value;
+        confirmButtons[activeEditIndex].replaceWith(categoryDelete[activeEditIndex]);
       });
 
       activeEditIndex = index;
     }
   });
 
-  categoryDeleteButton.addEventListener('click', () => {
-        console.log(tableId)
-        deleteCategory(tableId)
+  categoryDeleteButton.addEventListener('click', (el) => {
+    if(!window.confirm('Are you sure you want to delete this category?')){
+      return
+    }else {
+       deleteCategory(tableId)
+       el.target.parentNode.remove()
+    } 
   });
 });
-
-
 
 async function deleteCategory(tableId) {
   const id = {tableId}
   
-  if(!window.confirm('Are you sure you want to delete this category?')){
-    return
-  }else {
+
     fetch('/deleteCategory', {
       method: 'Delete',
       headers: {
@@ -390,12 +501,21 @@ async function deleteCategory(tableId) {
       },
       body: JSON.stringify(id)
     })
-  }
-  window.location.reload()
+  
 }
 
-async function editCategory(tableId) {
-  const id = {tableId}
+async function editCategory(tableId, edit) {
+  const id = tableId
+
+  fetch(`/category/editItem`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({tableId, edit})
+  })
+
   console.log('Editing...')
 }
 
