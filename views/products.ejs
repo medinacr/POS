@@ -39,18 +39,23 @@
           </div>
           <div class="category-header">
             <p>Product</p>
-            <p>Price</p>
             <p>Action</p>
           </div>
           <div class="category-card-container">
               <% categoryData.forEach(category => { %>
                 <% category.items.forEach(item => { %>
-                  <div class="category-card" id="<%= category._id %>">
-                    <p class="category-name"><%= item.name %></p>
-                    <p class="category-description"><%= category.category %></p>
-                    <p class="category-price">$<%= item.price %></p>
-                    <button class="category-edit">EDIT</button>
-                    <button class="category-delete">DELETE</button>
+                  <% category.items.forEach(item => { %>
+                  <div class="product-card" id="<%= item._id %>">
+                  <% }) %> 
+                    <div class="product-card-details">
+                      <p class="product-name"><%= item.name %></p>
+                      <p class="product-description">-<%= category.category %></p>
+                    </div>
+                    <div class="product-card-actions">
+                      <p class="product-price">$<%= item.price %></p>
+                      <button class="product-edit">EDIT</button>
+                      <button class="product-delete">DELETE</button>
+                    </div>
                   </div>
                   <% }) %> 
               <% }) %> 
@@ -62,9 +67,12 @@
       const categoryData = JSON.parse( '<%- JSON.stringify(categoryData) %>' )
       
       categoryData.forEach(category => {
-        console.log(category)
+        //console.log(category)
         category.items.forEach(item => {
-          console.log(category)
+          //console.log(category.items)
+          category.items.forEach( item => {
+            console.log(item._id)
+          })
         })
       })
     </script>

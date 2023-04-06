@@ -26,6 +26,31 @@ const categoryEdit = document.querySelectorAll('.category-edit')
 const categoryButton = document.querySelector('.add-category-categories')
 const addCategoryButton = document.querySelector('.add-category-categories');
 const categoryCardContainer = document.querySelector('.category-card-container');
+const categoriesLength = document.querySelector('.categories-length')
+
+Array.from(expandOrderButton).forEach((el) => {
+  el.addEventListener('click', expandOrderInfo)
+})
+Array.from(selectCategory).forEach((el)=>{
+  el.addEventListener('click', categorySelectionForm)
+})
+Array.from(categoryCard).forEach((el) => {
+  const categoryId = el.dataset.id
+  el.addEventListener('click', () => categorySelect(categoryId))
+})
+Array.from(addItemClass).forEach((el) => {
+  const categoryId = el.parentNode.parentNode.dataset.item
+  el.addEventListener('click', (e) => addItemQuantity(e,categoryId))
+})
+Array.from(minusItemClass).forEach((el) => {
+  el.addEventListener('click', minusItemQuantity)
+})
+Array.from(tableDropdown).forEach((el) => {
+  const tableId = el.querySelector('a').id
+  const tableNumber = el.querySelector('a').innerHTML
+  const parentNode = el.parentNode
+  el.addEventListener('click',() => tableSelect(tableId, tableNumber, parentNode) )
+})
 
 addCategoryButton.addEventListener('click', async () => {
   const categoryName = prompt('Enter category title:');
@@ -38,7 +63,7 @@ addCategoryButton.addEventListener('click', async () => {
     },
     body: JSON.stringify({ category: categoryName })
   });
-
+  categoriesLengthAdd()
   const newCategory = await response.json();
 
   // Create a new category card and append it to the category card container
@@ -67,31 +92,6 @@ categorySearchInput.addEventListener('input', () => {
     }
   });
 });
-
-
-Array.from(expandOrderButton).forEach((el) => {
-  el.addEventListener('click', expandOrderInfo)
-})
-Array.from(selectCategory).forEach((el)=>{
-  el.addEventListener('click', categorySelectionForm)
-})
-Array.from(categoryCard).forEach((el) => {
-  const categoryId = el.dataset.id
-  el.addEventListener('click', () => categorySelect(categoryId))
-})
-Array.from(addItemClass).forEach((el) => {
-  const categoryId = el.parentNode.parentNode.dataset.item
-  el.addEventListener('click', (e) => addItemQuantity(e,categoryId))
-})
-Array.from(minusItemClass).forEach((el) => {
-  el.addEventListener('click', minusItemQuantity)
-})
-Array.from(tableDropdown).forEach((el) => {
-  const tableId = el.querySelector('a').id
-  const tableNumber = el.querySelector('a').innerHTML
-  const parentNode = el.parentNode
-  el.addEventListener('click',() => tableSelect(tableId, tableNumber, parentNode) )
-})
 
 if(placeOrder) {
   placeOrder.addEventListener('click', order)
@@ -505,6 +505,8 @@ async function deleteCategory(tableId) {
       body: JSON.stringify(id)
     });
     
+    // Category Counter
+    categoriesLengthSub()
     // Remove the category from the DOM
     const categoryElement = document.getElementById(tableId);
     if (categoryElement) {
@@ -539,6 +541,19 @@ async function editCategory(tableId, edit) {
   }
 }
 
+function categoriesLengthAdd() {
+  const categoryLengthElement = document.querySelector('.categories-length');
+  const categoryLength = parseInt(categoryLengthElement.innerText.split(' ')[0]); // Get the current category length
+
+  categoryLengthElement.innerText = `${categoryLength + 1} Categories`; // Update the category length in the DOM
+}
+
+function categoriesLengthSub() {
+  const categoryLengthElement = document.querySelector('.categories-length');
+  const categoryLength = parseInt(categoryLengthElement.innerText.split(' ')[0]); // Get the current category length
+
+  categoryLengthElement.innerText = `${categoryLength - 1} Categories`; // Update the category length in the DOM
+}
 
 renderItems();
 })()
