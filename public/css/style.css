@@ -643,7 +643,7 @@ body {
   border-bottom: 2px solid white;
 }
 .category-card-container {
-  height: 850px;
+  height: 514px;
   overflow: auto;
 }
 
@@ -674,6 +674,9 @@ body {
 }
 .category-item {
   color: black;
+}
+.category-cancel {
+  padding-right: 5px;
 }
 
 #add-category-dialog {

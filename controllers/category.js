@@ -9,7 +9,7 @@ module.exports = {
       });
       const categoryId = createdCategory._id; // Retrieve the created _id
       // Include categoryId in the response
-      await res.status(200).json({ itemId: categoryId })
+      await res.status(200).json(createdCategory.toJSON())
     } catch (err) {
       console.log(err);
       res.redirect("/feed"); 
