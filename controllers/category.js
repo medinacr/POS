@@ -36,5 +36,21 @@ module.exports = {
     } catch (err) {
       console.log(err);
     }
+  },
+  deleteItem: async (req, res) => {
+    const categoryId = req.body.categoryId;
+    const productId = req.body.productId;
+  
+    try {
+      await Category.findOneAndUpdate(
+        { _id: categoryId }, // find the category by ID
+        { $pull: { items: { _id: productId } } } // delete the product by ID from the products array
+      );
+  
+      res.status(200).json({ message: "Product deleted successfully" });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ error: "Something went wrong" });
+    }
   }
 }

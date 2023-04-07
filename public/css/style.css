@@ -738,6 +738,11 @@ body {
   padding: 10px;
 }
 
+.product-card-container {
+  height: 514px;
+  overflow: auto;
+}
+
 .product-card p:first-child {
   margin-right: auto;
 }
@@ -772,6 +777,44 @@ body {
   font-size: 14px;
   font-weight: bold;
 }
+
+.product-search-input {
+  color: black;
+}
+
+.product-cancel {
+  padding-right: 10px;
+}
+
+.product-item {
+  color: black;
+}
+
+/* POP UP add Product */
+.dashboard-container {
+  position: relative;
+}
+
+#popup-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+}
+
+#popup {
+  background-color: rgb(84, 81, 81);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
 
 @media only screen and (min-height: 768px) and (max-height: 1035px) {
   /* CSS styles for tablet landscape screens */

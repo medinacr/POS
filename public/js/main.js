@@ -26,7 +26,9 @@ const categoryEdit = document.querySelectorAll('.category-edit')
 const categoryButton = document.querySelector('.add-category-categories')
 const addCategoryButton = document.querySelector('.add-category-categories');
 const categoryCardContainer = document.querySelector('.category-card-container');
+const productCardContainer = document.querySelector('.product-card-container');
 const categoriesLength = document.querySelector('.categories-length')
+const addProductButton = document.querySelector('.add-product-button')
 
 Array.from(expandOrderButton).forEach((el) => {
   el.addEventListener('click', expandOrderInfo)
@@ -52,35 +54,38 @@ Array.from(tableDropdown).forEach((el) => {
   el.addEventListener('click',() => tableSelect(tableId, tableNumber, parentNode) )
 })
 
-addCategoryButton.addEventListener('click', async () => {
-  const categoryName = prompt('Enter category title:');
-  if (!categoryName) return;
-
-  const response = await fetch('category/createCategory', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ category: categoryName })
+if(addCategoryButton) {
+  addCategoryButton.addEventListener('click', async () => {
+    const categoryName = prompt('Enter category title:');
+    if (!categoryName) return;
+  
+    const response = await fetch('category/createCategory', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ category: categoryName })
+    });
+    categoriesLengthAdd()
+    const newCategory = await response.json();
+  
+    // Create a new category card and append it to the category card container
+    const categoryCard = document.createElement('div');
+    categoryCard.classList.add('category-card');
+    categoryCard.id = newCategory._id;
+    categoryCard.innerHTML = `
+      <p class="category-name">${newCategory.category}</p>
+      <button class="category-edit">EDIT</button>
+      <button class="category-delete">DELETE</button>
+    `;
+    categoryCardContainer.appendChild(categoryCard);
   });
-  categoriesLengthAdd()
-  const newCategory = await response.json();
-
-  // Create a new category card and append it to the category card container
-  const categoryCard = document.createElement('div');
-  categoryCard.classList.add('category-card');
-  categoryCard.id = newCategory._id;
-  categoryCard.innerHTML = `
-    <p class="category-name">${newCategory.category}</p>
-    <button class="category-edit">EDIT</button>
-    <button class="category-delete">DELETE</button>
-  `;
-  categoryCardContainer.appendChild(categoryCard);
-});
+}
 
 const categorySearchInput = document.querySelector('.category-search-input');
 
-categorySearchInput.addEventListener('input', () => {
+if(categorySearchInput) {
+  categorySearchInput.addEventListener('input', () => {
   const searchQuery = categorySearchInput.value.toLowerCase();
   const categoryCards = categoryCardContainer.querySelectorAll('.category-card');
   categoryCards.forEach(categoryCard => {
@@ -92,6 +97,7 @@ categorySearchInput.addEventListener('input', () => {
     }
   });
 });
+}
 
 if(placeOrder) {
   placeOrder.addEventListener('click', order)
@@ -311,79 +317,78 @@ function expandOrderInfo(event) {
 }
 
 // Define a click handler for the category-card-container
-document.querySelector('.category-card-container').addEventListener('click', async (event) => {
-  // Check if the clicked element is the edit button
-  if (event.target.classList.contains('category-edit')) {
-    const categoryId = event.target.closest('.category-card').id;
-    const categoryNameElement = event.target.closest('.category-card').querySelector('.category-name');
-    const oldCategory = categoryNameElement.innerText;
-    event.target.closest('.category-card').querySelector('.category-delete').style.display = 'none';
-    event.target.closest('.category-card').querySelector('.category-edit').style.display = 'none';
-
-    // Replace edit button with confirm and cancel buttons
-    const confirmButton = document.createElement('button');
-    confirmButton.className = 'category-confirm';
-    confirmButton.innerText = 'CONFIRM';
-    
-    const cancelButton = document.createElement('button');
-    cancelButton.className = 'category-cancel';
-    cancelButton.innerText = 'CANCEL';
-    
-    event.target.parentNode.insertBefore(confirmButton, event.target.nextSibling);
-    event.target.parentNode.insertBefore(cancelButton, event.target.nextSibling);
-
-    // Replace category name with input field for editing
-    categoryNameElement.innerHTML = `<input class="category-item" type="text" value="${oldCategory}" />`;
-    const inputField = categoryNameElement.querySelector('.category-item');
-    inputField.focus();
-
-    // Handle cancel button click
-    cancelButton.addEventListener('click', (event) => {
-
-      // Replace input field with original category name
-      categoryNameElement.innerHTML = oldCategory;
-
-      // Remove cancel/confirm button 
-      event.target.closest('.category-card').querySelector('.category-cancel').style.display = 'none';
-      event.target.closest('.category-card').querySelector('.category-confirm').style.display = 'none';
-
-      // Display delete/edit button
-      event.target.closest('.category-card').querySelector('.category-delete').style.display = 'flex';
-      event.target.closest('.category-card').querySelector('.category-edit').style.display = 'flex';
-    });
-
-    // Handle confirm button click
-    confirmButton.addEventListener('click', (event) => {
-      const newCategory = inputField.value;
-
-      editCategory(categoryId, newCategory);
-      // Update category name in DOM
-      categoryNameElement.innerText = newCategory;
-
-
-      // Replace cancel and confirm buttons with edit button
-      event.target.closest('.category-card').querySelector('.category-cancel').style.display = 'none';
-      event.target.closest('.category-card').querySelector('.category-confirm').style.display = 'none';
-
-      // Display delete/edit button
-      event.target.closest('.category-card').querySelector('.category-delete').style.display = 'flex';
-      event.target.closest('.category-card').querySelector('.category-edit').style.display = 'flex';
-    });
-  }
-
-  // Check if the clicked element is the delete button
-  if (event.target.classList.contains('category-delete')) {
-    const categoryId = event.target.closest('.category-card').id;
-    try {
-      await deleteCategory(categoryId);
-    } catch (error) {
-      console.error(error);
+if(document.querySelector('.category-card-container')){
+  document.querySelector('.category-card-container').addEventListener('click', async (event) => {
+    // Check if the clicked element is the edit button
+    if (event.target.classList.contains('category-edit')) {
+      const categoryId = event.target.closest('.category-card').id;
+      const categoryNameElement = event.target.closest('.category-card').querySelector('.category-name');
+      const oldCategory = categoryNameElement.innerText;
+      event.target.closest('.category-card').querySelector('.category-delete').style.display = 'none';
+      event.target.closest('.category-card').querySelector('.category-edit').style.display = 'none';
+  
+      // Replace edit button with confirm and cancel buttons
+      const confirmButton = document.createElement('button');
+      confirmButton.className = 'category-confirm';
+      confirmButton.innerText = 'CONFIRM';
+      
+      const cancelButton = document.createElement('button');
+      cancelButton.className = 'category-cancel';
+      cancelButton.innerText = 'CANCEL';
+      
+      event.target.parentNode.insertBefore(confirmButton, event.target.nextSibling);
+      event.target.parentNode.insertBefore(cancelButton, event.target.nextSibling);
+  
+      // Replace category name with input field for editing
+      categoryNameElement.innerHTML = `<input class="category-item" type="text" value="${oldCategory}" />`;
+      const inputField = categoryNameElement.querySelector('.category-item');
+      inputField.focus();
+  
+      // Handle cancel button click
+      cancelButton.addEventListener('click', (event) => {
+  
+        // Replace input field with original category name
+        categoryNameElement.innerHTML = oldCategory;
+  
+        // Remove cancel/confirm button 
+        event.target.closest('.category-card').querySelector('.category-cancel').style.display = 'none';
+        event.target.closest('.category-card').querySelector('.category-confirm').style.display = 'none';
+  
+        // Display delete/edit button
+        event.target.closest('.category-card').querySelector('.category-delete').style.display = 'flex';
+        event.target.closest('.category-card').querySelector('.category-edit').style.display = 'flex';
+      });
+  
+      // Handle confirm button click
+      confirmButton.addEventListener('click', (event) => {
+        const newCategory = inputField.value;
+  
+        editCategory(categoryId, newCategory);
+        // Update category name in DOM
+        categoryNameElement.innerText = newCategory;
+  
+  
+        // Replace cancel and confirm buttons with edit button
+        event.target.closest('.category-card').querySelector('.category-cancel').style.display = 'none';
+        event.target.closest('.category-card').querySelector('.category-confirm').style.display = 'none';
+  
+        // Display delete/edit button
+        event.target.closest('.category-card').querySelector('.category-delete').style.display = 'flex';
+        event.target.closest('.category-card').querySelector('.category-edit').style.display = 'flex';
+      });
     }
-  }
-});
-
-
-
+  
+    // Check if the clicked element is the delete button
+    if (event.target.classList.contains('category-delete')) {
+      const categoryId = event.target.closest('.category-card').id;
+      try {
+        await deleteCategory(categoryId);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  });
+}
 
 // let activeEditIndex = null;
 // let activeEditToggle = false;
@@ -553,6 +558,201 @@ function categoriesLengthSub() {
   const categoryLength = parseInt(categoryLengthElement.innerText.split(' ')[0]); // Get the current category length
 
   categoryLengthElement.innerText = `${categoryLength - 1} Categories`; // Update the category length in the DOM
+}
+
+// PRODUCT PAGE CODE 
+
+
+const productSearchInput = document.querySelector('.product-search-input');
+
+addProductButton.addEventListener('click', () => {
+  const popupContainer = document.querySelector('#popup-container')
+  const categoryDropDown = document.querySelector('#category-dropdown')
+  const productName = document.querySelector('#name-input')
+  const productPrice = document.querySelector('#price-input')
+  const categoryId = document.querySelector('.category-id-option')
+
+  // Activate Pop-up
+  document.querySelector('#popup-container').style = 'block'
+  
+  // Cancel Button 
+  document.querySelector('#cancel-button').addEventListener('click', () => {
+    popupContainer.style = 'display: none'
+    categoryDropDown.selectedIndex = 0
+    productName.value = ''
+    productPrice.value = ''
+  })
+
+  // Submit 
+  document.querySelector('#submit-button').addEventListener('click', async () => {
+    // No Category Selected or Price/Name
+    if(categoryDropDown.value === 'Select Category' || productName.value === '' || productPrice.value === '') {
+      alert('Please Complete the Form')
+      return
+    }
+
+    // Submit Request
+    const category = categoryId.id
+    const itemName = productName.value
+    const itemPrice = productPrice.value
+
+    fetch(`category/createItem/${category}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ id: category, itemName: itemName, itemPrice: itemPrice })
+    });
+
+    // Reset pop-up
+    popupContainer.style = 'display: none'
+    categoryDropDown.selectedIndex = 0
+    productName.value = ''
+    productPrice.value = ''
+
+    const newProduct = await response.json();
+    // Add Product Card
+    const productCard = document.createElement('div');
+    productCard.classList.add('product-card');
+    productCard.id = newProduct._id;
+    productCard.innerHTML = `
+      <p class="category-name">${newProduct.category}</p>
+      <button class="category-edit">EDIT</button>
+      <button class="category-delete">DELETE</button>
+    `;
+    categoryCardContainer.appendChild(productCard);
+
+  })
+
+})
+
+productSearchInput.addEventListener('input', () => {
+  const searchQuery = productSearchInput.value.toLowerCase()
+  const productCards = productCardContainer.querySelectorAll('.product-card')
+  productCards.forEach( productCard => {
+    const productName = productCard.querySelector('.product-name').textContent.toLowerCase()
+    if(productName.includes(searchQuery)) {
+      productCard.style.display = '';
+    }else {
+      productCard.style.display = 'none';
+    }
+  })
+});
+
+document.querySelector('.product-card-container').addEventListener('click', async (event) => {
+  // Check if the clicked element is the edit button
+  if (event.target.classList.contains('product-edit')) {
+    const productId = event.target.closest('.product-card').id;
+    const productNameElement = event.target.closest('.product-card').querySelector('.product-name');
+    const oldProduct = productNameElement.innerText;
+    event.target.closest('.product-card').querySelector('.product-delete').style.display = 'none';
+    event.target.closest('.product-card').querySelector('.product-edit').style.display = 'none';
+
+    // Replace edit button with confirm and cancel buttons
+    const confirmButton = document.createElement('button');
+    confirmButton.className = 'product-confirm';
+    confirmButton.innerText = 'CONFIRM';
+    
+    const cancelButton = document.createElement('button');
+    cancelButton.className = 'product-cancel';
+    cancelButton.innerText = 'CANCEL';
+    
+    event.target.parentNode.insertBefore(confirmButton, event.target.nextSibling);
+    event.target.parentNode.insertBefore(cancelButton, event.target.nextSibling);
+
+    // Replace product name with input field for editing
+    productNameElement.innerHTML = `<input class="product-item" type="text" value="${oldProduct}" />`;
+    const inputField = productNameElement.querySelector('.product-item');
+    inputField.focus();
+
+    // Handle cancel button click
+    cancelButton.addEventListener('click', (event) => {
+
+      // Replace input field with original product name
+      productNameElement.innerHTML = oldProduct;
+
+      // Remove cancel/confirm button 
+      event.target.closest('.product-card').querySelector('.product-cancel').style.display = 'none';
+      event.target.closest('.product-card').querySelector('.product-confirm').style.display = 'none';
+
+      // Display delete/edit button
+      event.target.closest('.product-card').querySelector('.product-delete').style.display = 'flex';
+      event.target.closest('.product-card').querySelector('.product-edit').style.display = 'flex';
+    });
+
+    // Handle confirm button click
+    confirmButton.addEventListener('click', (event) => {
+      const newProduct = inputField.value;
+
+      editProductName(productId, newProduct);
+      // Update product name in DOM
+      productNameElement.innerText = newProduct;
+
+
+      // Replace cancel and confirm buttons with edit button
+      event.target.closest('.product-card').querySelector('.product-cancel').style.display = 'none';
+      event.target.closest('.product-card').querySelector('.product-confirm').style.display = 'none';
+
+      // Display delete/edit button
+      event.target.closest('.product-card').querySelector('.product-delete').style.display = 'flex';
+      event.target.closest('.product-card').querySelector('.product-edit').style.display = 'flex';
+    });
+  }
+
+  // Check if the clicked element is the delete button
+  if (event.target.classList.contains('product-delete')) {
+    const categoryId = event.target.closest('.product-card').id;
+    const productId = event.target.parentNode.closest('.product-card-actions').id
+
+    try {
+      await deleteProduct(categoryId, productId);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+});
+
+
+async function deleteProduct(categoryId, productId) {
+  console.log('deleting ...')
+  const id = {categoryId, productId};
+  // if(!window.confirm('Are you sure you want to delete this item?')) {
+  //   return
+  // }else {
+  //   fetch('category/deleteItem', {
+  //     method: 'DELETE',
+  //     headers: {
+  //       'Accept': 'application/json',
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(id)
+  //   });
+  // }
+    
+  //   // Category Counter
+  //   categoriesLengthSub()
+    // Remove the category from the DOM
+    const productElement = document.querySelector(categoryId);
+    console.log(productElement)
+    if (productElement) {
+      productElement.remove();
+    }
+}
+
+async function editProductName() {
+  console.log('editing name ...')
+}
+
+async function editProductPrice() {
+  console.log('editing price ...')
+}
+
+function productsLengthAdd() {
+  console.log('a')
+}
+
+function productsLengthSub() {
+  console.log('b')
 }
 
 renderItems();

@@ -22,10 +22,28 @@
 
       <div class="dashboard--container">
 
-        <div id="add-category-dialog" style="display:none;">
-          <input id="add-category-input" type="text" placeholder="Enter category title...">
-          <button id="add-category-submit" type="button">Submit</button>
-          <button id="add-category-cancel" type="button">Cancel</button>
+        <div id="popup-container" style="display: none">
+          <div id="popup">
+            <h2>Add Item</h2>
+            <select id="category-dropdown">
+              <option value="Select Category">Select Category</option>
+              <% categoryData.forEach(category => { %>
+              <option value="<%= category.category %>" class="category-id-option" id="<%= category._id %>"><%= category.category %></option>
+              <% }) %> 
+            </select>
+            <input type="text" id="name-input" placeholder="Name">
+            <input type="number" id="price-input" placeholder="Price" min="0" step="1">
+            <div id="button-container">
+              <button id="submit-button">Submit</button>
+              <button id="cancel-button">Cancel</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="add-product-dialog" style="display:none;">
+          <input id="add-product-input" type="text" placeholder="Enter product title...">
+          <button id="add-product-submit" type="button">Submit</button>
+          <button id="add-product-cancel" type="button">Cancel</button>
         </div>
         
         <section class="dashboard">
@@ -34,24 +52,22 @@
             <p><%= categoryData.reduce(((acc, prev) => acc + prev.items.length), 0) %> Products</p>
           </div>
           <div class="date-buttons category-buttons">
-            <input class="category-search-input" id="category-search-input" type="text" placeholder="Search">
-            <button class="text add-category-categories" type="text" placeholder="Add Category">Add Product</button>
+            <input class="product-search-input" id="product-search-input" type="text" placeholder="Search">
+            <button class="text add-product-button" type="text" placeholder="Add Product">Add Product</button>
           </div>
           <div class="category-header">
             <p>Product</p>
             <p>Action</p>
           </div>
-          <div class="category-card-container">
+          <div class="product-card-container">
               <% categoryData.forEach(category => { %>
                 <% category.items.forEach(item => { %>
-                  <% category.items.forEach(item => { %>
-                  <div class="product-card" id="<%= item._id %>">
-                  <% }) %> 
-                    <div class="product-card-details">
+                  <div class="product-card" id="<%= category._id %>">
+                    <div class="product-card-details">  
                       <p class="product-name"><%= item.name %></p>
                       <p class="product-description">-<%= category.category %></p>
                     </div>
-                    <div class="product-card-actions">
+                    <div class="product-card-actions" id="<%= item._id  %>">
                       <p class="product-price">$<%= item.price %></p>
                       <button class="product-edit">EDIT</button>
                       <button class="product-delete">DELETE</button>
@@ -67,11 +83,11 @@
       const categoryData = JSON.parse( '<%- JSON.stringify(categoryData) %>' )
       
       categoryData.forEach(category => {
-        //console.log(category)
+        // console.log(category._id)
         category.items.forEach(item => {
           //console.log(category.items)
           category.items.forEach( item => {
-            console.log(item._id)
+            // console.log(item._id)
           })
         })
       })
