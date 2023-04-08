@@ -21,12 +21,22 @@ module.exports = {
       const itemPrice = req.body.itemPrice;
       const categoryId = req.params.id
       await Category.updateOne({_id: categoryId}, {$push: {items: {name: itemName, price: itemPrice}}})
-      res.redirect("/feed");
+  
+      // Get the updated category
+      const category = await Category.findById(categoryId);
+  
+      // Get the new item that was added
+      const newItem = category.items[category.items.length - 1];
+  
+      // Send the category and new item in the response
+      console.log(category.category)
+      res.status(200).json({ category: category.category, categoryId: category._id, newItem });
     } catch (err) {
       console.log(err);
-      res.redirect("/feed")
+      res.redirect("/feed");
     }
-  },
+  }
+  ,
   editItem: async (req, res) => {
     const tableId = req.body.tableId
     const edit = req.body.edit

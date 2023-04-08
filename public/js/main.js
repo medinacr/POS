@@ -592,11 +592,11 @@ addProductButton.addEventListener('click', () => {
     }
 
     // Submit Request
-    const category = categoryId.id
     const itemName = productName.value
     const itemPrice = productPrice.value
+    const category = categoryDropDown.selectedOptions[0].id;
 
-    fetch(`category/createItem/${category}`, {
+    const response = await fetch(`category/createItem/${category}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -604,6 +604,7 @@ addProductButton.addEventListener('click', () => {
       body: JSON.stringify({ id: category, itemName: itemName, itemPrice: itemPrice })
     });
 
+    console.log('after fetch')
     // Reset pop-up
     popupContainer.style = 'display: none'
     categoryDropDown.selectedIndex = 0
@@ -611,17 +612,26 @@ addProductButton.addEventListener('click', () => {
     productPrice.value = ''
 
     const newProduct = await response.json();
+    console.log(`newProduct: ${JSON.stringify(newProduct, null, 2)}`);
+    console.log(newProduct)
     // Add Product Card
     const productCard = document.createElement('div');
     productCard.classList.add('product-card');
-    productCard.id = newProduct._id;
+    productCard.id = newProduct.categoryId
     productCard.innerHTML = `
-      <p class="category-name">${newProduct.category}</p>
-      <button class="category-edit">EDIT</button>
-      <button class="category-delete">DELETE</button>
-    `;
-    categoryCardContainer.appendChild(productCard);
-
+    <div class="product-card" id="${newProduct.categoryId}">
+      <div class="product-card-details">  
+        <p class="product-name">${newProduct.newItem.name}</p>
+        <p class="product-description">-${newProduct.category}</p>
+      </div>
+      <div class="product-card-actions" id="${newProduct.newItem._id}">
+        <p class="product-price">$${newProduct.newItem.price}</p>
+        <button class="product-edit">EDIT</button>
+        <button class="product-delete">DELETE</button>
+      </div>
+    </div>
+  `;
+    document.querySelector(".product-card-container").appendChild(productCard);
   })
 
 })
