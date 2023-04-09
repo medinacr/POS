@@ -35,9 +35,8 @@ module.exports = {
       console.log(err);
       res.redirect("/feed");
     }
-  }
-  ,
-  editItem: async (req, res) => {
+  },
+  editCategory: async (req, res) => {
     const tableId = req.body.tableId
     const edit = req.body.edit
     try {
@@ -62,5 +61,22 @@ module.exports = {
       console.log(err);
       res.status(500).json({ error: "Something went wrong" });
     }
-  }
+  },
+  editItem: async (req, res) => {
+    const categoryId = req.body.categoryId;
+    const productId = req.body.productId;
+    const productName = req.body.newProduct;
+    const productPrice = req.body.newPrice;
+
+    try {
+      await Category.updateOne(
+        { _id: categoryId, "items._id": productId },
+        { $set: { "items.$.name": productName, "items.$.price": productPrice } }
+      );
+      res.status(200).send("Product updated successfully.");
+    } catch (err) {
+      console.log(err);
+      res.status(500).send("Internal server error.");
+    }
+  },
 }

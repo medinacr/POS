@@ -5,15 +5,7 @@ const UserSchema = new mongoose.Schema({
   userName: { type: String, unique: true },
   email: { type: String, unique: true },
   password: String,
-  tables: [{
-      tableNumber: Number, 
-      tableId: Number, 
-      items: [{
-          itemPrice: Number,
-          itemName: String,
-          itemQuantity: Number, 
-      }], 
-    }]
+  role: { type: String, enum: ['user', 'admin'], default: 'user' }
 });
 
 // Password hash middleware.

@@ -523,7 +523,7 @@ async function deleteCategory(tableId) {
 async function editCategory(tableId, edit) {
   const id = tableId;
 
-  const response = await fetch(`/category/editItem`, {
+  const response = await fetch(`/category/editCategory`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -561,7 +561,6 @@ function categoriesLengthSub() {
 }
 
 // PRODUCT PAGE CODE 
-
 
 const productSearchInput = document.querySelector('.product-search-input');
 
@@ -619,7 +618,6 @@ addProductButton.addEventListener('click', () => {
     productCard.classList.add('product-card');
     productCard.id = newProduct.categoryId
     productCard.innerHTML = `
-    <div class="product-card" id="${newProduct.categoryId}">
       <div class="product-card-details">  
         <p class="product-name">${newProduct.newItem.name}</p>
         <p class="product-description">-${newProduct.category}</p>
@@ -629,11 +627,10 @@ addProductButton.addEventListener('click', () => {
         <button class="product-edit">EDIT</button>
         <button class="product-delete">DELETE</button>
       </div>
-    </div>
   `;
     document.querySelector(".product-card-container").appendChild(productCard);
+    productsLengthAdd()
   })
-
 })
 
 productSearchInput.addEventListener('input', () => {
@@ -652,9 +649,12 @@ productSearchInput.addEventListener('input', () => {
 document.querySelector('.product-card-container').addEventListener('click', async (event) => {
   // Check if the clicked element is the edit button
   if (event.target.classList.contains('product-edit')) {
-    const productId = event.target.closest('.product-card').id;
+    const categoryId = event.target.closest('.product-card').id;
+    const productId = event.target.closest('.product-card-actions').id
     const productNameElement = event.target.closest('.product-card').querySelector('.product-name');
+    const productPriceElement = event.target.closest('.product-card').querySelector('.product-price')
     const oldProduct = productNameElement.innerText;
+    const oldPrice = Number(productPriceElement.innerText.replace('$', ''))
     event.target.closest('.product-card').querySelector('.product-delete').style.display = 'none';
     event.target.closest('.product-card').querySelector('.product-edit').style.display = 'none';
 
@@ -675,11 +675,16 @@ document.querySelector('.product-card-container').addEventListener('click', asyn
     const inputField = productNameElement.querySelector('.product-item');
     inputField.focus();
 
+    // Replace product price with input field for editing
+    productPriceElement.innerHTML = `<input class="product-price-input" type="number"  min="0"  value="${oldPrice}" />`
+    const priceInputField = productPriceElement.querySelector('.product-price-input')
+    
     // Handle cancel button click
     cancelButton.addEventListener('click', (event) => {
 
-      // Replace input field with original product name
+      // Replace input field with original product name / price
       productNameElement.innerHTML = oldProduct;
+      productPriceElement.innerHTML = `$${oldPrice}`;
 
       // Remove cancel/confirm button 
       event.target.closest('.product-card').querySelector('.product-cancel').style.display = 'none';
@@ -693,10 +698,12 @@ document.querySelector('.product-card-container').addEventListener('click', asyn
     // Handle confirm button click
     confirmButton.addEventListener('click', (event) => {
       const newProduct = inputField.value;
+      const newPrice = priceInputField.value
 
-      editProductName(productId, newProduct);
+      editProduct(categoryId, productId, newProduct, newPrice);
       // Update product name in DOM
       productNameElement.innerText = newProduct;
+      productPriceElement.innerText = `$${newPrice}`
 
 
       // Replace cancel and confirm buttons with edit button
@@ -713,9 +720,10 @@ document.querySelector('.product-card-container').addEventListener('click', asyn
   if (event.target.classList.contains('product-delete')) {
     const categoryId = event.target.closest('.product-card').id;
     const productId = event.target.parentNode.closest('.product-card-actions').id
+    const productElement = event.target.closest('.product-card');
 
     try {
-      await deleteProduct(categoryId, productId);
+      await deleteProduct(categoryId, productId , productElement);
     } catch (error) {
       console.error(error);
     }
@@ -723,46 +731,71 @@ document.querySelector('.product-card-container').addEventListener('click', asyn
 });
 
 
-async function deleteProduct(categoryId, productId) {
+async function deleteProduct(categoryId, productId, productElement) {
   console.log('deleting ...')
   const id = {categoryId, productId};
-  // if(!window.confirm('Are you sure you want to delete this item?')) {
-  //   return
-  // }else {
-  //   fetch('category/deleteItem', {
-  //     method: 'DELETE',
-  //     headers: {
-  //       'Accept': 'application/json',
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify(id)
-  //   });
-  // }
+  if(!window.confirm('Are you sure you want to delete this item?')) {
+    return
+  }else {
+    fetch('category/deleteItem', {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(id)
+    });
+  }
     
   //   // Category Counter
   //   categoriesLengthSub()
     // Remove the category from the DOM
-    const productElement = document.querySelector(categoryId);
-    console.log(productElement)
+    //const productElement = document.querySelector(categoryId);
     if (productElement) {
       productElement.remove();
     }
+    productsLengthSub()
 }
 
-async function editProductName() {
-  console.log('editing name ...')
-}
+async function editProduct(categoryId, productId, newProduct, newPrice) {
+  console.log('editing name ...', productId, newProduct, newPrice);
 
-async function editProductPrice() {
-  console.log('editing price ...')
+  const response = await fetch(`/category/editItem`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({categoryId, productId, newProduct, newPrice})
+  });
+
+  // if (!response.ok) {
+  //   throw new Error('Failed to edit category');
+  // }
+
+  // Update the category name in the DOM
+  // const categoryElement = document.getElementById(tableId);
+  // if (categoryElement) {
+  //   const categoryNameElement = categoryElement.querySelector('.category-name');
+  //   if (categoryNameElement) {
+  //     categoryNameElement.innerHTML = edit;
+  //   }
+  // }
+
 }
 
 function productsLengthAdd() {
-  console.log('a')
+  const productLengthElement = document.querySelector('.products-length');
+  const productLength = parseInt(productLengthElement.innerText.split(' ')[0]); // Get the current category length
+
+  productLengthElement.innerText = `${productLength + 1} Products`; // Update the category length in the DOM
 }
 
 function productsLengthSub() {
-  console.log('b')
+  const productLengthElement = document.querySelector('.products-length');
+  const productLength = parseInt(productLengthElement.innerText.split(' ')[0]); // Get the current category length
+
+  productLengthElement.innerText = `${productLength - 1} Products`; // Update the category length in the DOM
 }
 
 renderItems();

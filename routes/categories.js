@@ -5,6 +5,7 @@ const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
 router.post("/createCategory", categoryController.createCategory);
 router.post("/createItem/:id", categoryController.createItem);
+router.post("/editCategory/", categoryController.editCategory);
 router.post("/editItem/", categoryController.editItem);
 router.delete("/deleteItem", categoryController.deleteItem)
 

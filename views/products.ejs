@@ -49,7 +49,7 @@
         <section class="dashboard">
           <div class="dashboard--header">
             <h1>Products</h1>
-            <p><%= categoryData.reduce(((acc, prev) => acc + prev.items.length), 0) %> Products</p>
+            <p class="products-length"><%= categoryData.reduce(((acc, prev) => acc + prev.items.length), 0) %> Products</p>
           </div>
           <div class="date-buttons category-buttons">
             <input class="product-search-input" id="product-search-input" type="text" placeholder="Search">
