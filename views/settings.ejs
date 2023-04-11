@@ -25,13 +25,17 @@
         <div class="dashboard--header">
           <h1>Account Settings</h1>
           <p>View & Edit Your Account Details</p>
-          <p>Profile</p>
+          <button>Profile</button>
+          <button>Categories</button>
+          <button>Products</button>
         </div>
-        <div class="category-header">
+        <div class="profile-header settings-container">
           <input type="text" class="input">
           <span class="place">Full Name</span>
           <input type="text" class="input">
           <span class="place">Role</span>
+          <p class="user--profile">L</p>
+          <button>Custom Color</button>
         </div>
       </section>
     </div>
@@ -39,4 +43,5 @@
 </html>
 <script >
   const user = JSON.parse('<%-JSON.stringify(userName)%>')
+  console.log(user)
 </script>

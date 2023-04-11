@@ -29,6 +29,7 @@ const categoryCardContainer = document.querySelector('.category-card-container')
 const productCardContainer = document.querySelector('.product-card-container');
 const categoriesLength = document.querySelector('.categories-length')
 const addProductButton = document.querySelector('.add-product-button')
+const feedSearchInput = document.querySelector('.search-input')
 
 Array.from(expandOrderButton).forEach((el) => {
   el.addEventListener('click', expandOrderInfo)
@@ -54,22 +55,72 @@ Array.from(tableDropdown).forEach((el) => {
   el.addEventListener('click',() => tableSelect(tableId, tableNumber, parentNode) )
 })
 
+if(feedSearchInput) {
+  feedSearchInput.addEventListener('input', (e) => {
+    const query = feedSearchInput.value.toLowerCase()
+    const items = document.querySelectorAll('.item')
+    items.forEach(item => {
+      const itemName = item.querySelector('.item--title').textContent.toLowerCase()
+      if(itemName.includes(query)){
+        item.style.display = 'flex';
+      } else {
+        item.style.display = 'none';
+      }
+      if(query === '') {
+        item.style.display = 'none'
+      }
+    })
+
+  })
+}
+
 if(addCategoryButton) {
   addCategoryButton.addEventListener('click', async () => {
-    const categoryName = prompt('Enter category title:');
-    if (!categoryName) return;
-  
-    const response = await fetch('category/createCategory', {
+    const popupContainer = document.querySelector('#popup-container')
+    const categoryName = document.querySelector('.category-name')
+
+    document.querySelector('#popup-container').style = 'block'
+
+      // Close Pop-up on outside click 
+    document.addEventListener('click', (e) => {
+      if(e.target.id === 'popup-container') {
+        popupContainer.style = 'display: none';
+        categoryName.value = ''
+      }
+    })
+
+      // Cancel Button 
+    document.querySelector('#cancel-button').addEventListener('click', () => {
+      popupContainer.style = 'display: none'
+      categoryName.value = ''
+    })
+
+    // Submit 
+    document.querySelector('#submit-button').addEventListener('click', async () => {
+    
+      // No Category Selected or Price/Name
+    if(categoryName.value === '') {
+      alert('Please Complete the Form')
+      return
+    }
+    
+    // Submit Request
+    const categoryNameValue = categoryName.value
+     const response = await fetch('category/createCategory', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ category: categoryName })
+      body: JSON.stringify({ category: categoryNameValue })
     });
-    categoriesLengthAdd()
+
     const newCategory = await response.json();
-  
-    // Create a new category card and append it to the category card container
+
+    // Reset Pop-up
+    categoryName.value = ''
+    popupContainer.style = 'display: none';
+
+    // Add Category Card
     const categoryCard = document.createElement('div');
     categoryCard.classList.add('category-card');
     categoryCard.id = newCategory._id;
@@ -79,6 +130,33 @@ if(addCategoryButton) {
       <button class="category-delete">DELETE</button>
     `;
     categoryCardContainer.appendChild(categoryCard);
+    categoriesLengthAdd()
+    })
+
+
+    // const categoryName = prompt('Enter category title:');
+    // if (!categoryName) return;
+  
+    // const response = await fetch('category/createCategory', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify({ category: categoryName })
+    // });
+    // categoriesLengthAdd()
+    // const newCategory = await response.json();
+  
+    // // Create a new category card and append it to the category card container
+    // const categoryCard = document.createElement('div');
+    // categoryCard.classList.add('category-card');
+    // categoryCard.id = newCategory._id;
+    // categoryCard.innerHTML = `
+    //   <p class="category-name">${newCategory.category}</p>
+    //   <button class="category-edit">EDIT</button>
+    //   <button class="category-delete">DELETE</button>
+    // `;
+    // categoryCardContainer.appendChild(categoryCard);
   });
 }
 
@@ -560,7 +638,7 @@ function categoriesLengthSub() {
   categoryLengthElement.innerText = `${categoryLength - 1} Categories`; // Update the category length in the DOM
 }
 
-// PRODUCT PAGE CODE 
+// PRODUCT PAGE 
 
 const productSearchInput = document.querySelector('.product-search-input');
 
@@ -573,6 +651,16 @@ addProductButton.addEventListener('click', () => {
 
   // Activate Pop-up
   document.querySelector('#popup-container').style = 'block'
+
+  // Close Pop-up on outside click 
+  document.addEventListener('click', (e) => {
+    if(e.target.id === 'popup-container') {
+      popupContainer.style = 'display: none';
+      categoryDropDown.selectedIndex = 0 ;
+      productName.value = '';
+      productPrice.value = '';
+    }
+  })
   
   // Cancel Button 
   document.querySelector('#cancel-button').addEventListener('click', () => {
@@ -603,7 +691,6 @@ addProductButton.addEventListener('click', () => {
       body: JSON.stringify({ id: category, itemName: itemName, itemPrice: itemPrice })
     });
 
-    console.log('after fetch')
     // Reset pop-up
     popupContainer.style = 'display: none'
     categoryDropDown.selectedIndex = 0
@@ -611,8 +698,7 @@ addProductButton.addEventListener('click', () => {
     productPrice.value = ''
 
     const newProduct = await response.json();
-    console.log(`newProduct: ${JSON.stringify(newProduct, null, 2)}`);
-    console.log(newProduct)
+
     // Add Product Card
     const productCard = document.createElement('div');
     productCard.classList.add('product-card');
