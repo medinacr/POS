@@ -23,7 +23,7 @@
     <div class="orders-container">
       <div class="orders-section">
       <section class="orders-header">
-        <h1>ORDERS</h1>
+        <h1 class="orders">ORDERS</h1>
         <p class="text"><%= data.length %> total orders</p>
       </section>
       <section class="orders-header-details">
@@ -32,7 +32,7 @@
         <p class="text">Total</p>
         <p class="text">Actions</p>
       </section>
-
+      <div class="orders-card-container">
       <% for (let date in dateMap) { %>
         <section class="orders-info-container">
           <div class="orders-info-card">
@@ -54,6 +54,7 @@
           <% } %>
         </section>
       <% } %>
+      </div>
     </div>
     </div>
     <script>

@@ -567,7 +567,6 @@ body {
 
 .orders-section {
   height: -webkit-fill-available;
-  overflow-y: auto;
   padding: 60px;
   padding-left: 423px;
   padding-right: 423px;
@@ -835,6 +834,7 @@ input[type="number"] {
   width: 25px;
   height: 25px;
   margin: 10px;
+  border-radius: 10px;
 }
 
 .option1 {
@@ -1049,8 +1049,8 @@ input[type="number"] {
   }
   /* /ORDERS */
   .orders-container {
-    margin-left: 267px;
-    width: 100%;
+    margin-left: 262px;
+    width: 1200px;
   }
   .orders-header {
     font-size: 16px;
@@ -1080,6 +1080,20 @@ input[type="number"] {
   }
   .category-card-container {
     height: 414px;
+  }
+  .orders-section {
+    padding-left: 0px;
+    padding-right: 0px;
+    padding: 50px;
+    height: 687px;
+  }
+  .orders {
+    font-weight: bold;
+    font-size: 24px;
+  }
+  .orders-card-container {
+    height: 441px;
+    overflow: auto;
   }
   /* Products */
   .product-card-container {
