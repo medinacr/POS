@@ -802,7 +802,6 @@ body {
 .dashboard-container {
   position: relative;
 }
-
 #popup-container {
   position: absolute;
   top: 0;
@@ -815,25 +814,53 @@ body {
   align-items: center;
   color: black;
 }
-
 #popup {
   background-color: rgb(84, 81, 81);
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
-
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-
 input[type="number"] {
   -moz-appearance: textfield;
 }
 
+/* Settings */
 
+.color {
+  width: 25px;
+  height: 25px;
+  margin: 10px;
+}
+
+.option1 {
+  background-color: rgba(207,222,219,255);
+}
+.option2 {
+  background-color: rgba(229,205,237,255);
+}
+.option3 {
+  background-color: rgba(193,219,232,255);
+}
+.option4 {
+  background-color: rgba(200,202,240,255);
+}
+.option5 {
+  background-color: rgba(251,193,217,255);
+}
+.option6 {
+  background-color: rgba(229,218,222,255);
+}
+.option7 {
+  background-color: rgba(241,200,208,255);
+}
+.option8 {
+  background-color: rgba(193,233,222,255);
+}
 
 @media only screen and (min-height: 768px) and (max-height: 1035px) {
   /* CSS styles for tablet landscape screens */
