@@ -264,7 +264,7 @@ body {
   padding-bottom: 15px;
 }
 .items {
-  height: calc(100% /2 - 48px - 30px);
+  height: calc(100% /2 - 48px - 14px);
   overflow: auto;
   display: flex;
   flex-wrap: wrap;
@@ -478,7 +478,6 @@ body {
 }
 
 .dashboard {
-  border: 2px white solid;
   border-radius: 20px;
   height: -webkit-fill-available;
   overflow-y: auto;
@@ -739,7 +738,7 @@ body {
 }
 
 .product-card-container {
-  height: 514px;
+  height: 411px;
   overflow: auto;
 }
 
@@ -920,7 +919,7 @@ input[type="number"] {
   .categories {
     height: auto;
     margin-top: 18px;
-    margin-bottom: 125px;
+    padding-bottom: 29px;
   }
   .category--title {
     font-size: 16px;
@@ -938,7 +937,7 @@ input[type="number"] {
     justify-content: flex-start;
     flex-wrap: wrap;
     gap: 20px;
-    height: 315px;
+    height: 346px;
     overflow: auto;
   }
   .item {
@@ -999,7 +998,7 @@ input[type="number"] {
     font-size: 16px;
   }
   .reciept-container {
-    margin-top: 47px;
+    margin-top: 52px;
   }
   .table-item {
     padding: 15px 15px;
@@ -1013,7 +1012,7 @@ input[type="number"] {
   }
   .dashboard {
     padding: 50px;
-    height: 678px;
+    
   }
   .chart-container {
     width: 1026px;
@@ -1048,5 +1047,8 @@ input[type="number"] {
   }
   .form-control {
     padding-right: 30px;
+  }
+  .category-card-container {
+    height: 414px;
   }
 }
