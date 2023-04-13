@@ -6,7 +6,10 @@ const UserSchema = new mongoose.Schema({
   email: { type: String, unique: true },
   password: String,
   role: { type: String, enum: ['user', 'admin'], default: 'user' }, 
-  color: String
+  color: {
+    type: String,
+    default: ('rgba(207, 222, 219)'),
+  },
 });
 
 // Password hash middleware.

@@ -642,7 +642,8 @@ function categoriesLengthSub() {
 
 const productSearchInput = document.querySelector('.product-search-input');
 
-addProductButton.addEventListener('click', () => {
+if(addProductButton){
+ addProductButton.addEventListener('click', () => {
   const popupContainer = document.querySelector('#popup-container')
   const categoryDropDown = document.querySelector('#category-dropdown')
   const productName = document.querySelector('#name-input')
@@ -718,7 +719,9 @@ addProductButton.addEventListener('click', () => {
     productsLengthAdd()
   })
 })
+}
 
+if(productSearchInput){
 productSearchInput.addEventListener('input', () => {
   const searchQuery = productSearchInput.value.toLowerCase()
   const productCards = productCardContainer.querySelectorAll('.product-card')
@@ -731,7 +734,9 @@ productSearchInput.addEventListener('input', () => {
     }
   })
 });
+}
 
+if(document.querySelector('.product-card-container')){
 document.querySelector('.product-card-container').addEventListener('click', async (event) => {
   // Check if the clicked element is the edit button
   if (event.target.classList.contains('product-edit')) {
@@ -815,7 +820,7 @@ document.querySelector('.product-card-container').addEventListener('click', asyn
     }
   }
 });
-
+}
 
 async function deleteProduct(categoryId, productId, productElement) {
   console.log('deleting ...')

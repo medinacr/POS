@@ -25,9 +25,10 @@ module.exports = {
       const loggedUser = req.user.id
       const users =  await Users.find({ _id: loggedUser })
       const tables = await Tables.find({userId: loggedUser});
-
+      const color = users[0].color
+      console.log()
       res.locals.feed = true;
-      res.render("feed.ejs", { categories: categories, id: req.params.id, users: req.users, users: users, tables: tables, loggedUser: loggedUser, userName: userName});
+      res.render("feed.ejs", { categories: categories, id: req.params.id, users: req.users, users: users, tables: tables, loggedUser: loggedUser, userName: userName, color: color});
     } catch (err) {
       console.log(err);
     }
@@ -133,7 +134,8 @@ module.exports = {
   getOrders: async (req, res) => {
     const loggedUser = req.user.id
     const userName = req.user.userName
- 
+    const color = req.user.color
+
     try {
       const data = await Order.find({userId: loggedUser})
       const dateMap = new Map();
@@ -152,7 +154,7 @@ module.exports = {
         dateMap.set(date.toLocaleDateString(), dateOrders)
       }
       const myObj = Object.fromEntries(dateMap);
-      res.render('orders.ejs', { data: data , dateMap: myObj, loggedUser: loggedUser, userName: userName});
+      res.render('orders.ejs', { data: data , dateMap: myObj, loggedUser: loggedUser, userName: userName, color: color});
     } catch(err) {
       console.log(err)
     }
@@ -161,19 +163,22 @@ module.exports = {
   getCategories: async (req, res) => {
     const loggedUser = req.user.id
     const userName = req.user.userName
+    const color = req.user.color
+
 
     try {
       const categoryData = await Categories.find()
-      res.render('categories.ejs', { userName: userName, categoryData: categoryData })
+      res.render('categories.ejs', { userName: userName, categoryData: categoryData, color: color })
     } catch (err) {
       console.log(err)
     }
   },
-  getSettings: (req, res) => {
+  getSettings: async (req, res) => {
     const loggedUser = req.user.id
     const userName = req.user.userName
-
-    res.render('settings.ejs', { userName: userName })
+    const color = req.user.color
+    const user = req.user
+    res.render('settings.ejs', { userName: userName, loggedUser: loggedUser, color: color, user: user})
   },
   deleteCategory: async (req, res) => {
 
@@ -188,12 +193,40 @@ module.exports = {
   getProducts: async (req, res) => {
     const loggedUser = req.user.id
     const userName = req.user.userName
+    const color = req.user.color
+
 
     try {
       const categoryData = await Categories.find()
-      res.render('products.ejs', { userName: userName, categoryData: categoryData })
+      res.render('products.ejs', { userName: userName, categoryData: categoryData, color: color })
     } catch (err) {
       console.log(err)
+    }
+  },
+  colorChange: async (req, res) => {
+    const color = req.body.data.color
+    const loggedUser = req.body.data.loggedUser
+    const filter = { _id: loggedUser };
+    const update = { color: color };
+    const options = { new: true, upsert: true };
+
+    const user = await Users.findOneAndUpdate(filter, update, options);
+  }, 
+  editName: async (req,res) => {
+    const name = req.body.name
+    const loggedUser = req.body.loggedUser
+    
+    try {
+      const update = await Users.findOneAndUpdate(
+        { _id: loggedUser },
+        { userName: name },
+        { new: true }
+      )
+      console.log(update)
+      res.status(200).send('Name updated successfully');
+    } catch (err) {
+      console.log(err)
+      res.status(500).send('Error updating name');
     }
   }
 }

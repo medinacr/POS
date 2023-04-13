@@ -28,7 +28,7 @@
     <ul class="nav-bottom">
       <a class="nav--item nav-item-user" href="/settings">
         <li class="user-container">
-            <p class="user--profile">L</p>
+            <p class="user--profile" > <%= userName[0].toUpperCase() %> </p>
             <p class="user user--name"><%= userName %></p>
         </li>
       </a>
@@ -45,10 +45,9 @@
 </section>
 
 <script>
-      // const user = JSON.parse('<%-JSON.stringify(userName)%>')
+  // const user = JSON.parse('<%-JSON.stringify(userName)%>')
 
   (() => {
-      console.log("Script running");
       function initializeClock() {
       const clockTime = document.querySelector('.clock-time')
       const clockDate = document.querySelector('.clock-date')
@@ -58,9 +57,7 @@
       const dateString = monthNames[date.getMonth()] + " "+ date.getDate() + " " + date.getFullYear();
 
       clockDate.innerHTML = dateString
-      console.log("@@@@ClockDate set@@@@");
 
-      console.log(dateString);
       setInterval(() => {
         clockTime.innerHTML = new Date().toLocaleTimeString()
       }, 1000);
@@ -76,5 +73,8 @@
     setActive()
     initializeClock()
   })()
+  const oldUserColor = JSON.parse('<%-JSON.stringify(color)%>')
+  const userProfile = document.querySelector('.user--profile')
+  userProfile.style.backgroundColor = oldUserColor
   
 </script>

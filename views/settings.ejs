@@ -25,32 +25,35 @@
         <div class="dashboard--header">
           <h1>Account Settings</h1>
           <p>View & Edit Your Account Details</p>
-          <button>Profile</button>
-          <button>Categories</button>
-          <button>Products</button>
+          <button class="settings-options">Profile</button>
+          <a href="/categories"><button class="settings-options">Categories</button></a>
+          <a href="/products"><button class="settings-options">Products</button></a>
         </div>
         <div class="profile-header settings-container">
-          <div class="profile-container">
-            <input type="text" class="input">
-            <span class="place">Full Name</span>
-            <input type="text" class="input">
-            <span class="place">Role</span>
-          </div>
           <div class="profile-color-container">
+            <p class="profile-description">Profile</p>
             <section class="current-profile">
-              <p class="user--profile">L</p>
+              <p class="user--profile settings-user"> <%= userName[0].toUpperCase() %> </p>
+              <button class="color-selection-button">Custom Color</button>
             </section>
-            <section class="color-selection">
-              <button>Custom Color</button>
-              <button class="color option1"></button>
-              <button class="color option2"></button>
-              <button class="color option3"></button>
-              <button class="color option4"></button>
-              <button class="color option5"></button>
-              <button class="color option6"></button>
-              <button class="color option7"></button>
-              <button class="color option8"></button>  
+            <section class="color-selection" style="display: none">
+              <button class="color option1" data-color="207,222,219"></button>
+              <button class="color option2" data-color="229,205,237"></button>
+              <button class="color option3" data-color="193,219,232"></button>
+              <button class="color option4" data-color="200,202,240"></button>
+              <button class="color option5" data-color="251,193,217"></button>
+              <button class="color option6" data-color="229,218,222"></button>
+              <button class="color option7" data-color="241,200,208"></button>
+              <button class="color option8" data-color="193,233,222"></button>
+              
             </section>
+          </div>
+          <div class="profile-container">
+            <label for="full-name">Full Name</label>
+            <input type="text" class="name-input" value="<%= userName %>">
+            <label for="role">Role</label>
+            <p class="role-type"><%= user.role %></p>
+            <button class="save-button">Save</button>
           </div>
         </div>
       </section>
@@ -58,6 +61,99 @@
 </body>
 </html>
 <script >
-  const user = JSON.parse('<%-JSON.stringify(userName)%>')
-  console.log(user)
+  const userName = JSON.parse('<%-JSON.stringify(userName)%>')
+  const loggedUser = JSON.parse('<%-JSON.stringify(loggedUser)%>')
+  const userColor = JSON.parse('<%-JSON.stringify(color)%>')
+  const user = JSON.parse('<%-JSON.stringify(user)%>')
+  const colors = ['rgba(207,222,219,255)', 'rgba(229,205,237,255)' , 'rgba(193,219,232,255)']
+  const colorSelectionButton = document.querySelector('.color-selection-button')
+  const colorDropDown = document.querySelector('.color-selection')
+  const color = document.querySelectorAll('.color')
+  // const userProfile = document.querySelector('.user--profile')
+  const settingsUser = document.querySelector('.settings-user')
+  const saveButton = document.querySelector('.save-button')
+  const nameInput = document.querySelector('.name-input')
+  let name = nameInput.value
+
+  let colorToggle = false
+  // Initialize Colors 
+  // userProfile.style.backgroundColor = `${userColor}`
+  settingsUser.style.backgroundColor = `${userColor}`
+
+  colorSelectionButton.addEventListener('click', () => {
+    if(colorToggle === false) {
+      colorDropDown.style = 'display: grid'
+      colorToggle = true
+    } else if (colorToggle === true){
+      colorDropDown.style = 'display: none'
+      colorToggle = false
+    }
+  })
+
+  Array.from(color).forEach(el => {
+    el.addEventListener('click', (el) => {
+      const selectedColor = el.target
+      const parent = selectedColor.parentNode
+      const selectedColorData = selectedColor.getAttribute('data-color')
+      
+      // Remove previous color selection
+      const children = parent.querySelectorAll('.color')
+      children.forEach(element => {
+        element.classList.remove('color-selected')
+      })
+
+      // New color selection Display
+      const selectedColorClass = selectedColor.classList[1]
+      selectedColor.classList.add('color-selected')
+      userProfile.style = `background-color: rgba(${selectedColorData})`;
+      settingsUser.style = `background-color: rgba(${selectedColorData})`;
+      colorDropDown.style = 'display: none'
+      colorToggle = false
+
+      // New color selection request
+      const data = {color: `rgba(${selectedColorData})`, loggedUser: loggedUser}
+      fetch('/color', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({data})
+      })
+      .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      })
+      .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+      });
+    })
+  })
+
+// Add click event listener to highlight the text
+nameInput.addEventListener('click', () => {
+  nameInput.setSelectionRange(0, nameInput.value.length);
+});
+
+// Add input event listener to get updated value
+nameInput.addEventListener('input', () => {
+  name = nameInput.value;
+});
+
+// Add click event listener to send the new value
+saveButton.addEventListener('click', () => {
+  fetch('/editName', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ name: name, loggedUser: loggedUser })
+  });
+
+  settingsUser.textContent = name[0].toUpperCase()
+  // userProfile.textContent = name[0].toUpperCase()
+});
+
 </script>

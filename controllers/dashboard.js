@@ -12,7 +12,8 @@ module.exports = {
       const loggedUser = req.user.id
       const userName = req.user.userName
       const date = new Date().toLocaleDateString();
-
+      const color = req.user.color
+      console.log(color)
       try {
 
         const data = await Order.find({userId: loggedUser})
@@ -24,7 +25,6 @@ module.exports = {
           const orderDate = data[i].completedAt
           const date = new Date(orderDate)
           let dateOrders = dateMap.get(date.toLocaleDateString())
-          console.log(date.getUTCDate())
   
           if(dateOrders) {
             dateOrders.push(data[i])
@@ -54,7 +54,7 @@ module.exports = {
           }
         }
 
-        res.render('dashboard.ejs', { data: data , dateMap: myObj, loggedUser: loggedUser, filteredData: filteredData, userName: userName, categoryData: categoryData, todaysDate: date, itemsChart: itemMap});
+        res.render('dashboard.ejs', { data: data , dateMap: myObj, loggedUser: loggedUser, filteredData: filteredData, userName: userName, categoryData: categoryData, todaysDate: date, itemsChart: itemMap, color: color});
       } catch(err) {
         console.log(err)
       }

@@ -830,11 +830,115 @@ input[type="number"] {
 
 /* Settings */
 
+.settings-options {
+  margin-top: 40px;
+  margin-right: 10px;
+  border: 2px solid white;
+  height: 49px;
+  width: 109px;
+  border-radius: 10px;
+}
+
+.input {
+  color: black;
+  width: 150px;
+}
+
+.profile-header {
+  margin-top: 112px;
+  display: flex;
+}
+
+.profile-description {
+  margin-bottom: 50px;
+  font-weight: bold;
+  font-size: 32px;
+}
+
 .color {
-  width: 25px;
-  height: 25px;
+  width: 45px;
+  height: 45px;
   margin: 10px;
   border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.settings-user {
+  width: 100px;
+  height: 100px;
+  font-size: 45px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  margin-left: 5px;
+}
+
+.color-selection {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px;
+  background-color: #0a0c0e;
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.color-selection-button {
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.profile-color-container {
+  width: 311px;
+}
+
+.color-selected {
+  border: 3px solid rgba(35,108,219,255); 
+  background-color: rgba(211,237,255,255);
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5px;
+  margin-left: 80px;
+}
+
+.save-button {
+  margin-top: 30px;
+  margin-left: 168px;
+  border: 2px solid blue;
+  width: 90px;
+  height: 45px;
+  border-radius: 5px;
+  background-color: blue;
+}
+
+.name-input {
+  height: 42px;
+  width: 260px;
+  border-radius: 10px;
+  color: white;
+  background-color: #313131;
+  padding: 25px;
+  font-size: 20px;
+  font-weight: bold;
+  border: 2px solid white;
+  margin-bottom: 20px;
+}
+
+.role-type{
+  background-color: #313131;
+  font-weight: bold;
+  height: 50px;
+  width: 260px;
+  border-radius: 10px;
+  border: 2px solid white;
+  text-align: center; /* Center the text horizontally */
+  line-height: 50px; /* Center the text vertically */
+}
+
+.color:focus {
+  outline: none;
 }
 
 .option1 {
@@ -860,6 +964,13 @@ input[type="number"] {
 }
 .option8 {
   background-color: rgba(193,233,222,255);
+}
+
+.color:active {
+  outline: none;
+  border: none;
+  box-shadow: none;
+  /* Any other styles you want to remove */
 }
 
 @media only screen and (min-height: 768px) and (max-height: 1035px) {

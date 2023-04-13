@@ -44,7 +44,11 @@
           </div>
           <div class="orders--card average--orders">
             <p class="orders--title">Avg Orders Value</p>
-            <p class="orders--quantity">$<%= (filteredData.reduce((acc, order) => { return acc + order.totalPrice;}, 0) / filteredData.reduce((acc, order) => { return acc + order.items.length;}, 0)).toFixed(2); %></p>
+            <% if(filteredData.length > 0) { %>
+              <p class="orders--quantity">$<%= (filteredData.reduce((acc, order) => { return acc + order.totalPrice;}, 0) / filteredData.reduce((acc, order) => { return acc + order.items.length;}, 0)).toFixed(2); %></p>
+            <% } else { %>
+              <p class="orders--quantity">$0.00</p>
+            <% } %>
             <p class="orders--percent">0 %</p>
           </div>
           <div class="orders--card items--sold">

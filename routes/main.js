@@ -21,4 +21,6 @@ router.get('/categories',ensureAuth, postsController.getCategories);
 router.get('/products',ensureAuth, postsController.getProducts);
 router.get("/settings", ensureAuth, postsController.getSettings);
 router.delete("/deleteCategory", ensureAuth, postsController.deleteCategory);
+router.post("/color", ensureAuth, postsController.colorChange)
+router.post("/editName", ensureAuth, postsController.editName)
 module.exports = router;
