@@ -46,26 +46,37 @@
           </div>
           <div class="date-buttons category-buttons">
             <input class="category-search-input" id="category-search-input" type="text" placeholder="Search">
-            <button class="text add-category-categories" type="text" placeholder="Add Category">Add Category</button>
+            <% if(user.role === 'admin') { %>
+              <button class="text add-category-categories" type="text" placeholder="Add Category">Add Category</button>
+            <% } %>            
           </div>
           <div class="category-header">
             <p>Category</p>
             <p>Action</p>
           </div>
           <div class="category-card-container">
+            <% if(user.role === 'admin') { %>
               <% for(let category of categoryData) { %>
                 <div class="category-card" id="<%= category._id %>">
                   <p class="category-name"><%= category.category %></p>
                   <button class="category-edit">EDIT</button>
                   <button class="category-delete">DELETE</button>
                 </div>
-              <% } %> 
+              <% } %>
+            <% } else { %>
+              <% for(let category of categoryData) { %>
+                <div class="category-card" id="<%= category._id %>">
+                  <p class="category-name"><%= category.category %></p>
+                </div>
+              <% } %>
+            <% } %>            
           </div>
         </section>
       </div>
       
     <script>
       let categoryData = JSON.parse( '<%- JSON.stringify(categoryData) %>' )
+      const user =  JSON.parse( '<%- JSON.stringify(user) %>' )
     </script>
     <script src='js/main.js'></script>
   </div>

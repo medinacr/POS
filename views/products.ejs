@@ -53,7 +53,9 @@
           </div>
           <div class="date-buttons category-buttons">
             <input class="product-search-input" id="product-search-input" type="text" placeholder="Search">
-            <button class="text add-product-button" type="text" placeholder="Add Product">Add Product</button>
+            <% if(user.role === 'admin') { %>
+              <button class="text add-product-button" type="text" placeholder="Add Product">Add Product</button>
+            <% } %>            
           </div>
           <div class="category-header">
             <p>Product</p>
@@ -69,8 +71,10 @@
                     </div>
                     <div class="product-card-actions" id="<%= item._id  %>">
                       <p class="product-price">$<%= item.price %></p>
-                      <button class="product-edit">EDIT</button>
-                      <button class="product-delete">DELETE</button>
+                      <% if(user.role === 'admin') { %>
+                        <button class="product-edit">EDIT</button>
+                        <button class="product-delete">DELETE</button>
+                      <% } %>            
                     </div>
                   </div>
                   <% }) %> 
@@ -81,16 +85,7 @@
       
     <script>
       const categoryData = JSON.parse( '<%- JSON.stringify(categoryData) %>' )
-      
-      categoryData.forEach(category => {
-        // console.log(category._id)
-        category.items.forEach(item => {
-          //console.log(category.items)
-          category.items.forEach( item => {
-            // console.log(item._id)
-          })
-        })
-      })
+      const user = JSON.parse( '<%- JSON.stringify(user) %>' )
     </script>
     <script src='js/main.js'></script>
   </div>

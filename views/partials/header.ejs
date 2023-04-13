@@ -67,7 +67,9 @@
     function setActive() {
       const path = window.location.pathname
       const menu = document.getElementsByClassName(path)[0]
-      menu.className += ' nav--item_active'
+      if(menu) {
+        menu.className += ' nav--item_active'
+      }
     }
 
     setActive()
@@ -77,4 +79,11 @@
   const userProfile = document.querySelector('.user--profile')
   userProfile.style.backgroundColor = oldUserColor
   
+
+  const hamburgerIcon = document.querySelector('.hamburger-icon')
+  const navContainer = document.querySelector('.nav-container-flex')
+
+  hamburgerIcon.addEventListener('click', () => {
+    navContainer.classList.toggle('menu-open')
+  })
 </script>

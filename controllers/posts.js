@@ -164,11 +164,11 @@ module.exports = {
     const loggedUser = req.user.id
     const userName = req.user.userName
     const color = req.user.color
-
+    const user = req.user
 
     try {
       const categoryData = await Categories.find()
-      res.render('categories.ejs', { userName: userName, categoryData: categoryData, color: color })
+      res.render('categories.ejs', { userName: userName, categoryData: categoryData, color: color, user: user })
     } catch (err) {
       console.log(err)
     }
@@ -194,11 +194,11 @@ module.exports = {
     const loggedUser = req.user.id
     const userName = req.user.userName
     const color = req.user.color
-
+    const user = req.user
 
     try {
       const categoryData = await Categories.find()
-      res.render('products.ejs', { userName: userName, categoryData: categoryData, color: color })
+      res.render('products.ejs', { userName: userName, categoryData: categoryData, color: color, user: user })
     } catch (err) {
       console.log(err)
     }
