@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -78,6 +78,9 @@
     </section>
 
     <section class="main">
+
+      <div class="mobile-header-container">
+
       <label class="search-label">
         <input class="search-input" type="text" placeholder="Search">
         </button>
@@ -85,6 +88,29 @@
         <!-- <label for="category-modal" class="text btn modal-button">Add Category</label>
         <label for="item-modal" class="text btn modal-button">Add Item</label> -->
       </label>
+
+      <div class="table-select-container mobile">
+        <div class='dropdown'>
+          <label tabindex="0" id="table-dropdown" class="text dropdown--table m-1 desktop">Select a Table</label>
+          <label tabindex="0" id="table-dropdown" class="text dropdown--table mobile">Table</label>
+          <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+            <% if (tables.length) { %>
+              <% for(let i=0; i<tables.length; i++) {%>
+                <li class="dropdown--item">
+                  <a class="text" id="<%= tables[i]._id %>"><%= `Table: ${tables[i].tableNumber}` %></a>
+                </li>
+              <% } %>
+            <% } else { %>
+              <li class="dropdown--item">
+                <a class="text">No tables available</a>
+              </li>
+            <% } %>
+          </ul>
+        </div>
+        <label for="add-item-modal" class="btn modal-button">+</label>
+      </div>
+
+      </div> 
 
       <div class="categories">
         <% for(var i=0; i<categories.length; i++) {%> 
@@ -187,8 +213,51 @@
       const categoryColor = categoryColors[colorIndex];
       category.style.backgroundColor = categoryColor;
     });
+
+
+    // execute mobile-specific code
+    // for example, show/hide elements, modify CSS, etc.   
+    const orderDetailEl = document.querySelector('.order-detail');
+    const tableItemContainerEl = document.querySelector('.table-item-container');
+    const receiptContainerEl = document.querySelector('.reciept-container');
+    let startY;
+
+    function handleTouchStart(e) {
+      startY = e.touches[0].clientY;
+      console.log('touch')
+    }
+
+    function handleTouchMove(e) {
+      if (e.touches.length > 1) return;
+      console.log('move')
+      const diffY = e.touches[0].clientY - startY;
+      const isScrollingDown = diffY > 0;
+
+      if (isScrollingDown) {
+        // Show the table item container
+        tableItemContainerEl.style.height = '0';
+      } else if (!isScrollingDown) {
+        // Hide the table item container
+        tableItemContainerEl.style.height = '517px';
+        tableItemContainerEl.style.marginTop = '90px';
+      }
+    }
+
+    receiptContainerEl.addEventListener('touchstart', handleTouchStart);
+    receiptContainerEl.addEventListener('touchmove', handleTouchMove);
+
+    // const navBar = document.querySelector('.hamburger')
+    // const nav = document.querySelector('.nav-container')
+    // const feed = document.querySelector('.main')
+
+    // const receiptContainer = document.querySelector('.reciept-container')
+    // navBar.addEventListener('click', () => {
+    //   nav.style.display = 'block'   
+    //   receiptContainer.style.display = 'none' 
+    //   feed.style.display = 'none'
+    // })
+
   </script>
   <script src='js/main.js'></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

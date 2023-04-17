@@ -42,7 +42,7 @@
             <% let orderTotal = orders.reduce((total, order) => total + order.totalPrice, 0); %>
             <p class="text order-card-count"><%= orderCount %></p>
             <p class="text order-card-total">$<%= (orderTotal).toFixed(2) %></p>
-            <button class="order-card-action" id="order-card-action-<%= date %>">More ▼</button>
+            <button class="order-card-action text" id="order-card-action-<%= date %>">More ▼</button>
           </div>
           <% for (let order of orders) { %>
           <div class="order-info-extended" id="order-info-extended-<%= date %>">

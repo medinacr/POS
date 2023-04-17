@@ -31,6 +31,7 @@ const categoriesLength = document.querySelector('.categories-length')
 const addProductButton = document.querySelector('.add-product-button')
 const feedSearchInput = document.querySelector('.search-input')
 
+
 Array.from(expandOrderButton).forEach((el) => {
   el.addEventListener('click', expandOrderInfo)
 })
@@ -353,10 +354,13 @@ async function order() {
 
 function renderItems(){
 
-    tableItemContainer.innerHTML = ""
-    
-    const currentTableId = dropDownLabel.id
-    const items = tables.filter(ct => currentTableId === ct._id)[0].items
+    tableItemContainer.innerHTML = "";
+    const currentTableId = dropDownLabel.id;
+    const table = tables.find((ct) => currentTableId === ct._id);
+    if (!table || !table.items) {
+      return;
+    }
+    const items = table.items;
 
     items.forEach((item, i) =>{
       const itemTemplate = `<div class="table-item">

@@ -38,23 +38,23 @@
         </div>
         <div class="orders--container">
           <div class="orders--card orders">
-            <p class="orders--title">Orders</p>
-            <p class="orders--quantity"><%= filteredData.length %></p>
-            <p class="orders--percent">0 %</p>
+            <p class="orders--title text">Orders</p>
+            <p class="orders--quantity text"><%= filteredData.length %></p>
+            <p class="orders--percent text">0 %</p>
           </div>
           <div class="orders--card average--orders">
-            <p class="orders--title">Avg Orders Value</p>
+            <p class="orders--title text">Avg Orders Value</p>
             <% if(filteredData.length > 0) { %>
-              <p class="orders--quantity">$<%= (filteredData.reduce((acc, order) => { return acc + order.totalPrice;}, 0) / filteredData.reduce((acc, order) => { return acc + order.items.length;}, 0)).toFixed(2); %></p>
+              <p class="orders--quantity text">$<%= (filteredData.reduce((acc, order) => { return acc + order.totalPrice;}, 0) / filteredData.reduce((acc, order) => { return acc + order.items.length;}, 0)).toFixed(2); %></p>
             <% } else { %>
-              <p class="orders--quantity">$0.00</p>
+              <p class="orders--quantity text">$0.00</p>
             <% } %>
-            <p class="orders--percent">0 %</p>
+            <p class="orders--percent text">0 %</p>
           </div>
           <div class="orders--card items--sold">
-            <p class="orders--title">Items Sold</p>
-            <p class="orders--quantity"><%= filteredData.reduce((acc, order) => { return acc + order.items.length;}, 0); %></p>
-            <p class="orders--percent">0 %</p>
+            <p class="orders--title text">Items Sold</p>
+            <p class="orders--quantity text"><%= filteredData.reduce((acc, order) => { return acc + order.items.length;}, 0); %></p>
+            <p class="orders--percent text">0 %</p>
           </div>
         </div>
         <div class="chart-container">
