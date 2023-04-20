@@ -83,7 +83,9 @@ body {
   left: 0;
   padding: 42px;
   width: 436px;
-  background: #313131;
+}
+.desktop-nav {
+  margin-top: 359px;
 }
 .nav-container-flex {
   display: flex;
@@ -218,7 +220,7 @@ body {
   flex-wrap: wrap;
   gap: 20px;
   margin-top: 48px;
-  height: calc(100% /2 - 48px);
+  /* height: calc(100% /2 - 48px); */
   overflow: auto;
   padding-bottom: 58px;
 }
@@ -1088,6 +1090,9 @@ input[type="number"] {
     padding: 0px;
     display: absolute;
   }
+  .desktop-nav {
+    margin-top: 177px;
+  }
   .nav {
     margin-top: 28px;
   }
@@ -1365,7 +1370,7 @@ input[type="number"] {
 @media only screen and (min-width: 768px) {
   /* CSS styles for tablet landscape screens */
   .root-container {
-    height: auto;
+    /* height: auto; */
   }
   .hamburger-icon {
     display: none;
@@ -1379,14 +1384,8 @@ input[type="number"] {
     height: 60px; /* set the height of the header */
     z-index: 9999;
   }
-  .table-item-container {
-    height: auto;
-  }
   .main {
     margin-left: 304px;
-  }
-  .checkout {
-    width: 369px;  
   }
 }
 

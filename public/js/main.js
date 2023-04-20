@@ -53,6 +53,7 @@ Array.from(tableDropdown).forEach((el) => {
   const tableId = el.querySelector('a').id
   const tableNumber = el.querySelector('a').innerHTML
   const parentNode = el.parentNode
+  console.log(parentNode)
   el.addEventListener('click',() => tableSelect(tableId, tableNumber, parentNode) )
 })
 
@@ -296,6 +297,8 @@ async function minusItemQuantity(e,categoryId){
 function tableSelect(tableId, tableNumber, parentNode){
   dropDownLabel.textContent = tableNumber;
   dropDownLabel.id = tableId;
+  console.log(dropDownLabel)
+  console.log(tableId, tableNumber)
   renderItems()
   parentNode.blur()
 }
