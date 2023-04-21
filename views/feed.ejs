@@ -63,7 +63,7 @@
     <label class="modal-box relative" for="">
         <form action="/table/createTable" autocomplete="off" method="POST" id="categoryForm">
           <span>Table:</span>
-          <input type="text" pattern="[0-99]*" required class="input input-bordered" name="tableNumber" placeholder="Enter Table Number">
+          <input type="text" pattern="[0-99]*" required class="input input-bordered create-table" name="tableNumber" placeholder="Enter Table Number">
           <div class="modal-action">
             <button for="my-modal" class="btn" type="submit">Submit</button>
           </div>
@@ -91,7 +91,6 @@
 
       <div class="table-select-container mobile">
         <div class='dropdown'>
-          <label tabindex="0" id="table-dropdown" class="text dropdown--table m-1 desktop">Select a Table</label>
           <label tabindex="0" id="table-dropdown" class="text dropdown--table mobile">Table</label>
           <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
             <% if (tables.length) { %>
@@ -163,13 +162,12 @@
         </div>
         <label for="add-item-modal" class="btn modal-button">+</label>
       </div>
-      
-      
 
       <div class="order-detail">
         <div class="table-item-container">
         </div>
         <div class="reciept-container">
+          <div class="handlebar"></div>
           <div class="subtotal-container">
             <div class="text subtotal">Subtotal</div>
             <div class="empty"></div>
@@ -220,42 +218,25 @@
     const orderDetailEl = document.querySelector('.order-detail');
     const tableItemContainerEl = document.querySelector('.table-item-container');
     const receiptContainerEl = document.querySelector('.reciept-container');
-    let startY;
+    const placeOrderBtnEl = document.querySelector('.place--order');
+    const tableSelected = document.querySelector('.dropdown--table');
 
-    function handleTouchStart(e) {
-      startY = e.touches[0].clientY;
-      console.log('touch')
-    }
 
-    function handleTouchMove(e) {
-      if (e.touches.length > 1) return;
-      console.log('move')
-      const diffY = e.touches[0].clientY - startY;
-      const isScrollingDown = diffY > 0;
-
-      if (isScrollingDown) {
-        // Show the table item container
-        tableItemContainerEl.style.height = '0';
-      } else if (!isScrollingDown) {
-        // Hide the table item container
-        tableItemContainerEl.style.height = '517px';
-        tableItemContainerEl.style.marginTop = '90px';
+    function handleReceiptClick() {
+      if(tableSelected.innerText !== 'Table'){
+        tableItemContainerEl.classList.toggle('open');
+        console.log('click')
+        // do any other necessary actions when the receipt is opened
       }
     }
 
-    receiptContainerEl.addEventListener('touchstart', handleTouchStart);
-    receiptContainerEl.addEventListener('touchmove', handleTouchMove);
+    function handlePlaceOrderClick(e) {
+      e.stopPropagation(); // prevent the receipt container click event from firing
+      // handle the place order click action
+    }
 
-    // const navBar = document.querySelector('.hamburger')
-    // const nav = document.querySelector('.nav-container')
-    // const feed = document.querySelector('.main')
-
-    // const receiptContainer = document.querySelector('.reciept-container')
-    // navBar.addEventListener('click', () => {
-    //   nav.style.display = 'block'   
-    //   receiptContainer.style.display = 'none' 
-    //   feed.style.display = 'none'
-    // })
+    receiptContainerEl.addEventListener('click', handleReceiptClick);
+    placeOrderBtnEl.addEventListener('click', handlePlaceOrderClick);
 
   </script>
   <script src='js/main.js'></script>

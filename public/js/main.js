@@ -53,7 +53,6 @@ Array.from(tableDropdown).forEach((el) => {
   const tableId = el.querySelector('a').id
   const tableNumber = el.querySelector('a').innerHTML
   const parentNode = el.parentNode
-  console.log(parentNode)
   el.addEventListener('click',() => tableSelect(tableId, tableNumber, parentNode) )
 })
 
@@ -208,45 +207,50 @@ async function addItemQuantity(e,categoryId){
   const itemQuantity = $parent.querySelector('.quantity--amount').innerText
   const itemId = $parent.id
   const tableId = dropDownLabel.id
-  const data = {
-    tableId, categoryId,itemId,itemName, itemPrice, itemQuantity
-  };
-  // e.preventDefault()
 
-  //update backend
-  fetch('/table/addItem', {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  });
+  if(tableId === 'table-dropdown') {
+    return
+  }else {
+    const data = {
+      tableId, categoryId,itemId,itemName, itemPrice, itemQuantity
+    };
+    // e.preventDefault()
 
-  //update frontend
-  for(let i = 0; i < tables.length; i++){
-    if(tables[i]._id === tableId){
-      const items = tables[i].items;
-      const foundItem = items.find((item) => {
-        return item.itemName === itemName;
-      });
+    //update backend
+    fetch('/table/addItem', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
 
-      if(foundItem){
-        foundItem.itemQuantity++;
-        renderItems();
-      }
-      else{
-        const newItem = {
-          _id: "",
-          itemName: itemName,
-          itemQuantity: 1,
-          itemPrice: itemPrice,
+    //update frontend
+    for(let i = 0; i < tables.length; i++){
+      if(tables[i]._id === tableId){
+        const items = tables[i].items;
+        const foundItem = items.find((item) => {
+          return item.itemName === itemName;
+        });
+
+        if(foundItem){
+          foundItem.itemQuantity++;
+          renderItems();
         }
-        tables[i].items.push(newItem);
-        renderItems();
+        else{
+          const newItem = {
+            _id: "",
+            itemName: itemName,
+            itemQuantity: 1,
+            itemPrice: itemPrice,
+          }
+          tables[i].items.push(newItem);
+          renderItems();
+        }
       }
     }
-  }
+}
 };
 
 async function minusItemQuantity(e,categoryId){
@@ -295,10 +299,9 @@ async function minusItemQuantity(e,categoryId){
 }
 
 function tableSelect(tableId, tableNumber, parentNode){
-  dropDownLabel.textContent = tableNumber;
+  document.querySelector('.m-1').innerText = tableNumber
+  dropDownLabel.innerText = tableNumber;
   dropDownLabel.id = tableId;
-  console.log(dropDownLabel)
-  console.log(tableId, tableNumber)
   renderItems()
   parentNode.blur()
 }

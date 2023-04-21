@@ -85,7 +85,7 @@ body {
   width: 436px;
 }
 .desktop-nav {
-  margin-top: 359px;
+  margin-top: 77px;
 }
 .nav-container-flex {
   display: flex;
@@ -428,6 +428,9 @@ body {
   border-radius: 10px;
   margin-top: 84px;
 }
+/* .handlebar {
+  display: none;
+} */
 .subtotal-container, .tax-container, .total-container {
   display: flex;
   justify-content: center;
@@ -1089,9 +1092,10 @@ input[type="number"] {
     width: 100vw;
     padding: 0px;
     display: absolute;
+    background-color: #222222;
   }
   .desktop-nav {
-    margin-top: 177px;
+    margin-top: 100px;
   }
   .nav {
     margin-top: 28px;
@@ -1099,7 +1103,7 @@ input[type="number"] {
   .nav--item {
     margin-top: 0px;
     padding: 12px;
-    font-size: 22px;
+    font-size: 16px;
   }
   .nav-bottom {
     height: 185px;
@@ -1108,6 +1112,14 @@ input[type="number"] {
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+  .user {
+    font-size: 16px;
+  }
+  .user--profile {
+    font-size: 16px;
+    height: 33px;
+    width: 33px;
   }
 
   .clock {
@@ -1120,6 +1132,9 @@ input[type="number"] {
   .clock-time {
     font-size: 22px;
   }
+  .create-table {
+    color: white;
+  }
 
   /* FEED */
   .main {
@@ -1130,7 +1145,7 @@ input[type="number"] {
     z-index: 1;
     position: fixed;
     margin-top: 50px;
-    height: 551px;
+    height: 94%;
     margin-bottom: 50px;
   }
   .main.open {
@@ -1144,7 +1159,6 @@ input[type="number"] {
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
-    height: auto;
     padding-bottom: 25px;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* Internet Explorer and Edge */
@@ -1177,8 +1191,8 @@ input[type="number"] {
   .items {
     display: flex;
     overflow-x: scroll;
-    height: 100%;
-    margin-bottom: 100px;
+    height: 52%;
+    margin-bottom: 70px;
   }
   .item {
     width: 43vw;
@@ -1234,8 +1248,6 @@ input[type="number"] {
     padding: 0px;
   }
   .table-item-container {
-    /* height: 0px;
-    margin: 0px; */
     position: absolute;
     bottom: 0;
     left: 0;
@@ -1243,8 +1255,18 @@ input[type="number"] {
     height: 0;
     overflow-x: auto;
     transition: height 0.3s ease-out;
-    background: grey;
+    background: #222222;
     border-radius: 10px;
+  }
+  .table-item-container.open {
+    height: 90vh;
+    margin-top: 90px;
+    padding-top: 90px;
+    padding: 10px;
+    margin-bottom: 70px;
+  }
+  .dropdown .dropdown-content {
+    width: auto;
   }
   .table-item {
     margin: 0px, 10px;
@@ -1288,6 +1310,17 @@ input[type="number"] {
     border-top-left-radius: 17px;
     border-top-right-radius: 17px;
   }
+  .handlebar {
+    height: 6px; /* set the height of the handlebar */
+    width: 40px; /* set the width of the handlebar */
+    background-color: #ccc;
+    border-radius: 3px; /* round the corners of the handlebar */
+    margin: 0 auto; /* center the handlebar horizontally */
+    position: absolute;
+    top: 0;
+    left: 50%; /* center the handlebar horizontally */
+    transform: translateX(-50%); /* center the handlebar horizontally */
+  }   
   .total {
     margin-left: 20px;
   }
@@ -1297,6 +1330,12 @@ input[type="number"] {
     font-size: 16px;
     width: 144px;
     background-color: #4D81F1;
+  }
+  .place--order:hover {
+    border: none;
+    margin: 10px;
+    padding: 0;
+    font-size: 16px;
   }
   .order-detail {
     position: fixed;
@@ -1321,11 +1360,11 @@ input[type="number"] {
     display: none;
   }
   .dashboard {
-    padding: 0;
+    padding: 10px;
     margin-top: 80px;
   }
   .chart-container {
-    width: 389px;
+    width: 371px;
     height: 266px;
   }
 
