@@ -1,5 +1,5 @@
 module.exports = {
   getIndex: (req, res) => {
-    res.render("/feed.ejs");
+    res.render("feed.ejs");
   },
 };
