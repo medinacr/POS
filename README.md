@@ -3,7 +3,7 @@ A fullstack Point-of-sale system that keeps track of your orders.
 
 **Link to project:** COMING SOON 
 
-![kingPOS]([http://placecorgi.com/1200/650](https://github.com/medinacr/medinacr/blob/main/Assets/KingPOS.gif))
+![kingPOS](https://github.com/medinacr/medinacr/blob/main/Assets/KingPOS.gif)
 
 # Install
 
