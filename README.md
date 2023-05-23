@@ -3,8 +3,6 @@ A fullstack Point-of-sale system that keeps track of your orders.
 
 **Link to project:** COMING SOON 
 
-![alt tag]('Coming Soon')
-
 # Install
 
 `npm install`
